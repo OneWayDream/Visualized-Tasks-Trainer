@@ -1,0 +1,43 @@
+menu:
+  settings:
+    text: Settings
+    change-theme:
+      text: Theme
+      light-theme:
+        text: Light
+      dark-theme:
+        text: Dark
+    change-language:
+      text: Language
+      russian:
+        text: Russian
+      english:
+        text: English
+main-frame:
+  left-panel:
+    label:
+      develop:
+        title: Develop mode
+        description: Create your own tasks and share them!
+      study:
+        title: Study mode
+        description: Solve existing tasks to improve your skills!
+    buttons:
+      create-new-project:
+        text: Create a new project...
+      open-recent-project:
+        text: Open a recent project...
+      open-folder-as-project:
+        text: Open the folder as a project...
+  right-panel:
+    buttons:
+      open-website:
+        text: Site
+      open-documentation:
+        text: Documentation
+      open-guide:
+        text: Guide
+      open-tasks:
+        text: Tasks
+      open-plugins:
+        text: Plugins

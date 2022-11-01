@@ -1,0 +1,43 @@
+menu:
+  settings:
+    text: Настройки
+    change-theme:
+      text: Тема
+      light-theme:
+        text: Светлая
+      dark-theme:
+        text: Тёмная
+    change-language:
+      text: Язык
+      russian:
+        text: Русский
+      english:
+        text: Английский
+main-frame:
+  left-panel:
+    label:
+      develop:
+        title: Режим разработчика
+        description: Создавай свои задачи и делись ими!
+      study:
+        title: Учебный режим
+        description: Решай существующие задачи и прокачивайся!
+    buttons:
+      create-new-project:
+        text: Создать новый проект...
+      open-recent-project:
+        text: Открыть недавний проект...
+      open-folder-as-project:
+        text: Открыть папку как проект...
+  right-panel:
+    buttons:
+      open-website:
+        text: Сайт
+      open-documentation:
+        text: Документация
+      open-guide:
+        text: Гайд
+      open-tasks:
+        text: Задания
+      open-plugins:
+        text: Плагины
