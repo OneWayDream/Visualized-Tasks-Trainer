@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.main.labels;
 
-import ru.itis.graduationwork.application.ui.core.Label;
-import ru.itis.graduationwork.application.ui.core.ModeChangeable;
+import ru.itis.graduationwork.application.ui.core.templates.Label;
+import ru.itis.graduationwork.application.ui.core.templates.ModeChangeable;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
 import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
 

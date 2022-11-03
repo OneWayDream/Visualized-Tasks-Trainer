@@ -1,6 +1,6 @@
 package ru.itis.graduationwork.application.ui.pages.main.panels;
 
-import ru.itis.graduationwork.application.ui.core.Label;
+import ru.itis.graduationwork.application.ui.core.templates.Label;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
 import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
 import ru.itis.graduationwork.application.managers.ColorsManager;

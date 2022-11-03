@@ -1,4 +1,4 @@
-package ru.itis.graduationwork.application.ui.core;
+package ru.itis.graduationwork.application.ui.core.templates;
 
 public interface ModeChangeable {
 

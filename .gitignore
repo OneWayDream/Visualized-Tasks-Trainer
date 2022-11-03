@@ -9,7 +9,7 @@
 *legacy/
 
 # Templates Files
-*templates/
+*/resources/templates/
 
 # BlueJ files
 *.ctxt

@@ -1,8 +1,8 @@
 package ru.itis.graduationwork.application.ui.pages.main.dialogs;
 
 import ru.itis.graduationwork.application.Application;
-import ru.itis.graduationwork.application.ui.core.Button;
-import ru.itis.graduationwork.application.ui.core.Dialog;
+import ru.itis.graduationwork.application.ui.core.templates.Button;
+import ru.itis.graduationwork.application.ui.core.templates.Dialog;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
 import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
 

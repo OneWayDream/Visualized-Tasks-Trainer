@@ -1,4 +1,4 @@
-package ru.itis.graduationwork.application.ui.core;
+package ru.itis.graduationwork.application.ui.core.templates;
 
 import lombok.Getter;
 import ru.itis.graduationwork.application.Application;

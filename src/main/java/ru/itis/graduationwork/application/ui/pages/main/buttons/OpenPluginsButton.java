@@ -3,7 +3,7 @@ package ru.itis.graduationwork.application.ui.pages.main.buttons;
 import ru.itis.graduationwork.exceptions.application.UrlBrowsingException;
 import ru.itis.graduationwork.application.settings.units.Image;
 import ru.itis.graduationwork.application.settings.units.Link;
-import ru.itis.graduationwork.application.ui.core.Button;
+import ru.itis.graduationwork.application.ui.core.templates.Button;
 import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
 import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;

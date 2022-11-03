@@ -4,15 +4,11 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.IntelliJTheme;
 import lombok.Getter;
+import ru.itis.graduationwork.application.managers.SettingsManager;
 import ru.itis.graduationwork.application.settings.units.Locale;
 import ru.itis.graduationwork.application.settings.units.Theme;
-import ru.itis.graduationwork.application.settings.entities.UserSettings;
-import ru.itis.graduationwork.application.ui.core.PageFrame;
+import ru.itis.graduationwork.application.ui.core.templates.PageFrame;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageFrame;
-import ru.itis.graduationwork.application.managers.ColorsManager;
-import ru.itis.graduationwork.application.loaders.SettingsLoader;
-import ru.itis.graduationwork.application.managers.ImagesManager;
-import ru.itis.graduationwork.application.managers.LocalizationManager;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -22,8 +18,6 @@ public class Application {
 
     @Getter
     private static PageFrame currentPageFrame;
-    @Getter
-    private static UserSettings settings;
 
     public static void main(String[] args) {
         Application application = new Application();
@@ -31,19 +25,12 @@ public class Application {
     }
 
     private void init(){
-        initUserSettings();
         initLookAndFeel();
-        initMainPage();
-    }
-
-    private void initUserSettings(){
-        settings = SettingsLoader.getUserSettings();
-        setManagersTheme();
-        setManagersLocale();
+        initStartPage();
     }
 
     private static void initLookAndFeel(){
-        if (settings.getTheme() == Theme.DARK){
+        if (SettingsManager.getTheme() == Theme.DARK){
             initDarkLookAndFeel();
         } else {
             initLightLookAndFeel();
@@ -70,40 +57,29 @@ public class Application {
         }
     }
 
-    private static void initMainPage(){
+    private static void initStartPage(){
         currentPageFrame = new MainPageFrame();
         currentPageFrame.initPage();
     }
 
     public static void changeTheme(Theme theme){
-        settings.setTheme(theme);
-        setManagersTheme();
+        SettingsManager.setTheme(theme);
         initLookAndFeel();
         reloadPage();
     }
 
     public static void changeLocale(Locale locale){
-        settings.setLocale(locale);
-        setManagersLocale();
+        SettingsManager.setLocale(locale);
         reloadPage();
     }
 
     private static void reloadPage(){
         currentPageFrame.dispose();
-        initMainPage();
-    }
-
-    private static void setManagersTheme(){
-        ImagesManager.setTheme(settings.getTheme());
-        ColorsManager.setTheme(settings.getTheme());
-    }
-
-    private static void setManagersLocale(){
-        LocalizationManager.setLocale(settings.getLocale());
+        initStartPage();
     }
 
     public static void exit(){
-        SettingsLoader.saveUserSettings(settings);
+        SettingsManager.saveSettings();
         System.exit(0);
     }
 

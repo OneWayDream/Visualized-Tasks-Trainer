@@ -1,6 +1,6 @@
 package ru.itis.graduationwork.application.ui.pages.main.suppliers;
 
-import ru.itis.graduationwork.application.ui.core.Button;
+import ru.itis.graduationwork.application.ui.core.templates.Button;
 import ru.itis.graduationwork.application.managers.ImagesManager;
 
 import javax.swing.*;

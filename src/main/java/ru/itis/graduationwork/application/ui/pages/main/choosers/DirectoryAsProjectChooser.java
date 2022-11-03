@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.main.choosers;
 
 import ru.itis.graduationwork.application.Application;
-import ru.itis.graduationwork.application.ui.core.Chooser;
+import ru.itis.graduationwork.application.ui.core.templates.Chooser;
 
 import javax.swing.*;
 import java.awt.*;

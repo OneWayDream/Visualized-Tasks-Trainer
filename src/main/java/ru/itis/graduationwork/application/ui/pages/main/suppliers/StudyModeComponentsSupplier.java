@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.main.suppliers;
 
 import ru.itis.graduationwork.application.settings.entities.RecentList;
-import ru.itis.graduationwork.application.ui.core.Button;
+import ru.itis.graduationwork.application.ui.core.templates.Button;
 import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
 import ru.itis.graduationwork.application.ui.pages.main.buttons.*;
 import ru.itis.graduationwork.application.settings.units.Image;

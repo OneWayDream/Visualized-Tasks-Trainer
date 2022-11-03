@@ -1,9 +1,10 @@
 package ru.itis.graduationwork.application.ui.pages.menu.settings.theme;
 
 import ru.itis.graduationwork.application.Application;
+import ru.itis.graduationwork.application.managers.SettingsManager;
 import ru.itis.graduationwork.application.settings.units.Image;
 import ru.itis.graduationwork.application.settings.units.Theme;
-import ru.itis.graduationwork.application.ui.core.MenuItem;
+import ru.itis.graduationwork.application.ui.core.templates.MenuItem;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
 import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
 import ru.itis.graduationwork.application.ui.pages.menu.MenuIconConstants;
@@ -46,7 +47,7 @@ public class DarkThemeMenuItem extends MenuItem {
     }
 
     private Theme getCurrentTheme(){
-        return Application.getSettings().getTheme();
+        return SettingsManager.getTheme();
     }
 
 }

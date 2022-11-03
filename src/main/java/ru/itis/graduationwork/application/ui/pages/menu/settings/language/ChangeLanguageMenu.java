@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.menu.settings.language;
 
 import ru.itis.graduationwork.application.settings.units.Image;
-import ru.itis.graduationwork.application.ui.core.Menu;
+import ru.itis.graduationwork.application.ui.core.templates.Menu;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
 import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
 import ru.itis.graduationwork.application.ui.pages.menu.MenuIconConstants;

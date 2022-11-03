@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.main.panels;
 
-import ru.itis.graduationwork.application.ui.core.ModeChangeable;
-import ru.itis.graduationwork.application.ui.core.Panel;
+import ru.itis.graduationwork.application.ui.core.templates.ModeChangeable;
+import ru.itis.graduationwork.application.ui.core.templates.Panel;
 import ru.itis.graduationwork.application.ui.pages.main.labels.RightTitleImageLabel;
 
 import java.awt.*;

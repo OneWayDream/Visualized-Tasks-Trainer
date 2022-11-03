@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.main;
 
-import ru.itis.graduationwork.application.Application;
-import ru.itis.graduationwork.application.ui.core.PageFrame;
+import ru.itis.graduationwork.application.managers.SettingsManager;
+import ru.itis.graduationwork.application.ui.core.templates.PageFrame;
 import ru.itis.graduationwork.application.ui.pages.main.panels.LeftMainPanel;
 import ru.itis.graduationwork.application.ui.pages.main.panels.RightMainPanel;
 import ru.itis.graduationwork.application.ui.pages.menu.settings.Settings;
@@ -28,7 +28,7 @@ public class MainPageFrame extends PageFrame {
     }
 
     private void initMode(){
-        mode = Application.getSettings().getMode();
+        mode = SettingsManager.getMode();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class MainPageFrame extends PageFrame {
 
     public void changeMode(Mode mode){
         MainPageFrame.mode = mode;
-        Application.getSettings().setMode(mode);
+        SettingsManager.setMode(mode);
         leftMainPanel.changeMode();
         rightMainPanel.changeMode();
     }
