@@ -1,4 +1,4 @@
-package ru.itis.graduationwork.application.settings;
+package ru.itis.graduationwork.application.settings.units;
 
 public enum Link {
 

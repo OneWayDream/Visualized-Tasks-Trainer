@@ -4,21 +4,22 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.IntelliJTheme;
 import lombok.Getter;
-import ru.itis.graduationwork.application.settings.Locale;
-import ru.itis.graduationwork.application.settings.Theme;
-import ru.itis.graduationwork.application.settings.UserSettings;
+import ru.itis.graduationwork.application.settings.units.Locale;
+import ru.itis.graduationwork.application.settings.units.Theme;
+import ru.itis.graduationwork.application.settings.entities.UserSettings;
 import ru.itis.graduationwork.application.ui.core.PageFrame;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageFrame;
-import ru.itis.graduationwork.application.utils.ColorsManager;
-import ru.itis.graduationwork.application.utils.ConfigurationsManager;
-import ru.itis.graduationwork.application.utils.ImagesManager;
-import ru.itis.graduationwork.application.utils.LocalizationManager;
+import ru.itis.graduationwork.application.managers.ColorsManager;
+import ru.itis.graduationwork.application.loaders.SettingsLoader;
+import ru.itis.graduationwork.application.managers.ImagesManager;
+import ru.itis.graduationwork.application.managers.LocalizationManager;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.util.Objects;
 
 public class Application {
+
     @Getter
     private static PageFrame currentPageFrame;
     @Getter
@@ -36,7 +37,7 @@ public class Application {
     }
 
     private void initUserSettings(){
-        settings = ConfigurationsManager.getUserSettings();
+        settings = SettingsLoader.getUserSettings();
         setManagersTheme();
         setManagersLocale();
     }
@@ -101,8 +102,9 @@ public class Application {
         LocalizationManager.setLocale(settings.getLocale());
     }
 
-    public static void close(){
-        ConfigurationsManager.saveUserSettings(settings);
+    public static void exit(){
+        SettingsLoader.saveUserSettings(settings);
+        System.exit(0);
     }
 
 }

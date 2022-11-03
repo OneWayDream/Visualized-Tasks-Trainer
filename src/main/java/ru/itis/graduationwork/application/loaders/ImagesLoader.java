@@ -1,7 +1,7 @@
-package ru.itis.graduationwork.application.utils;
+package ru.itis.graduationwork.application.loaders;
 
 import lombok.Getter;
-import ru.itis.graduationwork.application.settings.Theme;
+import ru.itis.graduationwork.application.settings.units.Theme;
 import ru.itis.graduationwork.utils.PropertiesUtils;
 
 import javax.swing.*;

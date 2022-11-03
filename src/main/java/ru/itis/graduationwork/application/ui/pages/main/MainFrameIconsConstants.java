@@ -12,5 +12,7 @@ public class MainFrameIconsConstants {
     public static final int RIGHT_PANEL_LABEL_HEIGHT = 200;
     public static final int RIGHT_PANEL_BUTTON_ICON_WIDTH = 100;
     public static final int RIGHT_PANEL_BUTTON_ICON_HEIGHT = 100;
+    public static final int RECENT_BUTTON_ICON_WIDTH = 30;
+    public static final int RECENT_BUTTON_ICON_HEIGHT = 30;
 
 }

@@ -2,6 +2,8 @@ package ru.itis.graduationwork.application.ui.core;
 
 import lombok.Getter;
 import ru.itis.graduationwork.application.Application;
+import ru.itis.graduationwork.application.managers.ColorsManager;
+import ru.itis.graduationwork.application.managers.ImagesManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,16 +15,29 @@ public abstract class PageFrame {
 
     @Getter
     protected final JFrame frame;
+    protected int width;
+    protected int height;
+    protected String title;
 
     protected PageFrame(){
         this.frame = new JFrame();
+        initFields();
     }
 
+    protected abstract void initFields();
+
     public void initPage(){
+        initHeader();
         setFrameSettings();
         setOnCloseAction();
         addComponents();
         showPageFrame();
+    }
+
+    protected void initHeader(){
+        frame.setTitle(title);
+        frame.setForeground(ColorsManager.getTextColor());
+        frame.setIconImage(ImagesManager.getApplicationIcon().getImage());
     }
 
     private void setFrameSettings(){
@@ -31,14 +46,14 @@ public abstract class PageFrame {
     }
 
     private void setFrameSize(){
-        frame.setSize(getDeviceScreenWidth()*3 / 4, getDeviceScreenHeight()*3 / 4);
+        frame.setSize(width, height);
     }
 
-    private int getDeviceScreenWidth(){
+    protected int getDeviceScreenWidth(){
         return getDeviceDisplayMode().getWidth();
     }
 
-    private int getDeviceScreenHeight(){
+    protected int getDeviceScreenHeight(){
         return getDeviceDisplayMode().getHeight();
     }
 
@@ -50,9 +65,9 @@ public abstract class PageFrame {
         return GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
     }
 
-    private void setOnCloseAction(){
+    protected void setOnCloseAction(){
         frame.addWindowListener(new FrameListener());
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     protected abstract void addComponents();
@@ -65,6 +80,10 @@ public abstract class PageFrame {
         frame.dispose();
     }
 
+    public void setEnabled(boolean isEnable){
+        frame.setEnabled(isEnable);
+    }
+
     public Component getComponent(){
         return frame;
     }
@@ -73,7 +92,7 @@ public abstract class PageFrame {
 
         @Override
         public void windowClosing(WindowEvent event) {
-            Application.close();
+            Application.exit();
         }
     }
 

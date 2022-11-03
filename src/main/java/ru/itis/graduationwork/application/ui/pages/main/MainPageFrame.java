@@ -5,8 +5,6 @@ import ru.itis.graduationwork.application.ui.core.PageFrame;
 import ru.itis.graduationwork.application.ui.pages.main.panels.LeftMainPanel;
 import ru.itis.graduationwork.application.ui.pages.main.panels.RightMainPanel;
 import ru.itis.graduationwork.application.ui.pages.menu.settings.Settings;
-import ru.itis.graduationwork.application.utils.ColorsManager;
-import ru.itis.graduationwork.application.utils.ImagesManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,17 +20,11 @@ public class MainPageFrame extends PageFrame {
         initMode();
     }
 
-    private void initHeader(){
-        frame.setTitle("Visualized Tasks Trainer");
-        frame.setForeground(ColorsManager.getTextColor());
-        frame.setIconImage(ImagesManager.getApplicationIcon().getImage());
-        initJMenuBar();
-    }
-
-    private void initJMenuBar(){
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(new Settings().getComponent());
-        frame.setJMenuBar(menuBar);
+    @Override
+    protected void initFields(){
+        width = getDeviceScreenWidth()*3 / 4;
+        height = getDeviceScreenHeight()*3 / 4;
+        title = "Visualized Tasks Trainer";
     }
 
     private void initMode(){
@@ -44,6 +36,17 @@ public class MainPageFrame extends PageFrame {
         initHeader();
         super.initPage();
         frame.setLayout(new GridLayout(1, 2));
+    }
+
+    protected void initHeader(){
+        super.initHeader();
+        initJMenuBar();
+    }
+
+    private void initJMenuBar(){
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.add(new Settings().getComponent());
+        frame.setJMenuBar(menuBar);
     }
 
     protected void addComponents(){

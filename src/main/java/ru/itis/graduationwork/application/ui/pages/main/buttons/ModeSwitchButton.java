@@ -1,12 +1,12 @@
 package ru.itis.graduationwork.application.ui.pages.main.buttons;
 
 import lombok.Getter;
-import ru.itis.graduationwork.application.settings.Image;
+import ru.itis.graduationwork.application.settings.units.Image;
 import ru.itis.graduationwork.application.ui.core.Button;
 import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageFrame;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
-import ru.itis.graduationwork.application.ui.pages.main.suppliers.ComponentsSupplier;
+import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,7 +43,7 @@ public class ModeSwitchButton extends Button {
     }
 
     private ImageIcon getImageIcon(){
-        ComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
+        ModeComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
         return supplier.getImageIcon(Image.SWITCH,
                 MainFrameIconsConstants.LEFT_PANEL_SWITCH_BUTTON_ICON_WIDTH,
                 MainFrameIconsConstants.LEFT_PANEL_SWITCH_BUTTON_ICON_HEIGHT);

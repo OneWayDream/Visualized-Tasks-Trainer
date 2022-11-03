@@ -1,15 +1,15 @@
 package ru.itis.graduationwork.application.ui.pages.main.buttons;
 
 import ru.itis.graduationwork.exceptions.application.UrlBrowsingException;
-import ru.itis.graduationwork.application.settings.Image;
-import ru.itis.graduationwork.application.settings.Link;
+import ru.itis.graduationwork.application.settings.units.Image;
+import ru.itis.graduationwork.application.settings.units.Link;
 import ru.itis.graduationwork.application.ui.core.Button;
 import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
-import ru.itis.graduationwork.application.ui.pages.main.suppliers.ComponentsSupplier;
-import ru.itis.graduationwork.application.utils.ColorsManager;
-import ru.itis.graduationwork.application.utils.LinksManager;
-import ru.itis.graduationwork.application.utils.LocalizationManager;
+import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
+import ru.itis.graduationwork.application.managers.ColorsManager;
+import ru.itis.graduationwork.application.managers.LinksManager;
+import ru.itis.graduationwork.application.managers.LocalizationManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +32,7 @@ public class OpenSiteButton extends Button {
     }
 
     private void setIcon(){
-        ComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
+        ModeComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
         button.setIcon(supplier.getImageIcon(Image.SITE,
                 MainFrameIconsConstants.RIGHT_PANEL_BUTTON_ICON_WIDTH,
                 MainFrameIconsConstants.RIGHT_PANEL_BUTTON_ICON_HEIGHT));

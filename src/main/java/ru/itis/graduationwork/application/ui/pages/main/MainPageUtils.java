@@ -1,16 +1,16 @@
 package ru.itis.graduationwork.application.ui.pages.main;
 
 import ru.itis.graduationwork.application.Application;
-import ru.itis.graduationwork.application.ui.pages.main.suppliers.ComponentsSupplier;
-import ru.itis.graduationwork.application.ui.pages.main.suppliers.DevelopComponentsSupplier;
-import ru.itis.graduationwork.application.ui.pages.main.suppliers.StudyComponentsSupplier;
+import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
+import ru.itis.graduationwork.application.ui.pages.main.suppliers.DevelopModeComponentsSupplier;
+import ru.itis.graduationwork.application.ui.pages.main.suppliers.StudyModeComponentsSupplier;
 
 public class MainPageUtils {
 
-    public static ComponentsSupplier supplier;
+    public static ModeComponentsSupplier supplier;
     public static MainPageFrame.Mode supplierMode;
 
-    public static ComponentsSupplier getComponentSupplier(){
+    public static ModeComponentsSupplier getComponentSupplier(){
         if (!isComponentSupplierPresent()){
             createComponentSupplier();
         }
@@ -25,9 +25,9 @@ public class MainPageUtils {
     private static void createComponentSupplier(){
         MainPageFrame.Mode currentMode = getMode();
         if (currentMode == MainPageFrame.Mode.DEVELOP){
-            supplier =  new DevelopComponentsSupplier();
+            supplier =  new DevelopModeComponentsSupplier();
         } else {
-            supplier =  new StudyComponentsSupplier();
+            supplier =  new StudyModeComponentsSupplier();
         }
     }
 

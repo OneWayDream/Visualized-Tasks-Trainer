@@ -1,4 +1,4 @@
-package ru.itis.graduationwork.application.settings;
+package ru.itis.graduationwork.application.settings.units;
 
 public enum Image {
 
@@ -22,7 +22,8 @@ public enum Image {
     THEME("theme"),
     LANGUAGE("language"),
     RUSSIA("russia"),
-    UK("uk");
+    UK("uk"),
+    ARROW_RIGHT("arrow-right");
 
     private final String key;
 

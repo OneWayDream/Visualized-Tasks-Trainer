@@ -1,15 +1,17 @@
 package ru.itis.graduationwork.application.ui.pages.main.suppliers;
 
+import ru.itis.graduationwork.application.settings.entities.RecentList;
 import ru.itis.graduationwork.application.ui.core.Button;
 import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
 import ru.itis.graduationwork.application.ui.pages.main.buttons.*;
-import ru.itis.graduationwork.application.settings.Image;
-import ru.itis.graduationwork.application.utils.LocalizationManager;
+import ru.itis.graduationwork.application.settings.units.Image;
+import ru.itis.graduationwork.application.managers.LocalizationManager;
+import ru.itis.graduationwork.application.managers.RecentManager;
 
 import javax.swing.*;
 import java.util.List;
 
-public class StudyComponentsSupplier extends ComponentsSupplier{
+public class StudyModeComponentsSupplier extends ModeComponentsSupplier {
 
     @Override
     public ImageIcon getLeftPanelTitleIcon() {
@@ -38,7 +40,7 @@ public class StudyComponentsSupplier extends ComponentsSupplier{
     @Override
     public List<Button> getLeftPanelButtons() {
         return List.of(
-                new OpenRecentProjectButton(),
+                new OpenRecentListButton(),
                 new OpenFolderAsAProjectButton()
         );
     }
@@ -50,6 +52,19 @@ public class StudyComponentsSupplier extends ComponentsSupplier{
                 new OpenGuideButton(),
                 new OpenTasksListButton()
         );
+    }
+
+    @Override
+    public String getRecentDialogTitle() {
+        return LocalizationManager.getLocaleTextByKey("main-frame.recent-list.study.title");
+    }
+
+    @Override
+    public List<Button> getRecentPageButtons() {
+        RecentList list = RecentManager.getRecentTasks();
+        return list.getContent().entrySet().stream()
+                .map(entry -> (Button) new RecentTaskButton(entry.getKey(), entry.getValue()))
+                .toList();
     }
 
 }

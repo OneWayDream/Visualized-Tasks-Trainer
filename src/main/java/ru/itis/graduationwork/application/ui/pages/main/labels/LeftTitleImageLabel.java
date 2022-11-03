@@ -2,8 +2,8 @@ package ru.itis.graduationwork.application.ui.pages.main.labels;
 
 import ru.itis.graduationwork.application.ui.core.Label;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
-import ru.itis.graduationwork.application.ui.pages.main.suppliers.ComponentsSupplier;
-import ru.itis.graduationwork.application.utils.ColorsManager;
+import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
+import ru.itis.graduationwork.application.managers.ColorsManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +23,7 @@ public class LeftTitleImageLabel extends Label {
     }
 
     private void setLabelContent(){
-        ComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
+        ModeComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
         label.setIcon(supplier.getLeftPanelTitleIcon());
         label.setText(supplier.getLeftPanelIconTitle());
     }

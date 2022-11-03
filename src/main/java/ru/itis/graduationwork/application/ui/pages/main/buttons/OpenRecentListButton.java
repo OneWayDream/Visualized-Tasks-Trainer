@@ -1,20 +1,21 @@
 package ru.itis.graduationwork.application.ui.pages.main.buttons;
 
-import ru.itis.graduationwork.application.settings.Image;
+import ru.itis.graduationwork.application.settings.units.Image;
 import ru.itis.graduationwork.application.ui.core.Button;
 import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
-import ru.itis.graduationwork.application.ui.pages.main.suppliers.ComponentsSupplier;
-import ru.itis.graduationwork.application.utils.ColorsManager;
-import ru.itis.graduationwork.application.utils.LocalizationManager;
+import ru.itis.graduationwork.application.ui.pages.main.dialogs.RecentListDialog;
+import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
+import ru.itis.graduationwork.application.managers.ColorsManager;
+import ru.itis.graduationwork.application.managers.LocalizationManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class OpenRecentProjectButton extends Button {
+public class OpenRecentListButton extends Button {
 
-    public OpenRecentProjectButton(){
+    public OpenRecentListButton(){
         super();
         createButton();
     }
@@ -29,7 +30,7 @@ public class OpenRecentProjectButton extends Button {
     }
 
     private void setIcon(){
-        ComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
+        ModeComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
         button.setIcon(supplier.getImageIcon(Image.RECENT,
                 MainFrameIconsConstants.LEFT_PANEL_BUTTON_ICON_WIDTH,
                 MainFrameIconsConstants.LEFT_PANEL_BUTTON_ICON_HEIGHT));
@@ -44,7 +45,8 @@ public class OpenRecentProjectButton extends Button {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Open recent project..");
+        RecentListDialog recentListDialog = new RecentListDialog();
+        recentListDialog.initDialog();
     }
 
 }

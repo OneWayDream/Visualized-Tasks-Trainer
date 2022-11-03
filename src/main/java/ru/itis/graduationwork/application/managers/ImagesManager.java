@@ -1,8 +1,9 @@
-package ru.itis.graduationwork.application.utils;
+package ru.itis.graduationwork.application.managers;
 
+import ru.itis.graduationwork.application.loaders.ImagesLoader;
 import ru.itis.graduationwork.exceptions.application.NotInitializedThemeException;
-import ru.itis.graduationwork.application.settings.Image;
-import ru.itis.graduationwork.application.settings.Theme;
+import ru.itis.graduationwork.application.settings.units.Image;
+import ru.itis.graduationwork.application.settings.units.Theme;
 import ru.itis.graduationwork.utils.ConfigurationFilesWorker;
 import ru.itis.graduationwork.utils.PropertiesUtils;
 

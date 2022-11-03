@@ -1,15 +1,17 @@
 package ru.itis.graduationwork.application.ui.pages.main.suppliers;
 
-import ru.itis.graduationwork.application.settings.Image;
+import ru.itis.graduationwork.application.settings.units.Image;
+import ru.itis.graduationwork.application.settings.entities.RecentList;
 import ru.itis.graduationwork.application.ui.core.Button;
 import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
 import ru.itis.graduationwork.application.ui.pages.main.buttons.*;
-import ru.itis.graduationwork.application.utils.LocalizationManager;
+import ru.itis.graduationwork.application.managers.LocalizationManager;
+import ru.itis.graduationwork.application.managers.RecentManager;
 
 import javax.swing.*;
 import java.util.List;
 
-public class DevelopComponentsSupplier extends ComponentsSupplier {
+public class DevelopModeComponentsSupplier extends ModeComponentsSupplier {
 
     @Override
     public ImageIcon getLeftPanelTitleIcon() {
@@ -39,7 +41,7 @@ public class DevelopComponentsSupplier extends ComponentsSupplier {
     public List<Button> getLeftPanelButtons() {
         return List.of(
                 new CreateNewProjectButton(),
-                new OpenRecentProjectButton(),
+                new OpenRecentListButton(),
                 new OpenFolderAsAProjectButton()
         );
     }
@@ -51,6 +53,20 @@ public class DevelopComponentsSupplier extends ComponentsSupplier {
                 new OpenDocumentationButton(),
                 new OpenPluginsButton()
         );
+    }
+
+    @Override
+    public String getRecentDialogTitle() {
+        return LocalizationManager.getLocaleTextByKey("main-frame.recent-list.develop.title");
+    }
+
+    @Override
+    public List<Button> getRecentPageButtons() {
+        RecentList list = RecentManager.getRecentProjects();
+        System.out.println(list);
+        return list.getContent().entrySet().stream()
+                .map(entry -> (Button) new RecentProjectButton(entry.getKey(), entry.getValue()))
+                .toList();
     }
 
 }

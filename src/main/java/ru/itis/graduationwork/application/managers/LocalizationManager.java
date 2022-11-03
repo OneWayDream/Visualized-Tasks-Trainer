@@ -1,7 +1,7 @@
-package ru.itis.graduationwork.application.utils;
+package ru.itis.graduationwork.application.managers;
 
 import ru.itis.graduationwork.exceptions.application.NotInitializedLocaleException;
-import ru.itis.graduationwork.application.settings.Locale;
+import ru.itis.graduationwork.application.settings.units.Locale;
 import ru.itis.graduationwork.utils.ConfigurationFilesWorker;
 import ru.itis.graduationwork.utils.PropertiesUtils;
 

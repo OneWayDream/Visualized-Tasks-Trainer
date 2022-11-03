@@ -1,14 +1,14 @@
 package ru.itis.graduationwork.application.ui.pages.menu.settings;
 
-import ru.itis.graduationwork.application.settings.Image;
+import ru.itis.graduationwork.application.settings.units.Image;
 import ru.itis.graduationwork.application.ui.core.Menu;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
-import ru.itis.graduationwork.application.ui.pages.main.suppliers.ComponentsSupplier;
+import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
 import ru.itis.graduationwork.application.ui.pages.menu.MenuIconConstants;
 import ru.itis.graduationwork.application.ui.pages.menu.settings.language.ChangeLanguageMenu;
 import ru.itis.graduationwork.application.ui.pages.menu.settings.theme.ChangeThemeMenu;
-import ru.itis.graduationwork.application.utils.ColorsManager;
-import ru.itis.graduationwork.application.utils.LocalizationManager;
+import ru.itis.graduationwork.application.managers.ColorsManager;
+import ru.itis.graduationwork.application.managers.LocalizationManager;
 
 import javax.swing.*;
 
@@ -32,7 +32,7 @@ public class Settings extends Menu {
     }
 
     private ImageIcon getImageIcon(){
-        ComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
+        ModeComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
         return supplier.getImageIcon(Image.SETTINGS,
                 MenuIconConstants.MENU_ICON_WIDTH,
                 MenuIconConstants.MENU_ICON_HEIGHT);

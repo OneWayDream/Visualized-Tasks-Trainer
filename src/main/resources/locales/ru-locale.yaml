@@ -41,3 +41,8 @@ main-frame:
         text: Задания
       open-plugins:
         text: Плагины
+  recent-list:
+    develop:
+      title: Недавние проекты
+    study:
+      title: Недавние задачи

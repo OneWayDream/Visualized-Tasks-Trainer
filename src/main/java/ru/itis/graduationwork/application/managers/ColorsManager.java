@@ -1,7 +1,7 @@
-package ru.itis.graduationwork.application.utils;
+package ru.itis.graduationwork.application.managers;
 
 import ru.itis.graduationwork.exceptions.application.NotInitializedThemeException;
-import ru.itis.graduationwork.application.settings.Theme;
+import ru.itis.graduationwork.application.settings.units.Theme;
 
 import java.awt.*;
 

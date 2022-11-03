@@ -41,3 +41,8 @@ main-frame:
         text: Tasks
       open-plugins:
         text: Plugins
+  recent-list:
+    develop:
+      title: Recent Projects
+    study:
+      title: Recent Tasks

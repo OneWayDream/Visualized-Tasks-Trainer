@@ -1,16 +1,16 @@
-package ru.itis.graduationwork.application.utils;
+package ru.itis.graduationwork.application.loaders;
 
 import com.google.gson.Gson;
-import ru.itis.graduationwork.application.settings.UserSettings;
+import ru.itis.graduationwork.application.settings.entities.UserSettings;
 import ru.itis.graduationwork.exceptions.application.JsonReadException;
 import ru.itis.graduationwork.exceptions.application.JsonWriteException;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-public class ConfigurationsManager {
+public class SettingsLoader {
 
-    public static final String USER_SETTINGS_FILE_PATH = "config.json";
+    public static final String USER_SETTINGS_FILE_PATH = "settings/settings.json";
 
     public static UserSettings getUserSettings(){
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(USER_SETTINGS_FILE_PATH,

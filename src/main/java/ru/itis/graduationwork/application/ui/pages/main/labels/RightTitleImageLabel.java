@@ -3,7 +3,7 @@ package ru.itis.graduationwork.application.ui.pages.main.labels;
 import ru.itis.graduationwork.application.ui.core.Label;
 import ru.itis.graduationwork.application.ui.core.ModeChangeable;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
-import ru.itis.graduationwork.application.ui.pages.main.suppliers.ComponentsSupplier;
+import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
 
 import javax.swing.*;
 
@@ -28,7 +28,7 @@ public class RightTitleImageLabel extends Label implements ModeChangeable {
     }
 
     private void loadIcon(){
-        ComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
+        ModeComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
         imageIcon = supplier.getRightPanelTitleIcon();
     }
 

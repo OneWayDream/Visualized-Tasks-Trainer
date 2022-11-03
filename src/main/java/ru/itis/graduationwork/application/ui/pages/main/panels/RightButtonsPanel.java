@@ -4,7 +4,7 @@ import ru.itis.graduationwork.application.ui.core.Button;
 import ru.itis.graduationwork.application.ui.core.ModeChangeable;
 import ru.itis.graduationwork.application.ui.core.Panel;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
-import ru.itis.graduationwork.application.ui.pages.main.suppliers.ComponentsSupplier;
+import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
 
 import java.awt.*;
 import java.util.List;
@@ -34,7 +34,7 @@ public class RightButtonsPanel extends Panel implements ModeChangeable {
     }
 
     private List<Button> getRightPanelButtons(){
-        ComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
+        ModeComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
         return supplier.getRightPanelButtons();
     }
 
