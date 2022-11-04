@@ -1,12 +1,13 @@
 package ru.itis.graduationwork.application.ui.pages.main.buttons;
 
+import ru.itis.graduationwork.application.managers.ColorsManager;
+import ru.itis.graduationwork.application.managers.LocalizationManager;
+import ru.itis.graduationwork.application.settings.units.Image;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
 import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
+import ru.itis.graduationwork.application.ui.pages.main.dialogs.creation.ProjectCreationDialog;
 import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
-import ru.itis.graduationwork.application.settings.units.Image;
-import ru.itis.graduationwork.application.managers.ColorsManager;
-import ru.itis.graduationwork.application.managers.LocalizationManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +45,8 @@ public class CreateNewProjectButton extends Button {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        System.out.println("Create new project..");
+        ProjectCreationDialog projectCreationDialog = new ProjectCreationDialog();
+        projectCreationDialog.initDialog();
     }
 
 }

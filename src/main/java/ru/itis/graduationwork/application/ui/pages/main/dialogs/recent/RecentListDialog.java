@@ -1,4 +1,4 @@
-package ru.itis.graduationwork.application.ui.pages.main.dialogs;
+package ru.itis.graduationwork.application.ui.pages.main.dialogs.recent;
 
 import ru.itis.graduationwork.application.Application;
 import ru.itis.graduationwork.application.ui.core.templates.Button;

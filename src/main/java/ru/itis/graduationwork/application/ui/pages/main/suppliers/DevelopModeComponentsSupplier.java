@@ -7,6 +7,7 @@ import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
 import ru.itis.graduationwork.application.ui.pages.main.buttons.*;
 import ru.itis.graduationwork.application.managers.LocalizationManager;
 import ru.itis.graduationwork.application.managers.RecentManager;
+import ru.itis.graduationwork.application.ui.pages.main.dialogs.recent.OpenRecentListButton;
 
 import javax.swing.*;
 import java.util.List;

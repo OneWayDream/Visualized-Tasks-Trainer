@@ -46,3 +46,11 @@ main-frame:
       title: Недавние проекты
     study:
       title: Недавние задачи
+  project-creation:
+    title: Создание проекта
+    name-field:
+      title: Имя проекта
+    language-field:
+      title: Язык
+    create-button:
+      text: Создать

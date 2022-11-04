@@ -42,7 +42,7 @@ public class LeftModeTitlePanel extends Panel implements ModeChangeable {
 
     private void addModeSwitchLabel(){
         GridBagConstraints constraint = new GridBagConstraints();
-        constraint.fill = GridBagConstraints.CENTER;
+        constraint.fill = GridBagConstraints.LINE_START;
         constraint.gridx = 0;
         constraint.gridy = 0;
         panel.add(new ModeSwitchButton().getComponent(), constraint);

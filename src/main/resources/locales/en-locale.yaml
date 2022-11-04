@@ -46,3 +46,11 @@ main-frame:
       title: Recent Projects
     study:
       title: Recent Tasks
+  project-creation:
+    title: Project creation
+    name-field:
+      title: Project name
+    language-field:
+      title: Language
+    create-button:
+      text: Create
