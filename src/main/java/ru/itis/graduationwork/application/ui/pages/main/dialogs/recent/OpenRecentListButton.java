@@ -1,12 +1,11 @@
 package ru.itis.graduationwork.application.ui.pages.main.dialogs.recent;
 
 import ru.itis.graduationwork.application.managers.ColorsManager;
+import ru.itis.graduationwork.application.managers.IconsManager;
 import ru.itis.graduationwork.application.managers.LocalizationManager;
-import ru.itis.graduationwork.application.settings.units.Image;
+import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
 import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
-import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
-import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,8 +28,7 @@ public class OpenRecentListButton extends Button {
     }
 
     private void setIcon(){
-        ModeComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
-        button.setIcon(supplier.getImageIcon(Image.RECENT,
+        button.setIcon(IconsManager.getImageIcon(Image.RECENT,
                 MainFrameIconsConstants.LEFT_PANEL_BUTTON_ICON_WIDTH,
                 MainFrameIconsConstants.LEFT_PANEL_BUTTON_ICON_HEIGHT));
     }

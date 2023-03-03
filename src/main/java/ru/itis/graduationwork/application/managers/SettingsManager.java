@@ -1,17 +1,25 @@
 package ru.itis.graduationwork.application.managers;
 
 import ru.itis.graduationwork.application.loaders.SettingsLoader;
-import ru.itis.graduationwork.application.settings.entities.UserSettings;
-import ru.itis.graduationwork.application.settings.units.Locale;
-import ru.itis.graduationwork.application.settings.units.Theme;
-import ru.itis.graduationwork.application.ui.pages.main.MainPageFrame;
+import ru.itis.graduationwork.application.settings.UserSettings;
+import ru.itis.graduationwork.application.settings.Locale;
+import ru.itis.graduationwork.application.settings.Mode;
+import ru.itis.graduationwork.application.settings.Theme;
+import ru.itis.graduationwork.exceptions.usersettings.UserSettingsFileReadingException;
+import ru.itis.graduationwork.exceptions.usersettings.UserSettingsFileWritingException;
+
+import java.util.concurrent.TimeUnit;
 
 public class SettingsManager {
 
-    private static final UserSettings settings;
+    private static UserSettings settings;
 
     static {
-        settings = SettingsLoader.getUserSettings();
+        try {
+            settings = SettingsLoader.getUserSettings();
+        } catch (UserSettingsFileReadingException exception){
+            settings = SettingsLoader.getDefaultUserSettings();
+        }
         setManagersTheme();
         setManagersLocale();
     }
@@ -32,6 +40,7 @@ public class SettingsManager {
     public static void setLocale(Locale locale){
         settings.setLocale(locale);
         setManagersLocale();
+        saveSettings();
     }
 
     public static Theme getTheme(){
@@ -43,16 +52,28 @@ public class SettingsManager {
         setManagersTheme();
     }
 
-    public static MainPageFrame.Mode getMode(){
+    public static Mode getMode(){
         return settings.getMode();
     }
 
-    public static void setMode(MainPageFrame.Mode mode){
+    public static void setMode(Mode mode){
         settings.setMode(mode);
+    }
+    public static void setBackgroundImageName(String backgroundImageName){
+        settings.setBackgroundImageName(backgroundImageName);
+    }
+    public static String getBackgroundImageName(){
+        return settings.getBackgroundImageName();
     }
 
     public static void saveSettings(){
-        SettingsLoader.saveUserSettings(settings);
+        try {
+            SettingsLoader.saveUserSettings(settings);
+        } catch (UserSettingsFileWritingException exception){
+            ExceptionsManager.addDelayedException(
+                    ExceptionsManager::handleUserSettingsFileWritingException, 200, TimeUnit.MILLISECONDS
+            );
+        }
     }
 
 }

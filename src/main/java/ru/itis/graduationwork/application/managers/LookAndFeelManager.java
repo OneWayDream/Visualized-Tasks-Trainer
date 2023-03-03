@@ -4,7 +4,7 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.IntelliJTheme;
 import ru.itis.graduationwork.application.Application;
-import ru.itis.graduationwork.application.settings.units.Theme;
+import ru.itis.graduationwork.application.settings.Theme;
 
 import javax.swing.*;
 import java.io.IOException;

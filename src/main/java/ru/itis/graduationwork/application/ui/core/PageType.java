@@ -2,7 +2,9 @@ package ru.itis.graduationwork.application.ui.core;
 
 public enum PageType {
 
-    MAIN("main");
+    MAIN("main"),
+    DEVELOP("develop"),
+    STUDY("study");
 
     private final String value;
 

@@ -13,6 +13,23 @@ menu:
         text: Русский
       english:
         text: Английский
+    change-background:
+      text: Изменить фон
+      set-image:
+        text: Установить изображение
+        dialog-title: Выберите изображение
+      reset-image:
+        text: Сбросить изображение
+  file:
+    text: Файл
+    create-new-project:
+      text: Создать новый проект
+    open-recent-project:
+      text: Открыть недавний проект
+    open-project:
+      text: Открыть проект
+    to-main-menu:
+      text: В главное меню
 main-frame:
   left-panel:
     label:
@@ -44,13 +61,114 @@ main-frame:
   recent-list:
     develop:
       title: Недавние проекты
+      empty-list: Недавних проектов нет
     study:
       title: Недавние задачи
+      empty-list: Недавних задач нет
   project-creation:
     title: Создание проекта
     name-field:
       title: Имя проекта
+    path-field:
+      title: Путь проекта
     language-field:
       title: Язык
     create-button:
       text: Создать
+  open-as-project:
+    title: Выберите папку проекта
+ide:
+  content:
+    main-buttons:
+      open-general-description-button:
+        text: О задаче
+        tooltip-text: Общая информация о задаче
+      open-code-ide-button:
+        text: Редактор
+        tooltip-text: Файловый редактор для решения задачи или работы с файлами
+      open-studying-content:
+        text: Материалы
+        tooltip-text: Информация об изучаемой теории
+      open-task-terms:
+        text: Условия
+        tooltip-text: Постановка задачи (условия и требования)
+    visualization-scene:
+      control-buttons:
+        scene-at-start:
+          tooltip-text: На начало визуализации
+        scene-at-end:
+          tooltip-text: В конец визуализации
+        pause:
+          tooltip-text: Остановить сцену визуализации
+        play:
+          tooltip-text: Воспроизвести сцену визуализации
+        step-back:
+          tooltip-text: Сделать шаг назад в визуализации
+        step-forward:
+          tooltip-text: Сделать шаг вперёд в визуализации
+    workspace:
+      choose-content-file-panel:
+        file-not-selected-label:
+          text: Файл не выбран. Создайте или выберите файл.
+        create-file-button:
+          text: Создать новый файл
+        choose-file-button:
+          text: Выбрать файл...
+        creation-dialog:
+          title: Новый файл
+          name-field:
+            placeholder: Название
+          button:
+            text: Создать
+        content-file-chooser:
+          title: Выберите файл
+      informational-panel-header:
+        change-content-file-button:
+          tooltip-text: Выбрать файл
+        update-content-file-button:
+          tooltip-text: Обновить файл
+        edit-content-file-button:
+          tooltip-text: Изменить файл
+exceptions:
+  file-creation-exception:
+    text: Не удалось создать новый файл.
+  file-copying-exception:
+    message: Выбранный файл находился вне проекта. При попытке его скопировать произошла ошибка.
+  file-not-found-exception:
+    message: Файл (%s) не был найден. Попробуйте создать или выбрать другой.
+  unexpected-content-tab-exception:
+    message: Что-то пошло не так...
+  not-present-image-icon-exception:
+    message: Не удалось получить инонку (%s). Попробуйте переустановить приложение..
+  background-image-saving-exception:
+    message: Не удалось сохранить новую фоновую картинку.
+  url-parsing-exception:
+    message: Something went wrong...
+  project-creation-exception:
+    message: Не удалось создать новый проект.
+  project-directory-not-exists-exception:
+    message: Не удалось найти проект по данному пути (%s).
+  project-config-reading-exception:
+    message: Не удалось прочитать конфигурационный файл проекта. Был создан новый.
+  project-config-writing-exception:
+    message: Не удалось записать конфигурационный файл проекта.
+  recent-list-reading-exception:
+    message: Не удалось загрузить недавние проекты.
+  recent-list-writing-exception:
+    message: Не удалось сохранить изменения недавних проектов.
+  user-settings-file-writing-exception:
+    message: Не удалось сохранить новые настройки пользователя.
+  directory-explore-exception:
+    message: Не удалось загрузить содержимое директории.
+  not-present-user-background-image-exception:
+    message: Не удалось загрузить пользовательский фон. Попробуйте настроить его снова.
+  unsupported-content-file-extension-exception:
+    message: Файл с таким расширением не поддерживается. Используется файлы с расширениями .html или .md.
+  file-already-exists-exception:
+    message: Файл с таким именем уже существует.
+  monitoring-thread-exception:
+    message: Что-то пошло не так...
+  monitoring-registration-exception:
+    message: Что-то пошло не так...
+  file-writing-exception:
+    message: Не удалось сохранить изменения файла

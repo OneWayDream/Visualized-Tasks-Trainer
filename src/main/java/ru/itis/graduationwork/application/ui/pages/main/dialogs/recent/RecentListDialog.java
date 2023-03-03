@@ -1,19 +1,14 @@
 package ru.itis.graduationwork.application.ui.pages.main.dialogs.recent;
 
-import ru.itis.graduationwork.application.Application;
-import ru.itis.graduationwork.application.ui.core.templates.Button;
 import ru.itis.graduationwork.application.ui.core.templates.Dialog;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
 import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
 public class RecentListDialog extends Dialog {
-
-    public RecentListDialog(){
-        super(Application.getCurrentPageFrame().getFrame());
-    }
 
     @Override
     protected void initFields() {
@@ -31,19 +26,24 @@ public class RecentListDialog extends Dialog {
 
     @Override
     protected void addComponents() {
-        List<Button> buttons = getRecentButtons();
-        for (int i = 0; i < buttons.size(); i++) {
+        List<JComponent> components = getRecentButtons();
+        for (int i = 0; i < components.size(); i++) {
             GridBagConstraints constraint = new GridBagConstraints();
             constraint.fill = GridBagConstraints.CENTER;
             constraint.gridy = i;
             constraint.insets = new Insets(10,0,0,0);
-            dialog.add(buttons.get(i).getComponent(), constraint);
+            dialog.add(components.get(i), constraint);
         }
     }
 
-    private List<Button> getRecentButtons(){
+    private List<JComponent> getRecentButtons(){
         ModeComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
-        return supplier.getRecentPageButtons();
+        return supplier.getRecentPageContent(this);
+    }
+
+    public void reload(){
+        dialog.dispose();
+        new RecentListDialog().initDialog();
     }
 
 }

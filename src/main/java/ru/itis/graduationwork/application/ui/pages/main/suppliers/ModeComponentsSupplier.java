@@ -1,10 +1,12 @@
 package ru.itis.graduationwork.application.ui.pages.main.suppliers;
 
+import ru.itis.graduationwork.application.entities.RecentList;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
-import ru.itis.graduationwork.application.managers.ImagesManager;
+import ru.itis.graduationwork.application.ui.pages.main.buttons.RecentProjectButton;
+import ru.itis.graduationwork.application.ui.pages.main.dialogs.recent.EmptyRecentListPanel;
+import ru.itis.graduationwork.application.ui.pages.main.dialogs.recent.RecentListDialog;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 
 public abstract class ModeComponentsSupplier {
@@ -17,13 +19,24 @@ public abstract class ModeComponentsSupplier {
     public abstract List<Button> getLeftPanelButtons();
     public abstract List<Button> getRightPanelButtons();
     public abstract String getRecentDialogTitle();
-    public abstract List<Button> getRecentPageButtons();
+    public abstract List<JComponent> getRecentPageContent(RecentListDialog recentListDialog);
+    public abstract String getEmptyRecentListText();
 
-    public ImageIcon getImageIcon(ru.itis.graduationwork.application.settings.units.Image image, int width, int height){
-        ImageIcon imageIcon = ImagesManager.getImageIcon(image);
-        Image temporaryImage = imageIcon.getImage();
-        Image newImage = temporaryImage.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH);
-        return new ImageIcon(newImage);
+    protected List<JComponent> recentListToComponents(RecentList recentList, RecentListDialog recentListDialog){
+        if (recentList.getContent().isEmpty()){
+            return List.of(
+                    new EmptyRecentListPanel().getComponent()
+            );
+        } else {
+            return recentList.getContent().entrySet().stream()
+                    .sorted((a1, a2) -> Long.compare(a2.getValue().getTimeStamp(), a1.getValue().getTimeStamp()))
+                    .map(entry -> new RecentProjectButton(entry.getValue().getProjectName(), entry.getKey()))
+                    .map(entry -> {
+                        entry.setRecentListDialog(recentListDialog);
+                        return entry.getComponent();
+                    })
+                    .toList();
+        }
     }
 
 }

@@ -15,8 +15,9 @@
         <asm.version>9.3</asm.version>
         <freemarker.version>2.3.31</freemarker.version>
         <flatlaf.version>2.6</flatlaf.version>
-        <snakeyaml.version>1.33</snakeyaml.version>
+        <snakeyaml.version>2.0</snakeyaml.version>
         <gson.version>2.10</gson.version>
+        <txtmark.version>0.16.0</txtmark.version>
     </properties>
 
     <dependencies>
@@ -59,6 +60,11 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lucee</groupId>
+            <artifactId>txtmark</artifactId>
+            <version>${txtmark.version}</version>
         </dependency>
     </dependencies>
 

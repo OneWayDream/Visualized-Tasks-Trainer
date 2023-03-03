@@ -1,5 +1,7 @@
 package ru.itis.graduationwork.application.ui.core.templates;
 
+import ru.itis.graduationwork.application.Application;
+
 import javax.swing.*;
 import java.awt.Component;
 import java.awt.*;
@@ -12,8 +14,8 @@ public abstract class Dialog extends Component {
     protected int width;
     protected int height;
 
-    protected Dialog(Frame owner){
-        dialog = new JDialog(owner, true);
+    protected Dialog(){
+        dialog = new JDialog(Application.getCurrentPageFrame().getFrame(), true);
         initFields();
     }
 

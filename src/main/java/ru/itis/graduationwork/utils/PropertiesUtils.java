@@ -1,6 +1,6 @@
 package ru.itis.graduationwork.utils;
 
-import ru.itis.graduationwork.exceptions.PropertiesReadException;
+import ru.itis.graduationwork.exceptions.properties.PropertiesReadException;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

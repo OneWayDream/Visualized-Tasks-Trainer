@@ -1,6 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.main;
 
 import ru.itis.graduationwork.application.Application;
+import ru.itis.graduationwork.application.settings.Mode;
 import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
 import ru.itis.graduationwork.application.ui.pages.main.suppliers.DevelopModeComponentsSupplier;
 import ru.itis.graduationwork.application.ui.pages.main.suppliers.StudyModeComponentsSupplier;
@@ -8,7 +9,7 @@ import ru.itis.graduationwork.application.ui.pages.main.suppliers.StudyModeCompo
 public class MainPageUtils {
 
     public static ModeComponentsSupplier supplier;
-    public static MainPageFrame.Mode supplierMode;
+    public static Mode supplierMode;
 
     public static ModeComponentsSupplier getComponentSupplier(){
         if (!isComponentSupplierPresent()){
@@ -23,24 +24,20 @@ public class MainPageUtils {
     }
 
     private static void createComponentSupplier(){
-        MainPageFrame.Mode currentMode = getMode();
-        if (currentMode == MainPageFrame.Mode.DEVELOP){
+        Mode currentMode = getMode();
+        if (currentMode == Mode.DEVELOP){
             supplier =  new DevelopModeComponentsSupplier();
         } else {
             supplier =  new StudyModeComponentsSupplier();
         }
     }
 
-    public static MainPageFrame.Mode getMode(){
-        return getMainPageFrame().getMode();
+    public static Mode getMode(){
+        return Application.getMode();
     }
 
-    public static void changeMode(MainPageFrame.Mode mode){
-        getMainPageFrame().changeMode(mode);
-    }
-
-    private static MainPageFrame getMainPageFrame(){
-        return (MainPageFrame) Application.getCurrentPageFrame();
+    public static void changeMode(Mode mode){
+        Application.changeMode(mode);
     }
 
 }

@@ -2,8 +2,8 @@ package ru.itis.graduationwork.utils;
 
 import lombok.RequiredArgsConstructor;
 import org.yaml.snakeyaml.Yaml;
-import ru.itis.graduationwork.exceptions.NotFoundPropertiesException;
-import ru.itis.graduationwork.exceptions.PropertiesReadException;
+import ru.itis.graduationwork.exceptions.properties.NotFoundPropertiesException;
+import ru.itis.graduationwork.exceptions.properties.PropertiesReadException;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -3,6 +3,7 @@ package ru.itis.graduationwork.application.ui.pages.main.panels;
 import ru.itis.graduationwork.application.ui.core.templates.ModeChangeable;
 import ru.itis.graduationwork.application.ui.core.templates.Panel;
 import ru.itis.graduationwork.application.ui.pages.main.buttons.ModeSwitchButton;
+import ru.itis.graduationwork.application.ui.pages.main.labels.LeftDescriptionLabel;
 import ru.itis.graduationwork.application.ui.pages.main.labels.LeftTitleImageLabel;
 
 import java.awt.*;

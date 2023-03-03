@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.managers;
 
-import ru.itis.graduationwork.exceptions.application.UrlParsingException;
-import ru.itis.graduationwork.application.settings.units.Link;
+import ru.itis.graduationwork.exceptions.url.UrlParsingException;
+import ru.itis.graduationwork.application.settings.Link;
 import ru.itis.graduationwork.utils.PropertiesUtils;
 
 import java.net.URI;

@@ -1,15 +1,16 @@
 package ru.itis.graduationwork.application.managers;
 
 import ru.itis.graduationwork.application.loaders.ImagesLoader;
-import ru.itis.graduationwork.exceptions.application.NotInitializedThemeException;
-import ru.itis.graduationwork.application.settings.units.Image;
-import ru.itis.graduationwork.application.settings.units.Theme;
+import ru.itis.graduationwork.application.settings.Image;
+import ru.itis.graduationwork.application.settings.Theme;
+import ru.itis.graduationwork.exceptions.NotPresentImageIconException;
 import ru.itis.graduationwork.utils.ConfigurationFilesWorker;
 import ru.itis.graduationwork.utils.PropertiesUtils;
 
 import javax.swing.*;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 public class ImagesManager {
 
@@ -28,12 +29,16 @@ public class ImagesManager {
     }
 
     public static ImageIcon getImageIcon(Image image){
-        if (currentTheme == null){
-            throw new NotInitializedThemeException();
-        }
         String imageName = getImageName(image);
         String imagePath = ImagesLoader.getFilePath(imageName, currentTheme);
-        return ImagesLoader.getImageIcon(imagePath);
+        try {
+            return ImagesLoader.getImageIcon(imagePath);
+        } catch (NotPresentImageIconException exception){
+            ExceptionsManager.addDelayedException(
+                    () -> ExceptionsManager.handleNotPresentImageIconException(image.getKey()), 200, TimeUnit.MILLISECONDS
+            );
+        }
+        return new ImageIcon("");
     }
 
     private static String getImageName(Image image){
@@ -53,7 +58,14 @@ public class ImagesManager {
     }
 
     public static ImageIcon getApplicationIcon(){
-        return ImagesLoader.getImageIcon(APPLICATION_ICON_PATH);
+        try{
+            return ImagesLoader.getImageIcon(APPLICATION_ICON_PATH);
+        } catch (NotPresentImageIconException exception){
+            ExceptionsManager.addDelayedException(
+                    () -> ExceptionsManager.handleNotPresentImageIconException(APPLICATION_ICON_PATH), 200, TimeUnit.MILLISECONDS
+            );
+        }
+        return new ImageIcon("");
     }
     
 }

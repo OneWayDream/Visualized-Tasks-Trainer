@@ -1,7 +1,10 @@
 package ru.itis.graduationwork.application.ui.core.templates;
 
+import ru.itis.graduationwork.application.Application;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Component;
 
 public abstract class Chooser {
 
@@ -33,5 +36,9 @@ public abstract class Chooser {
     }
 
     public abstract void execute();
+
+    protected Component getCurrentFrame(){
+        return Application.getCurrentPageFrame().getComponent();
+    }
 
 }

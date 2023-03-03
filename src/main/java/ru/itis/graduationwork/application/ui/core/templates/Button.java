@@ -20,6 +20,13 @@ public abstract class Button implements Component, ActionListener {
         button.addActionListener(this);
     }
 
+    protected void disableDefaultButtonStyle(){
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
+        button.setOpaque(false);
+    }
+
     protected abstract void setButtonStyle();
 
     @Override

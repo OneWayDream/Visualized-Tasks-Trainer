@@ -1,13 +1,18 @@
 package ru.itis.graduationwork.application.ui.pages.main.suppliers;
 
-import ru.itis.graduationwork.application.settings.entities.RecentList;
-import ru.itis.graduationwork.application.ui.core.templates.Button;
-import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
-import ru.itis.graduationwork.application.ui.pages.main.buttons.*;
-import ru.itis.graduationwork.application.settings.units.Image;
+import ru.itis.graduationwork.application.entities.RecentList;
+import ru.itis.graduationwork.application.managers.IconsManager;
 import ru.itis.graduationwork.application.managers.LocalizationManager;
 import ru.itis.graduationwork.application.managers.RecentManager;
+import ru.itis.graduationwork.application.settings.Image;
+import ru.itis.graduationwork.application.ui.core.templates.Button;
+import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
+import ru.itis.graduationwork.application.ui.pages.main.buttons.OpenFolderAsAProjectButton;
+import ru.itis.graduationwork.application.ui.pages.main.buttons.OpenGuideButton;
+import ru.itis.graduationwork.application.ui.pages.main.buttons.OpenSiteButton;
+import ru.itis.graduationwork.application.ui.pages.main.buttons.OpenTasksListButton;
 import ru.itis.graduationwork.application.ui.pages.main.dialogs.recent.OpenRecentListButton;
+import ru.itis.graduationwork.application.ui.pages.main.dialogs.recent.RecentListDialog;
 
 import javax.swing.*;
 import java.util.List;
@@ -16,14 +21,14 @@ public class StudyModeComponentsSupplier extends ModeComponentsSupplier {
 
     @Override
     public ImageIcon getLeftPanelTitleIcon() {
-        return getImageIcon(Image.STUDENT,
+        return IconsManager.getImageIcon(Image.STUDENT,
                 MainFrameIconsConstants.LEFT_PANEL_LABEL_WIDTH,
                 MainFrameIconsConstants.LEFT_PANEL_LABEL_HEIGHT);
     }
 
     @Override
     public ImageIcon getRightPanelTitleIcon() {
-        return getImageIcon(Image.STUDY,
+        return IconsManager.getImageIcon(Image.STUDY,
                 MainFrameIconsConstants.LEFT_PANEL_LABEL_WIDTH,
                 MainFrameIconsConstants.LEFT_PANEL_LABEL_HEIGHT);
     }
@@ -61,11 +66,14 @@ public class StudyModeComponentsSupplier extends ModeComponentsSupplier {
     }
 
     @Override
-    public List<Button> getRecentPageButtons() {
+    public List<JComponent> getRecentPageContent(RecentListDialog recentListDialog) {
         RecentList list = RecentManager.getRecentTasks();
-        return list.getContent().entrySet().stream()
-                .map(entry -> (Button) new RecentTaskButton(entry.getKey(), entry.getValue()))
-                .toList();
+        return recentListToComponents(list, recentListDialog);
+    }
+
+    @Override
+    public String getEmptyRecentListText() {
+        return LocalizationManager.getLocaleTextByKey("main-frame.recent-list.study.empty-list");
     }
 
 }

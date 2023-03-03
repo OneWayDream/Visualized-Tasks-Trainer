@@ -13,6 +13,23 @@ menu:
         text: Russian
       english:
         text: English
+    change-background:
+      text: Change background
+      set-image:
+        text: Set image
+        dialog-title: Choose the image
+      reset-image:
+        text: Reset image
+  file:
+    text: File
+    create-new-project:
+      text: Create a new project
+    open-recent-project:
+      text: Open a recent project
+    open-project:
+      text: Open a project
+    to-main-menu:
+      text: To main menu
 main-frame:
   left-panel:
     label:
@@ -44,13 +61,116 @@ main-frame:
   recent-list:
     develop:
       title: Recent Projects
+      empty-list: There are no recent projects
     study:
       title: Recent Tasks
+      empty-list: There are no recent tasks
   project-creation:
     title: Project creation
     name-field:
       title: Project name
+    path-field:
+      title: Project path
     language-field:
       title: Language
     create-button:
       text: Create
+  open-as-project:
+    title: Select the project folder
+ide:
+  content:
+    main-buttons:
+      open-general-description-button:
+        text: General
+        tooltip-text: General information about the task
+      open-code-ide-button:
+        text: Redactor
+        tooltip-text: File redactor for the task solution or file manipulations
+      open-studying-content:
+        text: Content
+        tooltip-text: Information about a learning theory
+      open-task-terms:
+        text: Task
+        tooltip-text: Task statement (conditions and requirements)
+    visualization-scene:
+      control-buttons:
+        scene-at-start:
+          tooltip-text: At the start of visualization
+        scene-at-end:
+          tooltip-text: At the end of visualization
+        pause:
+          tooltip-text: Pause the visualization scene
+        play:
+          tooltip-text: Play the visualization scene
+        step-back:
+          tooltip-text: Take a step back on the scene
+        step-forward:
+          tooltip-text: Take a step forward on the scene
+    workspace:
+      choose-content-file-panel:
+        file-not-selected-label:
+          text: File is not selected. Create or select a file.
+        create-file-button:
+          text: Create a new file
+        choose-file-button:
+          text: Select a file...
+        creation-dialog:
+          title: New file
+          name-field:
+            placeholder: Name
+          button:
+            text: Create
+        content-file-chooser:
+          title: Choose a file
+      informational-panel-header:
+        change-content-file-button:
+          tooltip-text: Choose another file
+        update-content-file-button:
+          tooltip-text: Update file
+        edit-content-file-button:
+          tooltip-text: Edit file
+exceptions:
+  file-creation-exception:
+    message: Failed to create a new file.
+  file-copying-exception:
+    message: The selected file is outside the project. Unable to copy.
+  file-not-found-exception:
+    message: File (%s) was not found. Try creating or selecting another one.
+  file-reading-exception:
+    message: Unable to read the file (%s). Try creating or selecting another one.
+  unexpected-content-tab-exception:
+    message: Something went wrong...
+  not-present-image-icon-exception:
+    message: Unable to get icon (%s). Try reinstalling the application.
+  background-image-saving-exception:
+    message: Failed to save a new background image.
+  url-parsing-exception:
+    message: Something went wrong...
+  project-creation-exception:
+    message: Failed to create a new project.
+  project-directory-not-exists-exception:
+    message: Could not find a project along this path (%s).
+  project-config-reading-exception:
+    message: The project settings file could not be read. A new one has been created.
+  project-config-writing-exception:
+    message: The project settings file can't be written.
+  recent-list-reading-exception:
+    message: Failed to get recent projects.
+  recent-list-writing-exception:
+    message: Failed to save recent projects changes.
+  user-settings-file-writing-exception:
+    message: Failed to save user settings changes.
+  directory-explore-exception:
+    message: Failed to load directory content.
+  not-present-user-background-image-exception:
+    message: Failed to load custom background. Try to adjust it again.
+  unsupported-content-file-extension-exception:
+    message: This file extension is not supported. Use .html or .md extensions files.
+  file-already-exists-exception:
+    message: A file with this name already exists
+  monitoring-thread-exception:
+    message: Something went wrong...
+  monitoring-registration-exception:
+    message: Something went wrong...
+  file-writing-exception:
+    message: Failed to save file changes.

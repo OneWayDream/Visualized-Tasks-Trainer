@@ -13,7 +13,11 @@ public class ProjectNameTextField extends TextField {
 
     @Override
     protected void setUpTextField() {
-        textField.setPreferredSize(new Dimension(300, 30));
+        textField.setPreferredSize(new Dimension(500, 30));
+    }
+
+    public void setText(String text){
+        textField.setText(text);
     }
 
 }

@@ -1,12 +1,12 @@
 package ru.itis.graduationwork.application.ui.pages.main.buttons;
 
 import lombok.Getter;
-import ru.itis.graduationwork.application.settings.units.Image;
+import ru.itis.graduationwork.application.managers.IconsManager;
+import ru.itis.graduationwork.application.settings.Image;
+import ru.itis.graduationwork.application.settings.Mode;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
 import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
-import ru.itis.graduationwork.application.ui.pages.main.MainPageFrame;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
-import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 public class ModeSwitchButton extends Button {
 
     private static final int ROTATION_SPEED = 10;
-    private MainPageFrame.Mode currentMode;
+    private Mode currentMode;
 
     private final Timer rotateTimer;
     @Getter
@@ -43,8 +43,7 @@ public class ModeSwitchButton extends Button {
     }
 
     private ImageIcon getImageIcon(){
-        ModeComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
-        return supplier.getImageIcon(Image.SWITCH,
+        return IconsManager.getImageIcon(Image.SWITCH,
                 MainFrameIconsConstants.LEFT_PANEL_SWITCH_BUTTON_ICON_WIDTH,
                 MainFrameIconsConstants.LEFT_PANEL_SWITCH_BUTTON_ICON_HEIGHT);
     }
@@ -78,10 +77,10 @@ public class ModeSwitchButton extends Button {
     }
 
     private void changeMode(){
-        if (currentMode == MainPageFrame.Mode.DEVELOP){
-            currentMode = MainPageFrame.Mode.STUDY;
+        if (currentMode == Mode.DEVELOP){
+            currentMode = Mode.STUDY;
         } else {
-            currentMode = MainPageFrame.Mode.DEVELOP;
+            currentMode = Mode.DEVELOP;
         }
         MainPageUtils.changeMode(currentMode);
     }

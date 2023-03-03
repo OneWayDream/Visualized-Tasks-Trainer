@@ -1,13 +1,15 @@
 package ru.itis.graduationwork.application.ui.pages.main.suppliers;
 
-import ru.itis.graduationwork.application.settings.units.Image;
-import ru.itis.graduationwork.application.settings.entities.RecentList;
+import ru.itis.graduationwork.application.entities.RecentList;
+import ru.itis.graduationwork.application.managers.IconsManager;
+import ru.itis.graduationwork.application.managers.LocalizationManager;
+import ru.itis.graduationwork.application.managers.RecentManager;
+import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
 import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
 import ru.itis.graduationwork.application.ui.pages.main.buttons.*;
-import ru.itis.graduationwork.application.managers.LocalizationManager;
-import ru.itis.graduationwork.application.managers.RecentManager;
 import ru.itis.graduationwork.application.ui.pages.main.dialogs.recent.OpenRecentListButton;
+import ru.itis.graduationwork.application.ui.pages.main.dialogs.recent.RecentListDialog;
 
 import javax.swing.*;
 import java.util.List;
@@ -16,14 +18,14 @@ public class DevelopModeComponentsSupplier extends ModeComponentsSupplier {
 
     @Override
     public ImageIcon getLeftPanelTitleIcon() {
-        return getImageIcon(Image.DEVELOPER,
+        return IconsManager.getImageIcon(Image.DEVELOPER,
                 MainFrameIconsConstants.LEFT_PANEL_LABEL_WIDTH,
                 MainFrameIconsConstants.LEFT_PANEL_LABEL_HEIGHT);
     }
 
     @Override
     public ImageIcon getRightPanelTitleIcon() {
-        return getImageIcon(Image.DEVELOP,
+        return IconsManager.getImageIcon(Image.DEVELOP,
                 MainFrameIconsConstants.RIGHT_PANEL_LABEL_WIDTH,
                 MainFrameIconsConstants.RIGHT_PANEL_LABEL_HEIGHT);
     }
@@ -62,12 +64,14 @@ public class DevelopModeComponentsSupplier extends ModeComponentsSupplier {
     }
 
     @Override
-    public List<Button> getRecentPageButtons() {
+    public List<JComponent> getRecentPageContent(RecentListDialog recentListDialog) {
         RecentList list = RecentManager.getRecentProjects();
-        System.out.println(list);
-        return list.getContent().entrySet().stream()
-                .map(entry -> (Button) new RecentProjectButton(entry.getKey(), entry.getValue()))
-                .toList();
+        return recentListToComponents(list, recentListDialog);
+    }
+
+    @Override
+    public String getEmptyRecentListText() {
+        return LocalizationManager.getLocaleTextByKey("main-frame.recent-list.develop.empty-list");
     }
 
 }

@@ -1,15 +1,10 @@
 package ru.itis.graduationwork.application.ui.pages.main.buttons;
 
-import ru.itis.graduationwork.exceptions.application.UrlBrowsingException;
-import ru.itis.graduationwork.application.settings.units.Image;
-import ru.itis.graduationwork.application.settings.units.Link;
+import ru.itis.graduationwork.application.managers.*;
+import ru.itis.graduationwork.application.settings.Image;
+import ru.itis.graduationwork.application.settings.Link;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
 import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
-import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
-import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
-import ru.itis.graduationwork.application.managers.ColorsManager;
-import ru.itis.graduationwork.application.managers.LinksManager;
-import ru.itis.graduationwork.application.managers.LocalizationManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,8 +27,7 @@ public class OpenPluginsButton extends Button {
     }
 
     private void setIcon(){
-        ModeComponentsSupplier supplier = MainPageUtils.getComponentSupplier();
-        button.setIcon(supplier.getImageIcon(Image.PLUGIN,
+        button.setIcon(IconsManager.getImageIcon(Image.PLUGIN,
                 MainFrameIconsConstants.RIGHT_PANEL_BUTTON_ICON_WIDTH,
                 MainFrameIconsConstants.RIGHT_PANEL_BUTTON_ICON_HEIGHT));
     }
@@ -53,7 +47,7 @@ public class OpenPluginsButton extends Button {
         try{
             Desktop.getDesktop().browse(LinksManager.getLinkValue(Link.PLUGINS));
         } catch (IOException ex) {
-            throw new UrlBrowsingException(ex);
+            ExceptionsManager.handleUrlParsingException();
         }
     }
 }

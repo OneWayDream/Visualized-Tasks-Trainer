@@ -1,7 +1,8 @@
 package ru.itis.graduationwork.application.loaders;
 
 import lombok.Getter;
-import ru.itis.graduationwork.application.settings.units.Theme;
+import ru.itis.graduationwork.application.settings.Theme;
+import ru.itis.graduationwork.exceptions.NotPresentImageIconException;
 import ru.itis.graduationwork.utils.PropertiesUtils;
 
 import javax.swing.*;
@@ -20,7 +21,15 @@ public class ImagesLoader {
     }
 
     public static ImageIcon getImageIcon(String imageIconPath){
+        ImageIcon imageIcon = new ImageIcon(imageIconPath);
+        if (!isPresentImageIcon(imageIcon)){
+            throw new NotPresentImageIconException();
+        }
         return new ImageIcon(imageIconPath);
+    }
+
+    private static boolean isPresentImageIcon(ImageIcon imageIcon){
+        return imageIcon.getIconHeight() != -1;
     }
 
     public static String getFilePath(String fileName, Theme theme){
