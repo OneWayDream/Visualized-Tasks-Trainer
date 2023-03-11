@@ -1,11 +1,12 @@
 package ru.itis.graduationwork.application.ui.pages.develop.panels.explorer;
 
-import ru.itis.graduationwork.application.managers.ColorsManager;
-import ru.itis.graduationwork.application.managers.ConfigManager;
+import ru.itis.graduationwork.application.managers.files.ConfigManager;
+import ru.itis.graduationwork.application.managers.settings.ColorsManager;
 import ru.itis.graduationwork.application.settings.Image;
-import ru.itis.graduationwork.application.ui.core.explorer.*;
+import ru.itis.graduationwork.application.ui.core.ide.explorer.*;
 import ru.itis.graduationwork.application.ui.core.templates.FileTree;
 import ru.itis.graduationwork.application.ui.pages.develop.panels.explorer.listeners.DeveloperFileExplorerMouseListener;
+import ru.itis.graduationwork.application.ui.pages.develop.panels.explorer.popup.PopupTrigger;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -27,6 +28,7 @@ public class DevelopFileTree extends FileTree {
         setFileTreeSettings();
         setTreeRenderer();
         setListeners();
+        setPopupMenuSettings();
     }
 
     private void initStartTreeStructure(){
@@ -74,6 +76,10 @@ public class DevelopFileTree extends FileTree {
     private void setListeners(){
         tree.addTreeExpansionListener(new DirectoryExpansionListener((DefaultTreeModel) tree.getModel()));
         tree.addMouseListener(new DeveloperFileExplorerMouseListener());
+    }
+
+    private void setPopupMenuSettings(){
+        tree.addMouseListener(new PopupTrigger(tree));
     }
 
 }

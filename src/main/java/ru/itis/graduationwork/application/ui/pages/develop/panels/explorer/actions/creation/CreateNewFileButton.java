@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.develop.panels.explorer.actions.creation;
 
-import ru.itis.graduationwork.application.managers.ExceptionsManager;
-import ru.itis.graduationwork.application.managers.LocalizationManager;
+import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
+import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
 import ru.itis.graduationwork.exceptions.files.FileAlreadyExistsException;
 import ru.itis.graduationwork.exceptions.files.FileCreationException;

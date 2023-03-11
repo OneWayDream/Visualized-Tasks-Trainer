@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.main.choosers;
 
-import ru.itis.graduationwork.application.managers.LocalizationManager;
-import ru.itis.graduationwork.application.managers.ProjectsManager;
+import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
+import ru.itis.graduationwork.application.managers.project.ProjectsManager;
 import ru.itis.graduationwork.application.ui.core.templates.Chooser;
 
 import javax.swing.*;

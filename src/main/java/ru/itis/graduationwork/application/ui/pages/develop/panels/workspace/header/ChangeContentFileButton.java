@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.develop.panels.workspace.header;
 
-import ru.itis.graduationwork.application.managers.IconsManager;
-import ru.itis.graduationwork.application.managers.LocalizationManager;
+import ru.itis.graduationwork.application.managers.content.IconsManager;
+import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
 import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.ui.core.ide.IdeFramesIconsConstants;
 import ru.itis.graduationwork.application.ui.core.templates.Button;

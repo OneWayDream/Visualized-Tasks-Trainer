@@ -13,7 +13,7 @@ public class ProjectConfig {
 
     private String projectName;
     private String projectPath;
-    private String language;
+    private Language language;
     private String generalDescriptionFilePath;
     private String studyingContentFilePath;
     private String taskTermsFilePath;

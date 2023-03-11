@@ -1,12 +1,12 @@
 package ru.itis.graduationwork.application.loaders;
 
-import ru.itis.graduationwork.application.managers.ConfigManager;
-import ru.itis.graduationwork.application.managers.ExceptionsManager;
-import ru.itis.graduationwork.application.managers.FilesManager;
-import ru.itis.graduationwork.application.ui.pages.develop.panels.workspace.ContentTab;
+import ru.itis.graduationwork.application.managers.files.ConfigManager;
+import ru.itis.graduationwork.application.managers.files.FilesManager;
+import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
+import ru.itis.graduationwork.application.ui.core.ide.workspace.ContentTab;
+import ru.itis.graduationwork.exceptions.UnexpectedContentTabException;
 import ru.itis.graduationwork.exceptions.files.FileNotFoundException;
 import ru.itis.graduationwork.exceptions.files.FileReadingException;
-import ru.itis.graduationwork.exceptions.UnexpectedContentTabException;
 import ru.itis.graduationwork.exceptions.files.UnsupportedContentFileExtensionException;
 
 import java.util.concurrent.TimeUnit;
@@ -40,6 +40,7 @@ public class ContentLoader {
             ExceptionsManager.addDelayedException(
                     ExceptionsManager::handleUnsupportedContentFileExtensionException, 200, TimeUnit.MILLISECONDS
             );
+            resetContentFilePathForTab(contentTab);
         }
         return null;
     }

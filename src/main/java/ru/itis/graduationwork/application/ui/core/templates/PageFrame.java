@@ -2,8 +2,8 @@ package ru.itis.graduationwork.application.ui.core.templates;
 
 import lombok.Getter;
 import ru.itis.graduationwork.application.Application;
-import ru.itis.graduationwork.application.managers.ColorsManager;
-import ru.itis.graduationwork.application.managers.ImagesManager;
+import ru.itis.graduationwork.application.managers.settings.ColorsManager;
+import ru.itis.graduationwork.application.managers.content.ImagesManager;
 import ru.itis.graduationwork.application.settings.Mode;
 import ru.itis.graduationwork.application.ui.core.PageType;
 

@@ -1,8 +1,8 @@
 package ru.itis.graduationwork.application.ui.pages.menu.file;
 
-import ru.itis.graduationwork.application.managers.ColorsManager;
-import ru.itis.graduationwork.application.managers.IconsManager;
-import ru.itis.graduationwork.application.managers.LocalizationManager;
+import ru.itis.graduationwork.application.managers.settings.ColorsManager;
+import ru.itis.graduationwork.application.managers.content.IconsManager;
+import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
 import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.ui.core.templates.Menu;
 import ru.itis.graduationwork.application.ui.pages.menu.MenuIconConstants;

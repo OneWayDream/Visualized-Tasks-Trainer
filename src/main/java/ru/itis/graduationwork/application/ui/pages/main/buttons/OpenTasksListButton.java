@@ -1,6 +1,10 @@
 package ru.itis.graduationwork.application.ui.pages.main.buttons;
 
-import ru.itis.graduationwork.application.managers.*;
+import ru.itis.graduationwork.application.managers.content.IconsManager;
+import ru.itis.graduationwork.application.managers.content.LinksManager;
+import ru.itis.graduationwork.application.managers.settings.ColorsManager;
+import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
+import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
 import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.settings.Link;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
@@ -43,7 +47,6 @@ public class OpenTasksListButton extends Button {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Open tasks list");
         try{
             Desktop.getDesktop().browse(LinksManager.getLinkValue(Link.TASKS));
         } catch (IOException ex) {

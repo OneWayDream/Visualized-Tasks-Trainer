@@ -6,7 +6,6 @@ import java.awt.*;
 
 public class ContentFileChooserPanel extends Panel {
 
-
     public ContentFileChooserPanel(){
         super();
         createPanel();

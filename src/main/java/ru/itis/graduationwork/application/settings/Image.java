@@ -41,7 +41,8 @@ public enum Image {
     PREVIOUS("previous"),
     AT_START("at-start"),
     AT_END("at-end"),
-    EDIT("edit");
+    EDIT("edit"),
+    RUN("run");
 
     private final String key;
 

@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.develop.panels.explorer.listeners;
 
-import ru.itis.graduationwork.application.managers.WorkspaceContentManager;
-import ru.itis.graduationwork.application.ui.core.explorer.TreePathsUtils;
+import ru.itis.graduationwork.application.managers.project.WorkspaceContentManager;
+import ru.itis.graduationwork.application.ui.core.ide.explorer.TreePathsUtils;
 
 import javax.swing.*;
 import javax.swing.tree.TreePath;

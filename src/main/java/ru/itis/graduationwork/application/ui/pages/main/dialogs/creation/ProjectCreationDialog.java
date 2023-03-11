@@ -1,11 +1,15 @@
 package ru.itis.graduationwork.application.ui.pages.main.dialogs.creation;
 
+import ru.itis.graduationwork.application.entities.Language;
 import ru.itis.graduationwork.application.entities.NewProjectInfo;
-import ru.itis.graduationwork.application.managers.ExceptionsManager;
-import ru.itis.graduationwork.application.managers.LocalizationManager;
-import ru.itis.graduationwork.application.managers.ProjectsManager;
+import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
+import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
+import ru.itis.graduationwork.application.managers.project.ProjectsManager;
 import ru.itis.graduationwork.application.ui.core.templates.Dialog;
 import ru.itis.graduationwork.exceptions.ProjectCreationException;
+import ru.itis.graduationwork.exceptions.UnsupportedLanguageException;
+import ru.itis.graduationwork.exceptions.files.FileNotFoundException;
+import ru.itis.graduationwork.exceptions.files.FileReadingException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +21,6 @@ public class ProjectCreationDialog extends Dialog {
 
     private ProjectNameTextField projectNameTextField;
     private ProjectPathTextField projectPathTextField;
-    private ChoosePathButton choosePathButton;
     private JComboBox<String> languageSelectBox;
 
     @Override
@@ -117,7 +120,7 @@ public class ProjectCreationDialog extends Dialog {
         constraint.gridy = 1;
         constraint.weightx = 0.1;
         constraint.insets = new Insets(50,-120,0,0);
-        choosePathButton = new ChoosePathButton(projectPathTextField, projectNameTextField);
+        ChoosePathButton choosePathButton = new ChoosePathButton(projectPathTextField, projectNameTextField);
         dialog.add(choosePathButton.getComponent(), constraint);
     }
 
@@ -146,7 +149,7 @@ public class ProjectCreationDialog extends Dialog {
         constraint.gridy = 2;
         constraint.weightx = 0.6;
         constraint.insets = new Insets(-200,-225,0,100);
-        languageSelectBox = new JComboBox<>(new String[]{"Java"});
+        languageSelectBox = new JComboBox<>(Language.getLanguagesNames());
         dialog.add(languageSelectBox, constraint);
     }
 
@@ -168,6 +171,10 @@ public class ProjectCreationDialog extends Dialog {
             ProjectsManager.openProject(newProjectInfo.getProjectPath());
         } catch (ProjectCreationException exception){
             ExceptionsManager.handleProjectCreationException();
+        } catch (UnsupportedLanguageException exception){
+            ExceptionsManager.handleUnsupportedLanguageException();
+        } catch (FileNotFoundException | FileReadingException exception){
+            ExceptionsManager.handleSolutionTemplateException();
         }
     }
 
@@ -175,7 +182,7 @@ public class ProjectCreationDialog extends Dialog {
         return NewProjectInfo.builder()
                 .projectName(projectNameTextField.getText())
                 .projectPath(projectPathTextField.getText())
-                .language((String) languageSelectBox.getSelectedItem())
+                .language(Language.getByName((String) languageSelectBox.getSelectedItem()))
                 .build();
     }
 

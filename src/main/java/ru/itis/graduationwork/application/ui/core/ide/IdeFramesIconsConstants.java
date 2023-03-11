@@ -12,5 +12,7 @@ public class IdeFramesIconsConstants {
     public static final int FILE_CHOOSE_BUTTONS_ICON_HEIGHT = 65;
     public static final int WORKSPACE_INFORMATIONAL_HEADER_ICON_WIDTH = 35;
     public static final int WORKSPACE_INFORMATIONAL_HEADER_ICON_HEIGHT = 35;
+    public static final int WORKSPACE_EDITOR_FOOTER_ICON_WIDTH = 35;
+    public static final int WORKSPACE_EDITOR_FOOTER_ICON_HEIGHT = 35;
 
 }

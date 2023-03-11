@@ -1,11 +1,11 @@
 package ru.itis.graduationwork.application.ui.core.templates;
 
-import ru.itis.graduationwork.application.managers.ConfigManager;
+import ru.itis.graduationwork.application.managers.files.ConfigManager;
 import ru.itis.graduationwork.application.settings.Image;
-import ru.itis.graduationwork.application.ui.core.explorer.ExplorerUtils;
-import ru.itis.graduationwork.application.ui.core.explorer.FileNode;
-import ru.itis.graduationwork.application.ui.core.explorer.FileWatchService;
-import ru.itis.graduationwork.application.ui.core.explorer.IconData;
+import ru.itis.graduationwork.application.ui.core.ide.explorer.ExplorerUtils;
+import ru.itis.graduationwork.application.ui.core.ide.explorer.FileNode;
+import ru.itis.graduationwork.application.ui.core.ide.explorer.FileWatchService;
+import ru.itis.graduationwork.application.ui.core.ide.explorer.IconData;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;

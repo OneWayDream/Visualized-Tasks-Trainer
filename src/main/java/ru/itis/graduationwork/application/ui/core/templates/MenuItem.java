@@ -1,6 +1,6 @@
 package ru.itis.graduationwork.application.ui.core.templates;
 
-import ru.itis.graduationwork.application.managers.IconsManager;
+import ru.itis.graduationwork.application.managers.content.IconsManager;
 import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.ui.pages.menu.MenuIconConstants;
 

@@ -8,9 +8,6 @@
 # Legacy Files
 *legacy/
 
-# Templates Files
-src/main/resources/templates/
-
 # Test tasks
 TestTasks/
 

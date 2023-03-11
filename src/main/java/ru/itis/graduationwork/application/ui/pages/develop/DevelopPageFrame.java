@@ -4,14 +4,15 @@ import ru.itis.graduationwork.application.ui.core.PageType;
 import ru.itis.graduationwork.application.ui.core.ide.IdePageFrame;
 import ru.itis.graduationwork.application.ui.core.templates.PageFrame;
 import ru.itis.graduationwork.application.ui.pages.develop.panels.explorer.DevelopFileExplorerPanel;
-import ru.itis.graduationwork.application.ui.pages.develop.panels.visualization.VisualizationPanel;
-import ru.itis.graduationwork.application.ui.pages.develop.panels.workspace.ButtonsAndWorkspacePanel;
+import ru.itis.graduationwork.application.ui.core.ide.visualization.components.VisualizationPanel;
+import ru.itis.graduationwork.application.ui.core.ide.workspace.ButtonsAndWorkspacePanel;
 
 import java.awt.*;
 
 public class DevelopPageFrame extends IdePageFrame {
 
     private ButtonsAndWorkspacePanel buttonsAndWorkspacePanel;
+    private VisualizationPanel visualizationPanel;
 
     public DevelopPageFrame(){
         super();
@@ -42,12 +43,18 @@ public class DevelopPageFrame extends IdePageFrame {
         backgroundPanel.add(new DevelopFileExplorerPanel().getComponent(), BorderLayout.LINE_START);
         buttonsAndWorkspacePanel = new ButtonsAndWorkspacePanel();
         backgroundPanel.add(buttonsAndWorkspacePanel.getComponent(), BorderLayout.CENTER);
-        backgroundPanel.add(new VisualizationPanel().getComponent(), BorderLayout.LINE_END);
+        visualizationPanel = new VisualizationPanel();
+        backgroundPanel.add(visualizationPanel.getComponent(), BorderLayout.LINE_END);
     }
 
 
+    @Override
     public void updateWorkspaceContent() {
         buttonsAndWorkspacePanel.updateWorkspaceContent();
+    }
+
+    public void updateVisualizationScene(){
+        visualizationPanel.updateContent();
     }
 
 }

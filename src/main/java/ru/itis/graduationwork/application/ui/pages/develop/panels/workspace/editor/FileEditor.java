@@ -1,9 +1,9 @@
 package ru.itis.graduationwork.application.ui.pages.develop.panels.workspace.editor;
 
-import ru.itis.graduationwork.application.managers.ColorsManager;
-import ru.itis.graduationwork.application.managers.ExceptionsManager;
-import ru.itis.graduationwork.application.managers.FilesManager;
-import ru.itis.graduationwork.application.managers.WorkspaceContentManager;
+import ru.itis.graduationwork.application.managers.settings.ColorsManager;
+import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
+import ru.itis.graduationwork.application.managers.files.FilesManager;
+import ru.itis.graduationwork.application.managers.project.WorkspaceContentManager;
 import ru.itis.graduationwork.application.ui.core.templates.TextArea;
 import ru.itis.graduationwork.exceptions.files.FileWritingException;
 

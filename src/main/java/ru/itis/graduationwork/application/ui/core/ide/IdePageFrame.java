@@ -2,7 +2,8 @@ package ru.itis.graduationwork.application.ui.core.ide;
 
 import lombok.Getter;
 import ru.itis.graduationwork.application.entities.ProjectConfig;
-import ru.itis.graduationwork.application.managers.BackgroundImageManager;
+import ru.itis.graduationwork.application.managers.project.WorkspaceContentManager;
+import ru.itis.graduationwork.application.managers.settings.BackgroundImageManager;
 import ru.itis.graduationwork.application.ui.core.templates.PageFrame;
 import ru.itis.graduationwork.application.ui.pages.menu.file.FileMenu;
 import ru.itis.graduationwork.application.ui.pages.menu.settings.SettingsMenu;
@@ -45,6 +46,14 @@ public abstract class IdePageFrame extends PageFrame {
         menuBar.add(new FileMenu().getComponent());
         menuBar.add(new SettingsMenu().getComponent());
         frame.setJMenuBar(menuBar);
+    }
+
+    public abstract void updateWorkspaceContent();
+
+    @Override
+    public void dispose(){
+        WorkspaceContentManager.saveEditorChangedIfNeeded();
+        frame.dispose();
     }
 
 }

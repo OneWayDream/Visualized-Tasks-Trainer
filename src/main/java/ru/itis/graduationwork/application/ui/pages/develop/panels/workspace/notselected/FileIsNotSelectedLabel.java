@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.develop.panels.workspace.notselected;
 
-import ru.itis.graduationwork.application.managers.ColorsManager;
-import ru.itis.graduationwork.application.managers.LocalizationManager;
+import ru.itis.graduationwork.application.managers.settings.ColorsManager;
+import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
 import ru.itis.graduationwork.application.ui.core.templates.Label;
 
 import javax.swing.*;
@@ -16,7 +16,7 @@ public class FileIsNotSelectedLabel extends Label {
 
     @Override
     protected void setUpLabel() {
-        label.setText(LocalizationManager.getLocaleTextByKey("ide.content.workspace.choose-content-file-panel.file-not-selected-label.text"));
+        label.setText(LocalizationManager.getLocaleTextByKey("ide.content.workspace.choose-content-file-panel.file-not-selected-label.develop.text"));
         label.setFont(new Font("Comic Sans", Font.ITALIC, 22));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setForeground(ColorsManager.getTextColor());

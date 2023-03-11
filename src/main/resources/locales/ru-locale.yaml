@@ -106,10 +106,15 @@ ide:
           tooltip-text: Сделать шаг назад в визуализации
         step-forward:
           tooltip-text: Сделать шаг вперёд в визуализации
+        update-scene:
+          tooltip-text: Обновить сцену
     workspace:
       choose-content-file-panel:
         file-not-selected-label:
-          text: Файл не выбран. Создайте или выберите файл.
+          develop:
+            text: Файл не выбран. Создайте или выберите файл.
+          student:
+            text: Разработчик не добавил информацию.
         create-file-button:
           text: Создать новый файл
         choose-file-button:
@@ -129,6 +134,13 @@ ide:
           tooltip-text: Обновить файл
         edit-content-file-button:
           tooltip-text: Изменить файл
+        editor-footer:
+          run-file-button:
+            tooltip-text: Выполнить решение.
+      explorer:
+        popup-menu:
+          create-file:
+            text: Создать файл
 exceptions:
   file-creation-exception:
     text: Не удалось создать новый файл.
@@ -172,3 +184,37 @@ exceptions:
     message: Что-то пошло не так...
   file-writing-exception:
     message: Не удалось сохранить изменения файла
+  unsupported-language-exception:
+    message: Что-то пошло не так...
+  solution-template-exception:
+    message: Что-то пошло не так...
+  visualization-file-not-found-exception:
+    message: Не удалось получить ключевые файлы визуализации. Были созданы новые.
+  visualization-file-recovery-exception:
+    message: Что-то пошло не так...
+  wrapper-file-reading-exception:
+    message: Не удалось прочитать обёрточные файлы.
+  empty-new-file-name-exception:
+    message: Имя файла должно существовать!
+templates:
+  solution-file-template:
+    description: |
+      Обучающиеся будут использовать этот файл для решения вашей задачи. Напишите необходимые импорты,
+      добавьте комментарии и вызовите несколько функций в методе 'run'
+      (мы скроем его от учеников во время решения).
+  test-solution-file-template:
+    description: |
+      Вы можете использовать этот файл для тестирования вашей задачи. Напишите необходимые импорты,
+      добавьте комментарии и вызовите несколько функций в методе 'run'
+  visualization-read-me-file:
+    content: |
+      Используйте эту папку для хранения файлов визуализации.
+  wrappers-read-me-file:
+    content: |
+      Используйте эту папку для хранения своих обёрток для классов и функций.
+  informational-read-me-file:
+    content: |
+      Используйте эту папку для хранения информационных файлов (поддерживаются файлы .html или .md).
+  custom-panel-file-template:
+    description: |
+      Переопределите эту панель нужным вам образом. Она будет использоваться для визуализации.

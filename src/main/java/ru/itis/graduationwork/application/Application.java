@@ -1,9 +1,10 @@
 package ru.itis.graduationwork.application;
 
 import lombok.Getter;
-import ru.itis.graduationwork.application.managers.LookAndFeelManager;
-import ru.itis.graduationwork.application.managers.PagesManager;
-import ru.itis.graduationwork.application.managers.SettingsManager;
+import ru.itis.graduationwork.application.managers.project.WorkspaceContentManager;
+import ru.itis.graduationwork.application.managers.settings.LookAndFeelManager;
+import ru.itis.graduationwork.application.managers.content.PagesManager;
+import ru.itis.graduationwork.application.managers.settings.SettingsManager;
 import ru.itis.graduationwork.application.settings.Locale;
 import ru.itis.graduationwork.application.settings.Mode;
 import ru.itis.graduationwork.application.settings.Theme;
@@ -67,6 +68,7 @@ public class Application {
 
     public static void exit(){
         SettingsManager.saveSettings();
+        WorkspaceContentManager.saveEditorChangedIfNeeded();
         System.exit(0);
     }
 

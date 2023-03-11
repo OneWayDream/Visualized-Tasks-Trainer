@@ -1,6 +1,6 @@
 package ru.itis.graduationwork.application.ui.pages.main.dialogs.recent;
 
-import ru.itis.graduationwork.application.managers.ColorsManager;
+import ru.itis.graduationwork.application.managers.settings.ColorsManager;
 import ru.itis.graduationwork.application.ui.core.templates.Label;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
 import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;

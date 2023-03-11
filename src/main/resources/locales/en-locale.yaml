@@ -106,10 +106,15 @@ ide:
           tooltip-text: Take a step back on the scene
         step-forward:
           tooltip-text: Take a step forward on the scene
+        update-scene:
+          tooltip-text: Update visualization scene
     workspace:
       choose-content-file-panel:
         file-not-selected-label:
-          text: File is not selected. Create or select a file.
+          develop:
+            text: File is not selected. Create or select a file.
+          student:
+            text: The developer did not add any information.
         create-file-button:
           text: Create a new file
         choose-file-button:
@@ -129,6 +134,13 @@ ide:
           tooltip-text: Update file
         edit-content-file-button:
           tooltip-text: Edit file
+      editor-footer:
+        run-file-button:
+          tooltip-text: Run a solution.
+      explorer:
+        popup-menu:
+          create-file:
+            text: Create file
 exceptions:
   file-creation-exception:
     message: Failed to create a new file.
@@ -174,3 +186,37 @@ exceptions:
     message: Something went wrong...
   file-writing-exception:
     message: Failed to save file changes.
+  unsupported-language-exception:
+    message: Something went wrong...
+  solution-template-exception:
+    message: Something went wrong...
+  visualization-file-not-found-exception:
+    message: Failed to retrieve the root visualisation files. We have created new.
+  visualization-file-recovery-exception:
+    message: Something went wrong...
+  wrapper-file-reading-exception:
+    message: Failed to read wrapper files.
+  empty-new-file-name-exception:
+    message: The file name must exists!
+templates:
+  solution-file-template:
+    description: |
+      Students will use this file to solve your task. Write the necessary imports,
+      add comments and call some functions in the 'run' method
+      (we will hide it from the students during the solution).
+  test-solution-file-template:
+    description: |
+      You can use this file to test your task. Write the necessary imports,
+      add comments and call some functions in the 'run' method.
+  visualization-read-me-file:
+    content: |
+      Use this folder to store visualization files.
+  wrappers-read-me-file:
+    content: |
+      Use this folder to store custom class / functions wrappers.
+  informational-read-me-file:
+    content: |
+      Use this folder to store informational files (.html or .md files are supported).
+  custom-panel-file-template:
+    description: |
+      Override this panel the way you want it. It will be used for visualisation.

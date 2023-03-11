@@ -1,6 +1,6 @@
 package ru.itis.graduationwork.application.ui.pages.main.dialogs.creation;
 
-import ru.itis.graduationwork.application.managers.ImagesManager;
+import ru.itis.graduationwork.application.managers.content.ImagesManager;
 import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
 

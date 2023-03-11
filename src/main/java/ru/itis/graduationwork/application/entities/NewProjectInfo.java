@@ -13,6 +13,6 @@ public class NewProjectInfo {
 
     private String projectName;
     private String projectPath;
-    private String language;
+    private Language language;
 
 }

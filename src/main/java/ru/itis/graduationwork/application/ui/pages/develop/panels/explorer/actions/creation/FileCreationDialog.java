@@ -1,8 +1,11 @@
 package ru.itis.graduationwork.application.ui.pages.develop.panels.explorer.actions.creation;
 
-import ru.itis.graduationwork.application.managers.ConfigManager;
-import ru.itis.graduationwork.application.managers.FilesManager;
-import ru.itis.graduationwork.application.managers.LocalizationManager;
+import ru.itis.graduationwork.application.entities.Language;
+import ru.itis.graduationwork.application.loaders.TemplatesLoader;
+import ru.itis.graduationwork.application.managers.files.ConfigManager;
+import ru.itis.graduationwork.application.managers.files.FilesManager;
+import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
+import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
 import ru.itis.graduationwork.application.ui.core.templates.Dialog;
 
 import java.awt.*;
@@ -10,8 +13,13 @@ import java.io.File;
 
 public class FileCreationDialog extends Dialog {
 
+    private final String folderPath;
     private FileNameTextField fileNameTextField;
     private boolean isCreated = false;
+
+    public FileCreationDialog(String folderPath){
+        this.folderPath = folderPath;
+    }
 
     @Override
     protected void initFields() {
@@ -54,9 +62,51 @@ public class FileCreationDialog extends Dialog {
 
     public void createNewFile(){
         String fileName = fileNameTextField.getText();
-        String filePath = ConfigManager.getProjectPath() + File.separator + fileName;
-        FilesManager.createFile(filePath);
-        isCreated = true;
+        if (fileName.length() == 0){
+            ExceptionsManager.handleEmptyNewFileNameException();
+        } else {
+            String fileExtension = getFileExtension(fileName);
+            if (fileExtension.equals(Language.JAVA.getExtension())){
+                createNewJavaFile(fileName);
+            } else {
+                String filePath = getFilePath();
+                FilesManager.createFile(filePath);
+            }
+            isCreated = true;
+        }
+    }
+
+    private String getFileExtension(String fileName){
+        String fileExtension = "";
+        if (fileName.contains(".")){
+            fileExtension = fileName.substring(fileName.lastIndexOf('.'));
+        }
+        return fileExtension;
+    }
+
+    private void createNewJavaFile(String fileName){
+        String fileContent = TemplatesLoader.getJavaFileTemplateFileTemplateContent(Language.JAVA);
+        String preparedFileContent = String.format(fileContent, getFileName(fileName));
+        preparedFileContent = getPackagePart() + preparedFileContent;
+        FilesManager.writeFile(getFilePath(), preparedFileContent);
+    }
+
+    private String getFileName(String fileName){
+        return fileName.substring(0, fileName.length() - 5);
+    }
+
+    private String getPackagePart(){
+        StringBuilder packagePart = new StringBuilder();
+        if (!folderPath.equals(ConfigManager.getProjectPath())){
+            String packagePath = folderPath.substring(ConfigManager.getProjectPath().length() + 1);
+            String packageValue = packagePath.replace(File.separatorChar, '.');
+            packagePart.append("package ").append(packageValue).append(";\n\n");
+            if (packagePart.toString().contains("wrappers")){
+                packagePart.append("import ru.itis.graduationwork.application.managers.project.VisualizationActionsManager;\n")
+                        .append("import ru.itis.graduationwork.application.entities.VisualizationAction;\n\n");
+            }
+        }
+        return packagePart.toString();
     }
 
     public boolean isFileCreated(){
@@ -64,7 +114,7 @@ public class FileCreationDialog extends Dialog {
     }
 
     public String getFilePath(){
-        return ConfigManager.getProjectPath() + File.separator + fileNameTextField.getText();
+        return folderPath + File.separator + fileNameTextField.getText();
     }
 
     public void dispose(){

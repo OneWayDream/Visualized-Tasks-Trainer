@@ -1,6 +1,6 @@
 package ru.itis.graduationwork.application.ui.pages.main.dialogs.creation;
 
-import ru.itis.graduationwork.application.managers.LocalizationManager;
+import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
 
 import java.awt.event.ActionEvent;

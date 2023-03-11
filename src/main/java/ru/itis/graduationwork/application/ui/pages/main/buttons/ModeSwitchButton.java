@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.main.buttons;
 
 import lombok.Getter;
-import ru.itis.graduationwork.application.managers.IconsManager;
+import ru.itis.graduationwork.application.managers.content.IconsManager;
 import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.settings.Mode;
 import ru.itis.graduationwork.application.ui.core.templates.Button;

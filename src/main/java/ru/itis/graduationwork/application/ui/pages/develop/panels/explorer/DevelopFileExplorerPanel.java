@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.develop.panels.explorer;
 
 import ru.itis.graduationwork.application.Application;
-import ru.itis.graduationwork.application.managers.ColorsManager;
+import ru.itis.graduationwork.application.managers.settings.ColorsManager;
 import ru.itis.graduationwork.application.ui.core.templates.Panel;
 
 import java.awt.*;

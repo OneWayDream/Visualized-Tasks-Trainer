@@ -3,7 +3,7 @@ package ru.itis.graduationwork.application.ui.pages.main.labels;
 import ru.itis.graduationwork.application.ui.core.templates.Label;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageUtils;
 import ru.itis.graduationwork.application.ui.pages.main.suppliers.ModeComponentsSupplier;
-import ru.itis.graduationwork.application.managers.ColorsManager;
+import ru.itis.graduationwork.application.managers.settings.ColorsManager;
 
 import javax.swing.*;
 import java.awt.*;

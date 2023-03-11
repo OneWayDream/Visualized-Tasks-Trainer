@@ -1,6 +1,6 @@
 package ru.itis.graduationwork.application.ui.pages.develop.panels.workspace.header;
 
-import ru.itis.graduationwork.application.managers.ColorsManager;
+import ru.itis.graduationwork.application.managers.settings.ColorsManager;
 import ru.itis.graduationwork.application.ui.core.templates.Panel;
 
 import javax.swing.*;
