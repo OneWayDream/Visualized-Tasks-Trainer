@@ -1,11 +1,12 @@
 package ru.itis.graduationwork.application.compilers.java;
 
 import ru.itis.graduationwork.application.compilers.SolutionsFilesCompiler;
-import ru.itis.graduationwork.application.entities.SolutionScheme;
+import ru.itis.graduationwork.application.entities.project.SolutionScheme;
 import ru.itis.graduationwork.application.loaders.ProjectClassLoader;
-import ru.itis.graduationwork.application.managers.project.JavaClassesCompiler;
 import ru.itis.graduationwork.application.managers.project.ProjectFilesManager;
-import ru.itis.graduationwork.exceptions.ProjectClassLoadingException;
+import ru.itis.graduationwork.exceptions.execution.JavaFileCompilationException;
+import ru.itis.graduationwork.exceptions.execution.SolutionFileCompilationException;
+import ru.itis.graduationwork.exceptions.execution.SolutionFileExecutingException;
 
 public class JavaSolutionsFilesCompiler extends SolutionsFilesCompiler {
 
@@ -32,17 +33,25 @@ public class JavaSolutionsFilesCompiler extends SolutionsFilesCompiler {
             SolutionScheme solutionScheme = (SolutionScheme) customPanelClass.getDeclaredConstructor().newInstance();
             solutionScheme.execute();
         } catch (Exception exception) {
-            throw new ProjectClassLoadingException(exception);
+            throw new SolutionFileExecutingException(exception);
         }
     }
 
     @Override
     public void compileSolutionFile() {
-        JavaClassesCompiler.compileFile(SOLUTION_FILE_PATH);
+        try{
+            JavaClassesCompiler.compileFile(SOLUTION_FILE_PATH);
+        } catch (JavaFileCompilationException exception){
+            throw new SolutionFileCompilationException(exception);
+        }
     }
 
     @Override
     public void compileTestSolutionFile() {
-        JavaClassesCompiler.compileFile(TEST_SOLUTION_FILE_PATH);
+        try{
+            JavaClassesCompiler.compileFile(TEST_SOLUTION_FILE_PATH);
+        } catch (JavaFileCompilationException exception){
+            throw new SolutionFileCompilationException(exception);
+        }
     }
 }

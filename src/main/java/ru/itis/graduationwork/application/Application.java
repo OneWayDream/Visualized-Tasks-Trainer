@@ -1,7 +1,10 @@
 package ru.itis.graduationwork.application;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import ru.itis.graduationwork.application.managers.project.WorkspaceContentManager;
+import ru.itis.graduationwork.application.managers.project.visualization.buttons.chain.VisualizationControlButtonsDisableReasonManager;
+import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
 import ru.itis.graduationwork.application.managers.settings.LookAndFeelManager;
 import ru.itis.graduationwork.application.managers.content.PagesManager;
 import ru.itis.graduationwork.application.managers.settings.SettingsManager;
@@ -10,6 +13,7 @@ import ru.itis.graduationwork.application.settings.Mode;
 import ru.itis.graduationwork.application.settings.Theme;
 import ru.itis.graduationwork.application.ui.core.templates.PageFrame;
 
+@Slf4j
 public class Application {
 
     @Getter
@@ -26,6 +30,7 @@ public class Application {
         LookAndFeelManager.initLookAndFeel();
         initMode();
         initStartPage();
+        log.info(LocalizationManager.getLocaleTextByKey("logging.application-start"));
     }
 
     private void initMode(){
@@ -51,6 +56,7 @@ public class Application {
 
     public static void changeLocale(Locale locale){
         SettingsManager.setLocale(locale);
+        VisualizationControlButtonsDisableReasonManager.changeLocale();
         reloadPage();
     }
 
@@ -69,6 +75,7 @@ public class Application {
     public static void exit(){
         SettingsManager.saveSettings();
         WorkspaceContentManager.saveEditorChangedIfNeeded();
+        log.info(LocalizationManager.getLocaleTextByKey("logging.application-close"));
         System.exit(0);
     }
 

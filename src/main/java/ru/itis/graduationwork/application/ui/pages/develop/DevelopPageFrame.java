@@ -12,7 +12,6 @@ import java.awt.*;
 public class DevelopPageFrame extends IdePageFrame {
 
     private ButtonsAndWorkspacePanel buttonsAndWorkspacePanel;
-    private VisualizationPanel visualizationPanel;
 
     public DevelopPageFrame(){
         super();
@@ -43,18 +42,13 @@ public class DevelopPageFrame extends IdePageFrame {
         backgroundPanel.add(new DevelopFileExplorerPanel().getComponent(), BorderLayout.LINE_START);
         buttonsAndWorkspacePanel = new ButtonsAndWorkspacePanel();
         backgroundPanel.add(buttonsAndWorkspacePanel.getComponent(), BorderLayout.CENTER);
-        visualizationPanel = new VisualizationPanel();
-        backgroundPanel.add(visualizationPanel.getComponent(), BorderLayout.LINE_END);
+        backgroundPanel.add(new VisualizationPanel().getComponent(), BorderLayout.LINE_END);
     }
 
 
     @Override
     public void updateWorkspaceContent() {
         buttonsAndWorkspacePanel.updateWorkspaceContent();
-    }
-
-    public void updateVisualizationScene(){
-        visualizationPanel.updateContent();
     }
 
 }

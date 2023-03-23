@@ -1,6 +1,6 @@
 package ru.itis.graduationwork.application.ui.pages.main.suppliers;
 
-import ru.itis.graduationwork.application.entities.RecentList;
+import ru.itis.graduationwork.application.entities.project.RecentList;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
 import ru.itis.graduationwork.application.ui.pages.main.buttons.RecentProjectButton;
 import ru.itis.graduationwork.application.ui.pages.main.dialogs.recent.EmptyRecentListPanel;

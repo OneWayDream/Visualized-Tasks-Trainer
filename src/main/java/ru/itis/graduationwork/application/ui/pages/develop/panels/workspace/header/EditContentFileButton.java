@@ -7,7 +7,7 @@ import ru.itis.graduationwork.application.managers.project.WorkspaceContentManag
 import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.ui.core.ide.IdeFramesIconsConstants;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
-import ru.itis.graduationwork.exceptions.UnexpectedContentTabException;
+import ru.itis.graduationwork.exceptions.unexpected.UnexpectedContentTabException;
 
 import javax.swing.*;
 import java.awt.*;

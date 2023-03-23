@@ -1,6 +1,6 @@
 package ru.itis.graduationwork.application.ui.pages.main.suppliers;
 
-import ru.itis.graduationwork.application.entities.RecentList;
+import ru.itis.graduationwork.application.entities.project.RecentList;
 import ru.itis.graduationwork.application.managers.content.IconsManager;
 import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
 import ru.itis.graduationwork.application.managers.content.RecentManager;

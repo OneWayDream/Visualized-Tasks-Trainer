@@ -1,16 +1,13 @@
 package ru.itis.graduationwork.application.managers.settings;
 
 import ru.itis.graduationwork.application.loaders.SettingsLoader;
-import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
 import ru.itis.graduationwork.application.managers.content.ImagesManager;
-import ru.itis.graduationwork.application.settings.UserSettings;
 import ru.itis.graduationwork.application.settings.Locale;
 import ru.itis.graduationwork.application.settings.Mode;
 import ru.itis.graduationwork.application.settings.Theme;
+import ru.itis.graduationwork.application.settings.UserSettings;
 import ru.itis.graduationwork.exceptions.usersettings.UserSettingsFileReadingException;
 import ru.itis.graduationwork.exceptions.usersettings.UserSettingsFileWritingException;
-
-import java.util.concurrent.TimeUnit;
 
 public class SettingsManager {
 
@@ -72,9 +69,7 @@ public class SettingsManager {
         try {
             SettingsLoader.saveUserSettings(settings);
         } catch (UserSettingsFileWritingException exception){
-            ExceptionsManager.addDelayedException(
-                    ExceptionsManager::handleUserSettingsFileWritingException, 200, TimeUnit.MILLISECONDS
-            );
+            exception.handle();
         }
     }
 

@@ -1,7 +1,7 @@
 package ru.itis.graduationwork.application.ui.core.ide;
 
 import lombok.Getter;
-import ru.itis.graduationwork.application.entities.ProjectConfig;
+import ru.itis.graduationwork.application.entities.project.ProjectConfig;
 import ru.itis.graduationwork.application.managers.project.WorkspaceContentManager;
 import ru.itis.graduationwork.application.managers.settings.BackgroundImageManager;
 import ru.itis.graduationwork.application.ui.core.templates.PageFrame;

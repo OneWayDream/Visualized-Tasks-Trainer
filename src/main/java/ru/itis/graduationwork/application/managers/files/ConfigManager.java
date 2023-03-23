@@ -2,12 +2,14 @@ package ru.itis.graduationwork.application.managers.files;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.itis.graduationwork.application.entities.Language;
-import ru.itis.graduationwork.application.entities.ProjectConfig;
-import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
+import ru.itis.graduationwork.application.entities.project.Language;
+import ru.itis.graduationwork.application.entities.project.ProjectConfig;
+import ru.itis.graduationwork.application.entities.project.VisualizationType;
 import ru.itis.graduationwork.application.managers.project.ProjectFilesManager;
 import ru.itis.graduationwork.exceptions.project.ProjectConfigNotInitialisedException;
 import ru.itis.graduationwork.exceptions.project.ProjectConfigWritingException;
+
+import java.util.Map;
 
 public class ConfigManager {
 
@@ -33,7 +35,7 @@ public class ConfigManager {
             try{
                 ProjectFilesManager.writeConfigFile(config);
             } catch (ProjectConfigWritingException exception){
-                ExceptionsManager.handleProjectConfigWritingException();
+                exception.handle();
             }
         } else {
             throw new ProjectConfigNotInitialisedException();
@@ -54,7 +56,7 @@ public class ConfigManager {
             try{
                 ProjectFilesManager.writeConfigFile(config);
             } catch (ProjectConfigWritingException exception){
-                ExceptionsManager.handleProjectConfigWritingException();
+                exception.handle();
             }
         } else {
             throw new ProjectConfigNotInitialisedException();
@@ -75,7 +77,7 @@ public class ConfigManager {
             try{
                 ProjectFilesManager.writeConfigFile(config);
             } catch (ProjectConfigWritingException exception){
-                ExceptionsManager.handleProjectConfigWritingException();
+                exception.handle();
             }
         } else {
             throw new ProjectConfigNotInitialisedException();
@@ -94,6 +96,35 @@ public class ConfigManager {
         if (isConfigInitialised()){
             return config.getLanguage();}
         else {
+            throw new ProjectConfigNotInitialisedException();
+        }
+    }
+
+    public static VisualizationType getProjectVisualizationType(){
+        if (isConfigInitialised()){
+            return config.getVisualizationType();}
+        else {
+            throw new ProjectConfigNotInitialisedException();
+        }
+    }
+
+    public static Map<String, String> getWrappersNames(){
+        if (isConfigInitialised()){
+            return config.getWrappersNames();}
+        else {
+            throw new ProjectConfigNotInitialisedException();
+        }
+    }
+
+    public static void setWrappersNames(Map<String, String> wrappersNames){
+        if (isConfigInitialised()){
+            config.setWrappersNames(wrappersNames);
+            try{
+                ProjectFilesManager.writeConfigFile(config);
+            } catch (ProjectConfigWritingException exception){
+                exception.handle();
+            }
+        } else {
             throw new ProjectConfigNotInitialisedException();
         }
     }

@@ -4,10 +4,8 @@ import ru.itis.graduationwork.application.managers.files.ConfigManager;
 import ru.itis.graduationwork.application.managers.files.FilesManager;
 import ru.itis.graduationwork.application.managers.project.WorkspaceContentManager;
 import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
-import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
-import ru.itis.graduationwork.application.ui.core.templates.Chooser;
 import ru.itis.graduationwork.application.ui.core.ide.workspace.ContentTab;
-import ru.itis.graduationwork.exceptions.UnexpectedContentTabException;
+import ru.itis.graduationwork.application.ui.core.templates.Chooser;
 import ru.itis.graduationwork.exceptions.files.FileCopyingException;
 
 import javax.swing.*;
@@ -46,10 +44,8 @@ public class ContentFileChooser extends Chooser {
                     filePath = fileCopyPath;
                 }
                 WorkspaceContentManager.changeContentFilePath(filePath);
-            } catch (FileCopyingException ex){
-                ExceptionsManager.handleFileCopyingException();
-            } catch (UnexpectedContentTabException exception){
-                ExceptionsManager.handleUnexpectedContentTabException();
+            } catch (FileCopyingException exception){
+                exception.handle();
             }
         }
     }

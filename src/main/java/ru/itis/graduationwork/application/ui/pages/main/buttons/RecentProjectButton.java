@@ -1,12 +1,14 @@
 package ru.itis.graduationwork.application.ui.pages.main.buttons;
 
 import lombok.Setter;
+import ru.itis.graduationwork.application.Application;
 import ru.itis.graduationwork.application.managers.content.IconsManager;
 import ru.itis.graduationwork.application.managers.content.RecentManager;
 import ru.itis.graduationwork.application.managers.project.ProjectsManager;
 import ru.itis.graduationwork.application.managers.settings.ColorsManager;
 import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
 import ru.itis.graduationwork.application.settings.Image;
+import ru.itis.graduationwork.application.settings.Mode;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
 import ru.itis.graduationwork.application.ui.pages.main.MainFrameIconsConstants;
 import ru.itis.graduationwork.application.ui.pages.main.dialogs.recent.RecentListDialog;
@@ -58,7 +60,11 @@ public class RecentProjectButton extends Button {
             ProjectsManager.openProject(path);
         } catch (ProjectDirectoryNotExistsException exception){
             ExceptionsManager.handleProjectDirectoryNotExistsException(path);
-            RecentManager.deleteRecentProject(path);
+            if (Application.getMode() == Mode.DEVELOP){
+                RecentManager.deleteRecentProject(path);
+            } else {
+                RecentManager.deleteRecentTask(path);
+            }
             recentListDialog.reload();
         }
     }

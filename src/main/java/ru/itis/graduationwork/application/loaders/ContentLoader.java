@@ -4,12 +4,10 @@ import ru.itis.graduationwork.application.managers.files.ConfigManager;
 import ru.itis.graduationwork.application.managers.files.FilesManager;
 import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
 import ru.itis.graduationwork.application.ui.core.ide.workspace.ContentTab;
-import ru.itis.graduationwork.exceptions.UnexpectedContentTabException;
+import ru.itis.graduationwork.exceptions.unexpected.UnexpectedContentTabException;
 import ru.itis.graduationwork.exceptions.files.FileNotFoundException;
 import ru.itis.graduationwork.exceptions.files.FileReadingException;
 import ru.itis.graduationwork.exceptions.files.UnsupportedContentFileExtensionException;
-
-import java.util.concurrent.TimeUnit;
 
 public class ContentLoader {
 
@@ -23,23 +21,15 @@ public class ContentLoader {
             }
             return fileContent;
         } catch (FileNotFoundException  exception){
-            ExceptionsManager.addDelayedException(
-                    () -> ExceptionsManager.handleFileNotFoundException(filePath), 200, TimeUnit.MILLISECONDS
-            );
+            ExceptionsManager.addDelayedException(() -> ExceptionsManager.handleFileNotFoundException(filePath));
             resetContentFilePathForTab(contentTab);
         } catch (FileReadingException exception){
-            ExceptionsManager.addDelayedException(
-                    () -> ExceptionsManager.handleFileReadingException(filePath), 200, TimeUnit.MILLISECONDS
-            );
+            ExceptionsManager.addDelayedException(() -> ExceptionsManager.handleFileReadingException(filePath));
             resetContentFilePathForTab(contentTab);
         } catch (UnexpectedContentTabException exception){
-            ExceptionsManager.addDelayedException(
-                    ExceptionsManager::handleUnexpectedContentTabException, 200, TimeUnit.MILLISECONDS
-            );
+            exception.handle();
         } catch (UnsupportedContentFileExtensionException exception){
-            ExceptionsManager.addDelayedException(
-                    ExceptionsManager::handleUnsupportedContentFileExtensionException, 200, TimeUnit.MILLISECONDS
-            );
+            exception.handle();
             resetContentFilePathForTab(contentTab);
         }
         return null;

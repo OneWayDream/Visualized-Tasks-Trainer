@@ -11,6 +11,12 @@ import java.util.concurrent.TimeUnit;
 public class ExceptionsManager {
 
     private static final ScheduledExecutorService delayedExecutorService = Executors.newScheduledThreadPool(1);
+    private static final long DEFAULT_DELAY_TIME_VALUE = 200;
+    private static final TimeUnit DEFAULT_DELAY_TIME_UNIT = TimeUnit.MILLISECONDS;
+
+    public static void addDelayedException(Runnable task){
+        delayedExecutorService.schedule(task, DEFAULT_DELAY_TIME_VALUE, DEFAULT_DELAY_TIME_UNIT);
+    }
 
     public static void addDelayedException(Runnable task, long time, TimeUnit timeUnit){
         delayedExecutorService.schedule(task, time, timeUnit);
@@ -84,7 +90,7 @@ public class ExceptionsManager {
     public static void handleProjectCreationException(){
         JOptionPane.showMessageDialog(
                 Application.getCurrentPageFrame().getComponent(),
-                LocalizationManager.getLocaleTextByKey("exceptions.url-parsing-exception.message"),
+                LocalizationManager.getLocaleTextByKey("exceptions.project-creation-exception.message"),
                 "", JOptionPane.ERROR_MESSAGE);
     }
 
@@ -189,10 +195,10 @@ public class ExceptionsManager {
                 "", JOptionPane.ERROR_MESSAGE);
     }
 
-    public static void handleSolutionTemplateException(){
+    public static void handleUnsupportedVisualizationTypeException(){
         JOptionPane.showMessageDialog(
                 Application.getCurrentPageFrame().getComponent(),
-                LocalizationManager.getLocaleTextByKey("exceptions.solution-template-exception.message"),
+                LocalizationManager.getLocaleTextByKey("exceptions.unsupported-visualization-type-exception.message"),
                 "", JOptionPane.ERROR_MESSAGE);
     }
 
@@ -224,4 +230,114 @@ public class ExceptionsManager {
                 "", JOptionPane.ERROR_MESSAGE);
     }
 
+    public static void handleEmptyNewFolderNameException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.empty-new-folder-name-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleFileDeletionException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.file-deletion-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleFolderCreationException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.folder-creation-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleFolderAlreadyExistsException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.folder-already-exists-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleSolutionFileExecutionException(String exceptionContent){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                exceptionContent,
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleFileGenerationException(String filePath) {
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                String.format(
+                        LocalizationManager.getLocaleTextByKey("exceptions.file-generation-exception.message"),
+                        filePath
+                ),
+                "", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public static void handleTemplateLoadingException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.template-loading-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleTemplateCreationException(String templatePath){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                String.format(
+                        LocalizationManager.getLocaleTextByKey("exceptions.template-loading-exception.message"),
+                        templatePath
+                ),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleNoDisableReasonException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.no-disable-reason-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleUndefinedVisualizationMethodException(String exceptionStackTrace){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                exceptionStackTrace,
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleVisualizationMethodInvocationException(String exceptionStackTrace){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                exceptionStackTrace,
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleWrappersMapCreationException() {
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.wrappers-map-creation-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleSolutionFileReadingException() {
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.solution-file-reading-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handlePythonSolutionScryptExecutionException(String consoleOutput) {
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                consoleOutput,
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handlePythonFilePreparationException() {
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.python-file-preparation-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
 }

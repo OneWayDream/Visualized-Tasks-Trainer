@@ -3,9 +3,9 @@ package ru.itis.graduationwork.application.ui.core.ide.explorer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ru.itis.graduationwork.application.Application;
-import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
 import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.settings.Mode;
+import ru.itis.graduationwork.exceptions.files.DirectoryExploreException;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -92,7 +92,7 @@ public class FileNode {
         try {
             return file.listFiles();
         } catch (Exception ex) {
-            ExceptionsManager.handleDirectoryExploreException();
+            new DirectoryExploreException().handle();
             return null;
         }
     }

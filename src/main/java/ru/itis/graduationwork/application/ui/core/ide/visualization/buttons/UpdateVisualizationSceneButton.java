@@ -1,13 +1,12 @@
 package ru.itis.graduationwork.application.ui.core.ide.visualization.buttons;
 
-import ru.itis.graduationwork.application.Application;
 import ru.itis.graduationwork.application.managers.content.IconsManager;
 import ru.itis.graduationwork.application.managers.project.WorkspaceContentManager;
+import ru.itis.graduationwork.application.managers.project.visualization.VisualizationSceneController;
 import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
 import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.ui.core.ide.IdeFramesIconsConstants;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
-import ru.itis.graduationwork.application.ui.pages.develop.DevelopPageFrame;
 
 import java.awt.event.ActionEvent;
 
@@ -38,7 +37,7 @@ public class UpdateVisualizationSceneButton extends Button {
     @Override
     public void actionPerformed(ActionEvent e) {
         WorkspaceContentManager.saveEditorChangedIfNeeded();
-        ((DevelopPageFrame) Application.getCurrentPageFrame()).updateVisualizationScene();
+        VisualizationSceneController.updateVisualizationScene();
     }
 
 }

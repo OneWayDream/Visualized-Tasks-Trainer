@@ -1,24 +1,25 @@
 package ru.itis.graduationwork.application.ui.core.ide.visualization.components;
 
 import ru.itis.graduationwork.application.Application;
-import ru.itis.graduationwork.application.managers.files.ConfigManager;
 import ru.itis.graduationwork.application.managers.project.ProjectFilesManager;
-import ru.itis.graduationwork.application.managers.project.VisualizationProjectClassesManager;
+import ru.itis.graduationwork.application.managers.project.visualization.VisualizationProjectClassesManager;
+import ru.itis.graduationwork.application.managers.project.visualization.VisualizationSceneController;
 import ru.itis.graduationwork.application.managers.settings.ColorsManager;
-import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
 import ru.itis.graduationwork.application.ui.core.templates.Panel;
 import ru.itis.graduationwork.exceptions.files.FileNotFoundException;
+import ru.itis.graduationwork.exceptions.project.VisualizationFileNotFoundException;
+import ru.itis.graduationwork.exceptions.project.VisualizationFilesRecoveryException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
 public class VisualizationPanel extends Panel {
 
-    private JComponent visualizationScene;
+    private JComponent visualizationScenePanel;
 
     public VisualizationPanel(){
         super();
+        VisualizationSceneController.setVisualizationPanel(this);
         createPanel();
     }
 
@@ -47,8 +48,8 @@ public class VisualizationPanel extends Panel {
         constraint.weightx = 1;
         constraint.weighty = 0.75;
         try{
-            visualizationScene = VisualizationProjectClassesManager.getVisualizationScene();
-            panel.add(visualizationScene, constraint);
+            visualizationScenePanel = VisualizationProjectClassesManager.getVisualizationScene();
+            panel.add(visualizationScenePanel, constraint);
         } catch (FileNotFoundException exception){
             tryToRecreateVisualizationFiles(constraint);
         } catch (Exception exception){
@@ -58,23 +59,18 @@ public class VisualizationPanel extends Panel {
 
     private void tryToRecreateVisualizationFiles(GridBagConstraints constraint){
         try{
-            ProjectFilesManager.createDevelopProjectFiles(ConfigManager.getConfig());
-            visualizationScene = VisualizationProjectClassesManager.getVisualizationScene();
-            panel.add(visualizationScene, constraint);
-            ExceptionsManager.addDelayedException(
-                ExceptionsManager::handleVisualizationFileNotFoundException, 200, TimeUnit.MILLISECONDS
-            );
+            ProjectFilesManager.createVisualizationFiles();
+            visualizationScenePanel = VisualizationProjectClassesManager.getVisualizationScene();
+            panel.add(visualizationScenePanel, constraint);
+            new VisualizationFileNotFoundException().handle();
         } catch (Exception exception){
             addMockVisualizationScene(constraint);
-            ExceptionsManager.addDelayedException(
-                    ExceptionsManager::handleVisualizationFilesRecoveryException, 200, TimeUnit.MILLISECONDS
-            );
+            new VisualizationFilesRecoveryException().handle();
         }
     }
 
     private void addMockVisualizationScene(GridBagConstraints constraint){
-        visualizationScene = new VisualizationSceneMock().getComponent();
-        panel.add(visualizationScene, constraint);
+        panel.add(new VisualizationSceneMock().getComponent(), constraint);
     }
 
     private void addVisualizationControlPanel() {
@@ -88,8 +84,8 @@ public class VisualizationPanel extends Panel {
     }
 
     public void updateContent(){
-        if (visualizationScene != null){
-            panel.remove(visualizationScene);
+        if (visualizationScenePanel != null){
+            panel.remove(visualizationScenePanel);
         }
         addVisualizationScenePanel();
         panel.validate();

@@ -2,9 +2,8 @@ package ru.itis.graduationwork.application.ui.pages.develop.panels.explorer.popu
 
 import ru.itis.graduationwork.application.managers.project.WorkspaceContentManager;
 import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
-import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
-import ru.itis.graduationwork.application.ui.pages.develop.panels.explorer.actions.creation.FileCreationDialog;
-import ru.itis.graduationwork.exceptions.UnexpectedContentTabException;
+import ru.itis.graduationwork.application.ui.pages.develop.panels.explorer.actions.creation.file.FileCreationDialog;
+import ru.itis.graduationwork.exceptions.unexpected.UnexpectedContentTabException;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,7 +26,7 @@ public class CreateFileAbstractAction extends AbstractAction {
             try {
                 WorkspaceContentManager.setEditorContent(filePath);
             } catch (UnexpectedContentTabException exception){
-                ExceptionsManager.handleUnexpectedContentTabException();
+                exception.handle();
             }
         }
     }

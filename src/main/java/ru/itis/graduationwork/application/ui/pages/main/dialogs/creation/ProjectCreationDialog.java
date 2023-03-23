@@ -1,13 +1,14 @@
 package ru.itis.graduationwork.application.ui.pages.main.dialogs.creation;
 
-import ru.itis.graduationwork.application.entities.Language;
-import ru.itis.graduationwork.application.entities.NewProjectInfo;
-import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
-import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
+import ru.itis.graduationwork.application.entities.project.Language;
+import ru.itis.graduationwork.application.entities.project.NewProjectInfo;
+import ru.itis.graduationwork.application.entities.project.VisualizationType;
 import ru.itis.graduationwork.application.managers.project.ProjectsManager;
+import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
 import ru.itis.graduationwork.application.ui.core.templates.Dialog;
-import ru.itis.graduationwork.exceptions.ProjectCreationException;
-import ru.itis.graduationwork.exceptions.UnsupportedLanguageException;
+import ru.itis.graduationwork.exceptions.project.ProjectCreationException;
+import ru.itis.graduationwork.exceptions.unexpected.UnsupportedLanguageException;
+import ru.itis.graduationwork.exceptions.unexpected.UnsupportedVisualizationTypeException;
 import ru.itis.graduationwork.exceptions.files.FileNotFoundException;
 import ru.itis.graduationwork.exceptions.files.FileReadingException;
 
@@ -22,6 +23,7 @@ public class ProjectCreationDialog extends Dialog {
     private ProjectNameTextField projectNameTextField;
     private ProjectPathTextField projectPathTextField;
     private JComboBox<String> languageSelectBox;
+    private JComboBox<String> visualizationTypeSelectBox;
 
     @Override
     protected void initFields() {
@@ -42,6 +44,7 @@ public class ProjectCreationDialog extends Dialog {
         addProjectNameRow();
         addProjectPathRow();
         addLanguageRow();
+        addVisualizationTypeRow();
         addCreateButton();
     }
 
@@ -119,7 +122,7 @@ public class ProjectCreationDialog extends Dialog {
         constraint.gridx = 2;
         constraint.gridy = 1;
         constraint.weightx = 0.1;
-        constraint.insets = new Insets(50,-120,0,0);
+        constraint.insets = new Insets(50,-100,0,0);
         ChoosePathButton choosePathButton = new ChoosePathButton(projectPathTextField, projectNameTextField);
         dialog.add(choosePathButton.getComponent(), constraint);
     }
@@ -131,7 +134,6 @@ public class ProjectCreationDialog extends Dialog {
 
     private void addLanguageFieldTitle(){
         GridBagConstraints constraint = new GridBagConstraints();
-
         constraint.fill = GridBagConstraints.HORIZONTAL;
         constraint.gridx = 0;
         constraint.gridy = 2;
@@ -153,6 +155,34 @@ public class ProjectCreationDialog extends Dialog {
         dialog.add(languageSelectBox, constraint);
     }
 
+    private void addVisualizationTypeRow(){
+        addVisualizationTypeTitle();
+        addVisualizationTypeSelectBox();
+    }
+
+    private void addVisualizationTypeTitle() {
+        GridBagConstraints constraint = new GridBagConstraints();
+        constraint.fill = GridBagConstraints.HORIZONTAL;
+        constraint.gridx = 0;
+        constraint.gridy = 3;
+        constraint.weightx = 0.3;
+        constraint.insets = new Insets(-400,60,0,0);
+        dialog.add(new ProjectCreationFieldTitle(
+                LocalizationManager.getLocaleTextByKey("main-frame.project-creation.visualization-type-field.title") + ":"
+        ).getComponent(), constraint);
+    }
+
+    private void addVisualizationTypeSelectBox() {
+        GridBagConstraints constraint = new GridBagConstraints();
+        constraint.fill = GridBagConstraints.NONE;
+        constraint.gridx = 1;
+        constraint.gridy = 3;
+        constraint.weightx = 0.6;
+        constraint.insets = new Insets(-400,-225,0,100);
+        visualizationTypeSelectBox = new JComboBox<>(VisualizationType.getVisualizationTypeNames());
+        dialog.add(visualizationTypeSelectBox, constraint);
+    }
+
     private void addCreateButton(){
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -169,12 +199,11 @@ public class ProjectCreationDialog extends Dialog {
         try {
             ProjectsManager.createProject(newProjectInfo);
             ProjectsManager.openProject(newProjectInfo.getProjectPath());
-        } catch (ProjectCreationException exception){
-            ExceptionsManager.handleProjectCreationException();
-        } catch (UnsupportedLanguageException exception){
-            ExceptionsManager.handleUnsupportedLanguageException();
+        } catch (ProjectCreationException | UnsupportedLanguageException |
+                 UnsupportedVisualizationTypeException exception){
+            exception.handle();
         } catch (FileNotFoundException | FileReadingException exception){
-            ExceptionsManager.handleSolutionTemplateException();
+            new ProjectCreationException().handle();
         }
     }
 
@@ -183,11 +212,8 @@ public class ProjectCreationDialog extends Dialog {
                 .projectName(projectNameTextField.getText())
                 .projectPath(projectPathTextField.getText())
                 .language(Language.getByName((String) languageSelectBox.getSelectedItem()))
+                .visualizationType(VisualizationType.getByName((String) visualizationTypeSelectBox.getSelectedItem()))
                 .build();
-    }
-
-    public void setProjectPath(String projectPath){
-        this.projectPath = projectPath;
     }
 
     public void setProjectName(String projectName){

@@ -1,16 +1,14 @@
 package ru.itis.graduationwork.application.managers.content;
 
 import com.google.gson.Gson;
-import ru.itis.graduationwork.application.entities.ProjectConfig;
-import ru.itis.graduationwork.application.entities.RecentList;
-import ru.itis.graduationwork.application.entities.RecentListEntry;
-import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
+import ru.itis.graduationwork.application.entities.project.ProjectConfig;
+import ru.itis.graduationwork.application.entities.project.RecentList;
+import ru.itis.graduationwork.application.entities.project.RecentListEntry;
 import ru.itis.graduationwork.exceptions.properties.RecentListReadingException;
 import ru.itis.graduationwork.exceptions.properties.RecentListWritingException;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.TimeUnit;
 
 public class RecentManager {
 
@@ -21,9 +19,7 @@ public class RecentManager {
         try {
             return getRecentList(RECENT_PROJECTS_FILE_PATH);
         } catch (RecentListReadingException exception){
-            ExceptionsManager.addDelayedException(
-                    ExceptionsManager::handleRecentListReadingException, 200, TimeUnit.MILLISECONDS
-            );
+            exception.handle();
             return new RecentList();
         }
     }
@@ -32,9 +28,7 @@ public class RecentManager {
         try{
             return getRecentList(RECENT_TASKS_FILE_PATH);
         } catch (RecentListReadingException exception){
-            ExceptionsManager.addDelayedException(
-                    ExceptionsManager::handleRecentListReadingException, 200, TimeUnit.MILLISECONDS
-            );
+            exception.handle();
             return new RecentList();
         }
     }
@@ -58,9 +52,7 @@ public class RecentManager {
         try{
             saveRecentProjects(recentList);
         } catch (RecentListWritingException exception){
-            ExceptionsManager.addDelayedException(
-                    ExceptionsManager::handleRecentListWritingException, 200, TimeUnit.MILLISECONDS
-            );
+            exception.handle();
         }
     }
 
@@ -82,9 +74,7 @@ public class RecentManager {
         try{
             saveRecentTasks(recentList);
         } catch (RecentListWritingException exception){
-            ExceptionsManager.addDelayedException(
-                    ExceptionsManager::handleRecentListWritingException, 200, TimeUnit.MILLISECONDS
-            );
+            exception.handle();
         }
     }
 
@@ -103,9 +93,17 @@ public class RecentManager {
         try{
             saveRecentProjects(recentList);
         } catch (RecentListWritingException exception){
-            ExceptionsManager.addDelayedException(
-                    ExceptionsManager::handleRecentListWritingException, 200, TimeUnit.MILLISECONDS
-            );
+            exception.handle();
+        }
+    }
+
+    public static void deleteRecentTask(String recentTaskPath){
+        RecentList recentList = getRecentTasks();
+        recentList.getContent().remove(recentTaskPath);
+        try{
+            saveRecentTasks(recentList);
+        } catch (RecentListWritingException exception){
+            exception.handle();
         }
     }
 

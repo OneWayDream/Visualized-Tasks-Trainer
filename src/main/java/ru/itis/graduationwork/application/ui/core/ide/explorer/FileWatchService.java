@@ -2,7 +2,6 @@ package ru.itis.graduationwork.application.ui.core.ide.explorer;
 
 import lombok.Setter;
 import ru.itis.graduationwork.application.managers.files.ConfigManager;
-import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
 import ru.itis.graduationwork.application.ui.core.templates.FileTree;
 import ru.itis.graduationwork.exceptions.explorer.MonitoringRegistrationException;
 import ru.itis.graduationwork.exceptions.explorer.MonitoringThreadException;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
@@ -49,9 +47,7 @@ public class FileWatchService {
         try{
             monitoringThread.start();
         } catch (MonitoringThreadException exception){
-            ExceptionsManager.addDelayedException(
-                    ExceptionsManager::handleMonitoringThreadException, 200, TimeUnit.MILLISECONDS
-            );
+            exception.handle();
             startMonitoringProcess();
         }
     }
@@ -74,21 +70,30 @@ public class FileWatchService {
         treePathMap.remove(TreePathsUtils.getFilePath(treePath));
     }
 
+    public static void updatePath(String path){
+        String changedFolder = path.substring(0, path.lastIndexOf(File.separator));
+        if (treePathMap.containsKey(path)){
+            fileTree.updateTreePath(treePathMap.get(changedFolder));
+        }
+    }
+
     private static class MonitoringRunnable implements Runnable{
 
         @Override
         public void run() {
-            try{
-                WatchKey key = watchService.take();
-                for (WatchEvent<?> event: key.pollEvents()){
-                    File changedFile = Paths.get(ConfigManager.getProjectPath()).resolve((Path) event.context()).toFile();
-                    String changedFolder = changedFile.getPath();
-                    changedFolder = changedFolder.substring(0, changedFolder.lastIndexOf(File.separator));
-                    fileTree.updateTreePath(treePathMap.get(changedFolder));
+            while (true){
+                try{
+                    WatchKey key = watchService.take();
+                    for (WatchEvent<?> event: key.pollEvents()){
+                        File changedFile = Paths.get(ConfigManager.getProjectPath()).resolve((Path) event.context()).toFile();
+                        String changedFolder = changedFile.getPath();
+                        changedFolder = changedFolder.substring(0, changedFolder.lastIndexOf(File.separator));
+                        fileTree.updateTreePath(treePathMap.get(changedFolder));
+                    }
+                    key.reset();
+                } catch (InterruptedException e) {
+                    throw new MonitoringThreadException(e);
                 }
-                key.reset();
-            } catch (InterruptedException e) {
-                throw new MonitoringThreadException(e);
             }
         }
     }

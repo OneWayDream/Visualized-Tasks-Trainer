@@ -22,7 +22,7 @@ public class WorkspacePanel extends Panel {
     @Override
     protected void setPanelStyle() {
         panel.setLayout(new BorderLayout());
-        panel.setBackground(ColorsManager.getPanelBackgroundColor());
+        panel.setOpaque(false);
         panel.setFont(new Font("Comic Sans", Font.PLAIN, 16));
         panel.setBorder(BorderFactory.createLineBorder(ColorsManager.getBordersColor(), 3));
     }

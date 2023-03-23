@@ -17,6 +17,8 @@ public class FileTreePopupMenu extends PopupMenu {
     protected void initMenu() {
         setPopupMenuStyle();
         popupMenu.add(new CreateFileAbstractAction(this));
+        popupMenu.add(new CreateFolderAbstractAction(this));
+        popupMenu.add(new DeleteAbstractAction(this));
     }
 
     private void setPopupMenuStyle(){

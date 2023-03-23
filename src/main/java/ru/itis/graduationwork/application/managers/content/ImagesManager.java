@@ -4,14 +4,13 @@ import ru.itis.graduationwork.application.loaders.ImagesLoader;
 import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
 import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.settings.Theme;
-import ru.itis.graduationwork.exceptions.NotPresentImageIconException;
+import ru.itis.graduationwork.exceptions.usersettings.NotPresentImageIconException;
 import ru.itis.graduationwork.utils.ConfigurationFilesWorker;
 import ru.itis.graduationwork.utils.PropertiesUtils;
 
 import javax.swing.*;
 import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 public class ImagesManager {
 
@@ -36,8 +35,7 @@ public class ImagesManager {
             return ImagesLoader.getImageIcon(imagePath);
         } catch (NotPresentImageIconException exception){
             ExceptionsManager.addDelayedException(
-                    () -> ExceptionsManager.handleNotPresentImageIconException(image.getKey()), 200, TimeUnit.MILLISECONDS
-            );
+                    () -> ExceptionsManager.handleNotPresentImageIconException(image.getKey()));
         }
         return new ImageIcon("");
     }
@@ -63,8 +61,7 @@ public class ImagesManager {
             return ImagesLoader.getImageIcon(APPLICATION_ICON_PATH);
         } catch (NotPresentImageIconException exception){
             ExceptionsManager.addDelayedException(
-                    () -> ExceptionsManager.handleNotPresentImageIconException(APPLICATION_ICON_PATH), 200, TimeUnit.MILLISECONDS
-            );
+                    () -> ExceptionsManager.handleNotPresentImageIconException(APPLICATION_ICON_PATH));
         }
         return new ImageIcon("");
     }

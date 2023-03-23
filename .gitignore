@@ -11,6 +11,9 @@
 # Test tasks
 TestTasks/
 
+# Logs
+*.logs/
+
 # BlueJ files
 *.ctxt
 

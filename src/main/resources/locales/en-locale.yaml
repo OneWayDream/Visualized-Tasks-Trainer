@@ -73,6 +73,8 @@ main-frame:
       title: Project path
     language-field:
       title: Language
+    visualization-type-field:
+      title: Visualization library
     create-button:
       text: Create
   open-as-project:
@@ -108,6 +110,20 @@ ide:
           tooltip-text: Take a step forward on the scene
         update-scene:
           tooltip-text: Update visualization scene
+        not-executed-solution-file:
+          tooltip-text: Execute your solution file first.
+        not-playing-for-pause:
+          tooltip-text: You can't pause a static scene.
+        playing-scene:
+          tooltip-text: You cannot use this button during scene playback.
+        no-previous-action:
+          tooltip-text: The scene is already on the first available step.
+        no-next-action:
+          tooltip-text: The scene is already on the last available step.
+        non-animation:
+          tooltip-text: The author has not added any visualisation steps, so these buttons are useless.
+        disabled-button:
+          tooltip-text: The author has disabled this button.
     workspace:
       choose-content-file-panel:
         file-not-selected-label:
@@ -119,12 +135,6 @@ ide:
           text: Create a new file
         choose-file-button:
           text: Select a file...
-        creation-dialog:
-          title: New file
-          name-field:
-            placeholder: Name
-          button:
-            text: Create
         content-file-chooser:
           title: Choose a file
       informational-panel-header:
@@ -141,6 +151,24 @@ ide:
         popup-menu:
           create-file:
             text: Create file
+          create-folder:
+            text: Create folder
+          delete:
+            text: Delete
+        file-creation-dialog:
+          title: New file
+          button:
+            text: Create
+        folder-creation-dialog:
+          title: New folder
+          button:
+            text: Create
+        deletion-dialog:
+          title: Delete
+          label:
+            text: Are you sure you want delete it?
+          button:
+            text: Yes, delete it.
 exceptions:
   file-creation-exception:
     message: Failed to create a new file.
@@ -188,7 +216,7 @@ exceptions:
     message: Failed to save file changes.
   unsupported-language-exception:
     message: Something went wrong...
-  solution-template-exception:
+  unsupported-visualization-type-exception:
     message: Something went wrong...
   visualization-file-not-found-exception:
     message: Failed to retrieve the root visualisation files. We have created new.
@@ -198,25 +226,90 @@ exceptions:
     message: Failed to read wrapper files.
   empty-new-file-name-exception:
     message: The file name must exists!
+  file-deletion-exception:
+    message: Fault to delete a file.
+  empty-new-folder-name-exception:
+    message: The folder name must exists!
+  folder-creation-exception:
+    message: Fault to create a new folder.
+  folder-already-exists-exception:
+    message: A folder with this name already exists
+  file-generation-exception:
+    message: Fault to create a file on the path %s.
+  template-loading-exception:
+    message: Something went wrong...
+  template-creation-exception:
+    message: Fault to create a file (%s).
+  no-disable-reason-exception:
+    message: Something went wrong...
+  wrappers-map-creation-exception:
+    message: Something went wrong...
+  solution-file-reading-exception:
+    message: Fault to read solution file. Try to execute it again.
+  python-file-preparation-exception:
+    message: Something went wrong...
 templates:
   solution-file-template:
-    description: |
+    comment: |
       Students will use this file to solve your task. Write the necessary imports,
       add comments and call some functions in the 'run' method
       (we will hide it from the students during the solution).
   test-solution-file-template:
-    description: |
+    comment: |
       You can use this file to test your task. Write the necessary imports,
       add comments and call some functions in the 'run' method.
   visualization-read-me-file:
-    content: |
-      Use this folder to store visualization files.
-  wrappers-read-me-file:
-    content: |
-      Use this folder to store custom class / functions wrappers.
-  informational-read-me-file:
-    content: |
-      Use this folder to store informational files (.html or .md files are supported).
-  custom-panel-file-template:
+    title: | 
+      Visualization folder
     description: |
+      Use this folder to store your visualization files (additional components, visualization settings and so on).
+      All these files are automatically imported into all solution files. So if you use a different folder, you'll have 
+      to define all imports yourself.
+  wrappers-read-me-file:
+    title: |
+      Wrappers folder
+    description: |
+      Use this folder to store wrapper files (classes and functions that wrap the learning classes and functions 
+      and additionally call visualisation methods). All these files are automatically imported into all solution files. 
+      So if you use a different folder, you will have to define all imports yourself.
+  informational-read-me-file:
+    title: |
+      Informational folder
+    description: |
+      Use this folder as storage for information files (general task description, study content or task terms). 
+      The application only supports .html and .md files, so bear this in mind!
+  custom-panel-file-template:
+    comment: |
       Override this panel the way you want it. It will be used for visualisation.
+  visualization-scene-panel-template:
+    general-swing-comment: |
+      Use this class to customize your panel as a component (setting styles and adding internal components). 
+      To access the JPanel component (we'll pass an instance of your CustomPanel to the constructor),
+      use the 'panel' variable.
+    general-java-fx-comment: |
+      Use this class to customize your panel as a component (setting styles and adding internal components). 
+      To access the JFXPanel component (we'll pass an instance of your CustomPanel to the constructor),
+      override the 'configureScene' method using 'scene' variable.
+    button-flags-comment: |
+      Use this method to configure the visualisation control buttons (you can disable some of them 
+      if you don't have an implementation for these actions).
+  code-file-template:
+    java:
+      annotation-comment: |
+        Define in this annotation the name of the class you are wrapping. This way the student
+        can use the normal language syntax, but your wrapper classes will be called. If the 
+        class does not perform the wrapper functionality, simply delete the annotation.
+      visualization-action-registration-comment: |
+        To bind your code and the visualization scene, register the visualization action in 
+        the code when it is to be executed. Use this method to do it:
+    python:
+      class-annotation-comment: |
+        If you have a wrapping class, define the wrapped class in the annotation as follows:
+      function-annotation-comment: |
+        If you have a wrapping function, define the wrapped function in the annotation as follows:
+      visualization-action-registration-comment: |
+        To bind your code and the visualization scene, register the visualization action in 
+        the code when it is to be executed. Use this method to do it:
+logging:
+  application-start: Application start.
+  application-close: Finish application process.

@@ -1,8 +1,7 @@
 package ru.itis.graduationwork.application.ui.pages.study.panels.explorer;
 
-import ru.itis.graduationwork.application.managers.settings.ColorsManager;
-import ru.itis.graduationwork.application.managers.files.ConfigManager;
 import ru.itis.graduationwork.application.managers.project.ProjectFilesManager;
+import ru.itis.graduationwork.application.managers.settings.ColorsManager;
 import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.ui.core.ide.explorer.*;
 import ru.itis.graduationwork.application.ui.core.templates.FileTree;
@@ -40,7 +39,7 @@ public class StudyFileTree extends FileTree {
     }
 
     private File getSolutionFile(){
-        return new File(ProjectFilesManager.getSolutionFilePath(ConfigManager.getProjectPath(), ConfigManager.getProjectLanguage()));
+        return new File(ProjectFilesManager.getSolutionFilePath());
     }
 
     private void setFileTreeSettings(){

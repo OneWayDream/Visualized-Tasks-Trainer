@@ -6,7 +6,7 @@ import ru.itis.graduationwork.application.ui.core.templates.PageFrame;
 import ru.itis.graduationwork.application.ui.pages.develop.DevelopPageFrame;
 import ru.itis.graduationwork.application.ui.pages.main.MainPageFrame;
 import ru.itis.graduationwork.application.ui.pages.study.StudyPageFrame;
-import ru.itis.graduationwork.exceptions.UnknownPageTypeException;
+import ru.itis.graduationwork.exceptions.project.UnknownPageTypeException;
 
 public class PagesManager {
 

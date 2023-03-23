@@ -1,6 +1,6 @@
 package ru.itis.graduationwork.application.loaders;
 
-import ru.itis.graduationwork.application.entities.Language;
+import ru.itis.graduationwork.application.entities.project.Language;
 import ru.itis.graduationwork.exceptions.files.FileNotFoundException;
 import ru.itis.graduationwork.exceptions.files.FileReadingException;
 import ru.itis.graduationwork.utils.PropertiesUtils;
@@ -17,35 +17,11 @@ import java.util.Properties;
 public class TemplatesLoader{
 
     private static final String TEMPLATES_FOLDER;
-    private static final String SOLUTION_FILE_NAME = "Solution";
-    private static final String TEST_SOLUTION_FILE_NAME = "TestSolution";
-    private static final String CUSTOM_PANEL_FILE_NAME = "CustomPanel";
-    private static final String VISUALIZATION_SCENE_PANEL_FILE_NAME = "VisualizationScenePanel";
     private static final String JAVA_FILE_TEMPLATE_FILE_NAME = "FileTemplate";
 
     static {
         Properties properties = PropertiesUtils.getInstance().getProperties();
         TEMPLATES_FOLDER = properties.getProperty("templates-folder");
-    }
-
-    public static String getSolutionTemplateContent(Language language){
-        String templateFilePath = getTemplateFilePath(SOLUTION_FILE_NAME, language);
-        return loadTemplate(templateFilePath);
-    }
-
-    public static String getTestSolutionTemplateContent(Language language){
-        String templateFilePath = getTemplateFilePath(TEST_SOLUTION_FILE_NAME, language);
-        return loadTemplate(templateFilePath);
-    }
-
-    public static String getCustomPanelTemplateContent(){
-        String templateFilePath = getTemplateFilePath(CUSTOM_PANEL_FILE_NAME, Language.JAVA);
-        return loadTemplate(templateFilePath);
-    }
-
-    public static String getVisualizationScenePanelTemplateContent(){
-        String templateFilePath = getTemplateFilePath(VISUALIZATION_SCENE_PANEL_FILE_NAME, Language.JAVA);
-        return loadTemplate(templateFilePath);
     }
 
     public static String getJavaFileTemplateFileTemplateContent(Language language){

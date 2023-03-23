@@ -1,7 +1,6 @@
 package ru.itis.graduationwork.application.ui.pages.study.panels.explorer.listeners;
 
 import ru.itis.graduationwork.application.Application;
-import ru.itis.graduationwork.application.managers.files.ConfigManager;
 import ru.itis.graduationwork.application.managers.project.ProjectFilesManager;
 import ru.itis.graduationwork.application.managers.project.WorkspaceContentManager;
 import ru.itis.graduationwork.application.settings.Mode;
@@ -24,10 +23,7 @@ public class StudentFileExplorerMouseListener implements MouseListener {
                 String targetFilePath = TreePathsUtils.getFilePath(treePath);
                 if (!isFolder(targetFilePath)){
                     if (isStudyMode() && isEditorFilePathIsNull()){
-                        WorkspaceContentManager.setEditorContent(ProjectFilesManager.getSolutionFilePath(
-                                ConfigManager.getProjectPath(),
-                                ConfigManager.getProjectLanguage()
-                        ));
+                        WorkspaceContentManager.setEditorContent(ProjectFilesManager.getSolutionFilePath());
                     } else {
                         WorkspaceContentManager.changeWorkspaceContent(ContentTab.FILE_EDITOR);
                     }

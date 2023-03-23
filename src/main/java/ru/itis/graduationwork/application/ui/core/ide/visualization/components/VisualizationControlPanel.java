@@ -1,12 +1,10 @@
 package ru.itis.graduationwork.application.ui.core.ide.visualization.components;
 
 import ru.itis.graduationwork.application.Application;
-import ru.itis.graduationwork.application.managers.settings.ColorsManager;
 import ru.itis.graduationwork.application.settings.Mode;
 import ru.itis.graduationwork.application.ui.core.ide.visualization.buttons.*;
 import ru.itis.graduationwork.application.ui.core.templates.Panel;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class VisualizationControlPanel extends Panel {
@@ -18,8 +16,6 @@ public class VisualizationControlPanel extends Panel {
 
     @Override
     protected void setPanelStyle() {
-        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
-        panel.setBackground(ColorsManager.getPanelBackgroundColor());
         panel.setLayout(new GridBagLayout());
     }
 
@@ -42,7 +38,7 @@ public class VisualizationControlPanel extends Panel {
         constraint.gridy = 0;
         constraint.gridx = 0;
         constraint.insets = new Insets(0,0,0,5);
-        panel.add(new SceneToStartButton().getComponent(), constraint);
+        panel.add(new SceneAtStartButton().getComponent(), constraint);
     }
 
     private void addStepBackButton() {
@@ -87,7 +83,7 @@ public class VisualizationControlPanel extends Panel {
         constraint.gridy = 0;
         constraint.gridx = 5;
         constraint.insets = new Insets(0,5,0,0);
-        panel.add(new SceneToEndButton().getComponent(), constraint);
+        panel.add(new SceneAtEndButton().getComponent(), constraint);
     }
 
     private void addUpdateSceneButton(){

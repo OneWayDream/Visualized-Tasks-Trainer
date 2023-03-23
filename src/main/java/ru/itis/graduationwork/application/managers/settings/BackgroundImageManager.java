@@ -2,8 +2,7 @@ package ru.itis.graduationwork.application.managers.settings;
 
 import ru.itis.graduationwork.application.Application;
 import ru.itis.graduationwork.application.loaders.ImagesLoader;
-import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
-import ru.itis.graduationwork.exceptions.NotPresentImageIconException;
+import ru.itis.graduationwork.exceptions.usersettings.NotPresentImageIconException;
 import ru.itis.graduationwork.exceptions.usersettings.BackgroundImageSavingException;
 
 import javax.swing.*;
@@ -12,7 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.concurrent.TimeUnit;
 
 public class BackgroundImageManager {
 
@@ -50,9 +48,7 @@ public class BackgroundImageManager {
                 ImageIcon imageIcon = ImagesLoader.getImageIcon(BACKGROUND_IMAGE_PATH + File.separator + backgroundImageName);
                 return imageIcon.getImage();
             } catch (NotPresentImageIconException exception){
-                ExceptionsManager.addDelayedException(
-                        ExceptionsManager::handleNotPresentUserBackgroundImageException, 200, TimeUnit.MILLISECONDS
-                );
+                exception.handle();
                 SettingsManager.setBackgroundImageName(null);
             }
         }

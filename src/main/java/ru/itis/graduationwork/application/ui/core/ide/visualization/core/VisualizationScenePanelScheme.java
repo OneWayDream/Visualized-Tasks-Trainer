@@ -3,29 +3,31 @@ package ru.itis.graduationwork.application.ui.core.ide.visualization.core;
 import lombok.Getter;
 import ru.itis.graduationwork.application.ui.core.templates.Component;
 
-import javax.swing.*;
-
 public abstract class VisualizationScenePanelScheme implements Component {
 
-    protected JPanel panel;
     @Getter
-    protected boolean isStatic = true;
+    protected boolean isStartEndButtonsEnabled;
+    @Getter
+    protected boolean isForwardBackStepButtonsEnabled;
+    @Getter
+    protected boolean isPlayPauseButtonsEnabled;
 
-    public VisualizationScenePanelScheme(JPanel jpanel){
-        panel = jpanel;
-        setPanelStyle();
-        addComponents();
-    }
+    @Getter
+    protected String inInitialStateCommand;
+    @Getter
+    protected long initialStepDelay;
+    @Getter
+    protected String atSceneStartCommand;
+    @Getter
+    protected long atStartStepDelay;
+    @Getter
+    protected String atSceneEndCommand;
+    @Getter
+    protected long atEndStepDelay;
 
-    protected abstract void setPanelStyle();
+    protected abstract void adjustControlButtons();
+    protected abstract void adjustEdgesCommands();
 
     protected abstract void addComponents();
-
-    public abstract void executeCommand(String command);
-
-    @Override
-    public JComponent getComponent() {
-        return panel;
-    }
 
 }

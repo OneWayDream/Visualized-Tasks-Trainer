@@ -1,7 +1,6 @@
 package ru.itis.graduationwork.application.ui.core.ide.explorer;
 
 import lombok.AllArgsConstructor;
-import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
 import ru.itis.graduationwork.exceptions.explorer.MonitoringRegistrationException;
 
 import javax.swing.*;
@@ -9,7 +8,6 @@ import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeExpansionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import java.util.concurrent.TimeUnit;
 
 @AllArgsConstructor
 public class DirectoryExpansionListener implements TreeExpansionListener {
@@ -31,9 +29,7 @@ public class DirectoryExpansionListener implements TreeExpansionListener {
         try{
             FileWatchService.addTreePathToMonitoring(event.getPath());
         } catch (MonitoringRegistrationException exception){
-            ExceptionsManager.addDelayedException(
-                    ExceptionsManager::handleMonitoringRegistrationException, 200, TimeUnit.MILLISECONDS
-            );
+            exception.handle();
         }
     }
 

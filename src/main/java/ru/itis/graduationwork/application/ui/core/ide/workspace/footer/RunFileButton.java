@@ -8,6 +8,8 @@ import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
 import ru.itis.graduationwork.application.settings.Image;
 import ru.itis.graduationwork.application.ui.core.ide.IdeFramesIconsConstants;
 import ru.itis.graduationwork.application.ui.core.templates.Button;
+import ru.itis.graduationwork.exceptions.files.FileWritingException;
+import ru.itis.graduationwork.exceptions.files.WrapperFilesReadingException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,11 +39,15 @@ public class RunFileButton extends Button {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        WorkspaceContentManager.saveEditorChangedIfNeeded();
-        if (isSolutionFile()){
-            ProjectTaskFilesManager.executeSolutionFile();
-        } else if (isTestSolutionFile()){
-            ProjectTaskFilesManager.executeTestSolutionFile();
+        try{
+            WorkspaceContentManager.saveEditorChangedIfNeeded();
+            if (isSolutionFile()){
+                ProjectTaskFilesManager.executeSolutionFile();
+            } else if (isTestSolutionFile()){
+                ProjectTaskFilesManager.executeTestSolutionFile();
+            }
+        } catch (FileWritingException | WrapperFilesReadingException exception){
+            exception.handle();
         }
     }
 

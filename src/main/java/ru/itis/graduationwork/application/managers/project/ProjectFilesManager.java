@@ -2,14 +2,14 @@ package ru.itis.graduationwork.application.managers.project;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import ru.itis.graduationwork.application.entities.Language;
-import ru.itis.graduationwork.application.entities.ProjectConfig;
-import ru.itis.graduationwork.application.loaders.TemplatesLoader;
-import ru.itis.graduationwork.application.managers.files.ConfigManager;
+import ru.itis.graduationwork.application.entities.project.Language;
+import ru.itis.graduationwork.application.entities.project.ProjectConfig;
+import ru.itis.graduationwork.application.entities.project.VisualizationType;
+import ru.itis.graduationwork.application.generators.FilesGenerator;
+import ru.itis.graduationwork.application.generators.JavaVisualizationFilesGenerator;
 import ru.itis.graduationwork.application.managers.files.FilesManager;
-import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
-import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
-import ru.itis.graduationwork.exceptions.ProjectCreationException;
+import ru.itis.graduationwork.exceptions.project.ProjectCreationException;
+import ru.itis.graduationwork.exceptions.files.FileGenerationException;
 import ru.itis.graduationwork.exceptions.project.ProjectConfigReadingException;
 import ru.itis.graduationwork.exceptions.project.ProjectConfigWritingException;
 import ru.itis.graduationwork.exceptions.project.ProjectDirectoryNotExistsException;
@@ -18,20 +18,36 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.concurrent.TimeUnit;
 
 public class ProjectFilesManager {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    private static final String SOLUTION_FILE_NAME = "Solution";
-    private static final String TEST_SOLUTION_FILE_NAME = "TestSolution";
     private static final String VISUALIZATION_FOLDER_NAME = "visualization";
     private static final String FILE_WRAPPERS_FOLDER_NAME = "wrappers";
     private static final String INFORMATIONAL_FOLDER_NAME = "info";
-    private static final String READ_ME_FILE_NAME = "readme.md";
-    private static final String CUSTOM_PANEL_FILE_NAME = "CustomPanel";
-    private static final String VISUALIZATION_SCENE_PANEL_FILE_NAME = "VisualizationScenePanel";
+    private static final String CUSTOM_PANEL_FILE_NAME = "CustomPanel.java";
+    private static final String VISUALIZATION_SCENE_PANEL_FILE_NAME = "VisualizationScenePanel.java";
+
+    private static ProjectConfig projectConfig;
+    private static FilesGenerator filesGenerator;
+
+    public static void init(ProjectConfig projectConfig){
+        ProjectFilesManager.projectConfig = projectConfig;
+        filesGenerator = FilesGeneratorManager.getFilesGenerator(projectConfig.getLanguage());
+    }
+
+    public static void reset(){
+        projectConfig = null;
+        filesGenerator = null;
+    }
+
+    public static String getSolutionFileName(){
+        return filesGenerator.getSolutionFileName();
+    }
+
+    public static String getTestSolutionFileName(){
+        return filesGenerator.getTestSolutionFileName();
+    }
 
     public static void createProjectFolders(String path) {
         try{
@@ -41,233 +57,204 @@ public class ProjectFilesManager {
         }
     }
 
-    public static void createProjectFiles(ProjectConfig projectConfig){
-        createConfigFile(projectConfig);
-        createDevelopProjectFiles(projectConfig);
+    public static void createProjectFiles(){
+        try {
+            createVisualizationFolderIfNotExists();
+            createWrappersFilesFolderIfNotExists();
+            createInformationalFilesFolderIfNotExists();
+            createSolutionFileIfNotExists();
+            createTestSolutionFileIfNotExists();
+            createCustomPanelFileIfNotExists();
+            createVisualizationScenePanelFileIfNotExists();
+            createAdditionalFiles();
+        } catch (FileGenerationException exception){
+            exception.handle();
+        }
     }
 
-    public static void createDevelopProjectFiles(ProjectConfig projectConfig){
-        createSolutionFileIfNotExists(projectConfig);
-        createTestSolutionFileIfNotExists(projectConfig);
-        createVisualizationFolderIfNotExists(projectConfig);
-        createWrappersFilesFolderIfNotExists(projectConfig);
-        createInformationalFilesFolderIfNotExists(projectConfig);
-        createCustomPanelFileIfNotExists(projectConfig);
-        createVisualizationScenePanelFileIfNotExists(projectConfig);
+    public static void createVisualizationFiles(){
+        createVisualizationFolderIfNotExists();
+        createCustomPanelFileIfNotExists();
+        createVisualizationScenePanelFileIfNotExists();
     }
 
-    private static void createVisualizationFolderIfNotExists(ProjectConfig projectConfig) {
-        createVisualizationFolder(projectConfig.getProjectPath());
-        createVisualizationReadMeIfNotExists(projectConfig.getProjectPath());
+
+    private static void createVisualizationFolderIfNotExists() {
+        if (checkIfVisualizationFolderNotExists()){
+            createVisualizationFolder();
+            createVisualizationReadMeFile();
+        }
     }
 
-    private static void createVisualizationFolder(String projectPath) {
+    private static boolean checkIfVisualizationFolderNotExists(){
+        String visualizationFolderPath = getVisualizationFolderPath();
+        return !FilesManager.checkIsFileExist(visualizationFolderPath);
+    }
+
+    private static String getVisualizationFolderPath(){
+        return projectConfig.getProjectPath() + File.separator + VISUALIZATION_FOLDER_NAME;
+    }
+
+    private static void createVisualizationFolder() {
         try{
-            Files.createDirectories(Paths.get(getVisualizationFolderPath(projectPath)));
+            Files.createDirectories(Paths.get(getVisualizationFolderPath()));
         } catch (IOException ex) {
             throw new ProjectCreationException(ex);
         }
     }
 
-    private static String getVisualizationFolderPath(String projectPath){
-        return projectPath + File.separator + VISUALIZATION_FOLDER_NAME;
+    private static void createVisualizationReadMeFile(){
+        filesGenerator.generateVisualizationReadMeFile();
     }
 
-    private static String getVisualizationReadMeFilePath(String projectPath){
-        String visualizationFolderPath = getVisualizationFolderPath(projectPath);
-        return visualizationFolderPath + File.separator + READ_ME_FILE_NAME;
-    }
 
-    private static void createVisualizationReadMeIfNotExists(String projectPath) {
-        String visualizationReadMeFilePath = getVisualizationReadMeFilePath(projectPath);
-        if (!FilesManager.checkIsFileExist(visualizationReadMeFilePath)){
-            createVisualizationReadMeFile(visualizationReadMeFilePath);
+    private static void createWrappersFilesFolderIfNotExists() {
+        if (checkIfWrappersFolderNotExists()){
+            createWrappersFilesFolder();
+            createWrappersReadMeFile();
         }
     }
 
-    private static void createVisualizationReadMeFile(String visualizationReadMeFilePath){
-        String visualizationReadMeFileContent = prepareVisualizationReadMeFileContent();
-        FilesManager.writeStringAsFile(visualizationReadMeFilePath, visualizationReadMeFileContent);
+    private static boolean checkIfWrappersFolderNotExists() {
+        String wrappersFolderPath = getWrappersFolderPath();
+        return !FilesManager.checkIsFileExist(wrappersFolderPath);
     }
 
-    private static String prepareVisualizationReadMeFileContent(){
-        return LocalizationManager.getLocaleTextByKey("templates.visualization-read-me-file.content");
+    private static String getWrappersFolderPath(){
+        return projectConfig.getProjectPath() + File.separator + FILE_WRAPPERS_FOLDER_NAME;
     }
 
-    private static void createWrappersFilesFolderIfNotExists(ProjectConfig projectConfig) {
-        createWrappersFilesFolder(projectConfig.getProjectPath());
-        createWrappersReadMeIfNotExists(projectConfig.getProjectPath());
-    }
-
-    private static void createWrappersFilesFolder(String projectPath) {
+    private static void createWrappersFilesFolder() {
         try{
-            Files.createDirectories(Paths.get(getWrappersFolderPath(projectPath)));
+            Files.createDirectories(Paths.get(getWrappersFolderPath()));
         } catch (IOException ex) {
             throw new ProjectCreationException(ex);
         }
     }
 
-    private static String getWrappersFolderPath(String projectPath){
-        return projectPath + File.separator + FILE_WRAPPERS_FOLDER_NAME;
+    private static void createWrappersReadMeFile(){
+        filesGenerator.generateWrappersReadMeFile();
     }
 
-    private static String getWrappersReadMeFilePath(String projectPath){
-        String wrappersFolderPath = getWrappersFolderPath(projectPath);
-        return wrappersFolderPath + File.separator + READ_ME_FILE_NAME;
-    }
 
-    private static void createWrappersReadMeIfNotExists(String projectPath) {
-        String wrappersReadMeFilePath = getWrappersReadMeFilePath(projectPath);
-        if (!FilesManager.checkIsFileExist(wrappersReadMeFilePath)){
-            createWrappersReadMeFile(wrappersReadMeFilePath);
+    private static void createInformationalFilesFolderIfNotExists(){
+        if (checkIfInformationalFolderNotExists()){
+            createInformationalFolder();
+            createInformationalReadMeFile();
         }
     }
 
-    private static void createWrappersReadMeFile(String wrappersReadMeFilePath){
-        String wrappersReadMeFileContent = prepareWrappersReadMeFileContent();
-        FilesManager.writeStringAsFile(wrappersReadMeFilePath, wrappersReadMeFileContent);
+    private static boolean checkIfInformationalFolderNotExists() {
+        String informationalFolderPath = getInformationalFolderPath();
+        return !FilesManager.checkIsFileExist(informationalFolderPath);
     }
 
-    private static String prepareWrappersReadMeFileContent(){
-        return LocalizationManager.getLocaleTextByKey("templates.wrappers-read-me-file.content");
+    private static String getInformationalFolderPath(){
+        return projectConfig.getProjectPath() + File.separator + INFORMATIONAL_FOLDER_NAME;
     }
 
-    private static void createInformationalFilesFolderIfNotExists(ProjectConfig projectConfig){
-        createInformationalFolder(projectConfig.getProjectPath());
-        createInformationalReadMeIfNotExists(projectConfig.getProjectPath());
-    }
-
-    private static void createInformationalFolder(String projectPath) {
+    private static void createInformationalFolder() {
         try{
-            Files.createDirectories(Paths.get(getInformationalFolderPath(projectPath)));
+            Files.createDirectories(Paths.get(getInformationalFolderPath()));
         } catch (IOException ex) {
             throw new ProjectCreationException(ex);
         }
     }
 
-    private static String getInformationalFolderPath(String projectPath){
-        return projectPath + File.separator + INFORMATIONAL_FOLDER_NAME;
+    private static void createInformationalReadMeFile() {
+        filesGenerator.generateInformationalReadMeFile();
     }
 
-    private static String getInformationalReadMeFilePath(String projectPath){
-        String informationalFolderPath = getInformationalFolderPath(projectPath);
-        return informationalFolderPath + File.separator + READ_ME_FILE_NAME;
-    }
 
-    private static void createInformationalReadMeIfNotExists(String projectPath) {
-        String informationalReadMeFilePath = getInformationalReadMeFilePath(projectPath);
-        if (!FilesManager.checkIsFileExist(informationalReadMeFilePath)){
-            createInformationalReadMeFile(informationalReadMeFilePath);
+    private static void createSolutionFileIfNotExists(){
+        if (checkIfSolutionFileNotExists()){
+            createSolutionFile();
         }
     }
 
-    private static void createInformationalReadMeFile(String informationalReadMeFilePath) {
-        String informationalReadMeFileContent = prepareInformationalReadMeFileContent();
-        FilesManager.writeStringAsFile(informationalReadMeFilePath, informationalReadMeFileContent);
+    private static boolean checkIfSolutionFileNotExists() {
+        String solutionFilePath = getSolutionFilePath();
+        return !FilesManager.checkIsFileExist(solutionFilePath);
     }
 
-    private static String prepareInformationalReadMeFileContent() {
-        return LocalizationManager.getLocaleTextByKey("templates.informational-read-me-file.content");
+    public static String getSolutionFilePath(){
+        return projectConfig.getProjectPath() + File.separator + filesGenerator.getSolutionFileName();
     }
 
-    private static void createCustomPanelFileIfNotExists(ProjectConfig projectConfig) {
-        String customPanelFilePath = getCustomPanelFilePath(projectConfig.getProjectPath(), projectConfig.getLanguage());
-        if (!FilesManager.checkIsFileExist(customPanelFilePath)){
-            createCustomPanelFile(projectConfig);
+    private static void createSolutionFile(){
+        filesGenerator.generateSolutionFile();
+    }
+
+
+    private static void createTestSolutionFileIfNotExists(){
+        if (checkIfTestSolutionFileNotExists()){
+            createTestSolutionFile();
         }
     }
 
-    private static String getCustomPanelFilePath(String projectPath, Language language){
-        String visualizationFolderPath = getVisualizationFolderPath(projectPath);
-        return visualizationFolderPath + File.separator + CUSTOM_PANEL_FILE_NAME + language.getExtension();
+    private static boolean checkIfTestSolutionFileNotExists() {
+        String testSolutionFilePath = getTestSolutionFilePath();
+        return !FilesManager.checkIsFileExist(testSolutionFilePath);
     }
 
-    private static void createCustomPanelFile(ProjectConfig projectConfig) {
-        String customPanelFilePath = getCustomPanelFilePath(projectConfig.getProjectPath(), projectConfig.getLanguage());
-        String customPanelFileContent = prepareCustomPanelFileContent();
-        FilesManager.writeStringAsFile(customPanelFilePath, customPanelFileContent);
+    public static String getTestSolutionFilePath(){
+        return projectConfig.getProjectPath() + File.separator + filesGenerator.getTestSolutionFileName();
     }
 
-    private static String prepareCustomPanelFileContent() {
-        String customPanelContent = TemplatesLoader.getCustomPanelTemplateContent();
-        return String.format(customPanelContent,
-                LocalizationManager.getLocaleTextByKey("templates.custom-panel-file-template.description"));
+    private static void createTestSolutionFile() {
+        filesGenerator.generateTestSolutionFile();
     }
 
-    private static void createVisualizationScenePanelFileIfNotExists(ProjectConfig projectConfig) {
-        String customPanelFilePath = getVisualizationScenePanelFilePath(projectConfig.getProjectPath(), projectConfig.getLanguage());
-        if (!FilesManager.checkIsFileExist(customPanelFilePath)){
-            createVisualizationScenePanelFile(projectConfig);
+
+    private static void createCustomPanelFileIfNotExists() {
+        if (checkIfCustomPanelFileNotExists()){
+            createCustomPanelFile();
         }
     }
 
-    private static String getVisualizationScenePanelFilePath(String projectPath, Language language){
-        String visualizationFolderPath = getVisualizationFolderPath(projectPath);
-        return visualizationFolderPath + File.separator + VISUALIZATION_SCENE_PANEL_FILE_NAME + language.getExtension();
+    private static boolean checkIfCustomPanelFileNotExists() {
+        String customPanelFilePath = getCustomPanelFilePath();
+        return !FilesManager.checkIsFileExist(customPanelFilePath);
     }
 
-    private static void createVisualizationScenePanelFile(ProjectConfig projectConfig) {
-        String visualizationScenePanelFilePath = getVisualizationScenePanelFilePath(projectConfig.getProjectPath(), projectConfig.getLanguage());
-        String visualizationScenePanelFileContent = prepareVisualizationScenePanelFileContent();
-        FilesManager.writeStringAsFile(visualizationScenePanelFilePath, visualizationScenePanelFileContent);
+    private static String getCustomPanelFilePath(){
+        String visualizationFolderPath = getVisualizationFolderPath();
+        return visualizationFolderPath + File.separator + CUSTOM_PANEL_FILE_NAME;
     }
 
-    private static String prepareVisualizationScenePanelFileContent() {
-        return TemplatesLoader.getVisualizationScenePanelTemplateContent();
+    private static void createCustomPanelFile() {
+        JavaVisualizationFilesGenerator.generateCustomPanelFile();
     }
 
-    private static void createConfigFile(ProjectConfig projectConfig) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(
-                new FileWriter(getConfigPath(projectConfig.getProjectPath()),
-                        StandardCharsets.UTF_8))){
-            bufferedWriter.write(gson.toJson(projectConfig));
-        } catch (IOException ex) {
-            throw new ProjectCreationException(ex);
+
+    private static void createVisualizationScenePanelFileIfNotExists() {
+        if (checkIfVisualizationScenePanelFileNotExists()){
+            createVisualizationScenePanelFile();
         }
     }
+
+    private static boolean checkIfVisualizationScenePanelFileNotExists() {
+        String visualizationScenePanelFilePath = getVisualizationScenePanelFilePath();
+        return !FilesManager.checkIsFileExist(visualizationScenePanelFilePath);
+    }
+
+    private static String getVisualizationScenePanelFilePath(){
+        String visualizationFolderPath = getVisualizationFolderPath();
+        return visualizationFolderPath + File.separator + VISUALIZATION_SCENE_PANEL_FILE_NAME;
+    }
+
+    private static void createVisualizationScenePanelFile() {
+        JavaVisualizationFilesGenerator.generateVisualizationScenePanelFile();
+    }
+
+
+    private static void createAdditionalFiles() {
+        filesGenerator.generateAdditionalFiles();
+    }
+
 
     private static String getConfigPath(String projectPath){
         return projectPath + File.separator + "config.json";
-    }
-
-    private static void createSolutionFileIfNotExists(ProjectConfig projectConfig){
-        String solutionFilePath = ProjectFilesManager.getSolutionFilePath(
-                projectConfig.getProjectPath(), projectConfig.getLanguage());
-        if (!FilesManager.checkIsFileExist(solutionFilePath)){
-            createSolutionFile(projectConfig);
-        }
-    }
-
-    private static void createSolutionFile(ProjectConfig projectConfig){
-        String solutionFilePath = getSolutionFilePath(projectConfig.getProjectPath(), projectConfig.getLanguage());
-        String solutionFileContent = prepareSolutionFileContent(projectConfig.getLanguage());
-        FilesManager.writeStringAsFile(solutionFilePath, solutionFileContent);
-    }
-
-    private static String prepareSolutionFileContent(Language language){
-        String solutionFileContent = TemplatesLoader.getSolutionTemplateContent(language);
-        return String.format(solutionFileContent,
-                LocalizationManager.getLocaleTextByKey("templates.solution-file-template.description"));
-    }
-
-    private static void createTestSolutionFileIfNotExists(ProjectConfig projectConfig){
-        String solutionFilePath = ProjectFilesManager.getTestSolutionFilePath(
-                projectConfig.getProjectPath(), projectConfig.getLanguage());
-        if (!FilesManager.checkIsFileExist(solutionFilePath)){
-            createTestSolutionFile(projectConfig);
-        }
-    }
-
-    private static void createTestSolutionFile(ProjectConfig projectConfig) {
-        String testSolutionFilePath = getTestSolutionFilePath(projectConfig.getProjectPath(), projectConfig.getLanguage());
-        String testSolutionFileContent = prepareTestSolutionFileContent(projectConfig.getLanguage());
-        FilesManager.writeStringAsFile(testSolutionFilePath, testSolutionFileContent);
-    }
-
-    private static String prepareTestSolutionFileContent(Language language) {
-        String solutionFileContent = TemplatesLoader.getTestSolutionTemplateContent(language);
-        return String.format(solutionFileContent,
-                LocalizationManager.getLocaleTextByKey("templates.test-solution-file-template.description"));
     }
 
     public static ProjectConfig getConfigFile(String projectPath){
@@ -280,9 +267,7 @@ public class ProjectFilesManager {
             projectConfig.setProjectPath(projectPath);
             return projectConfig;
         } catch (ProjectConfigReadingException exception){
-            ExceptionsManager.addDelayedException(
-                    ExceptionsManager::handleProjectConfigReadingException, 200, TimeUnit.MILLISECONDS
-            );
+            exception.handle();
             projectConfig = getDefaultProjectConfig(projectPath);
             writeConfigFile(projectConfig);
         }
@@ -316,25 +301,8 @@ public class ProjectFilesManager {
                 .projectPath(projectPath)
                 .language(Language.JAVA)
                 .projectName(projectPath)
+                .visualizationType(VisualizationType.SWING)
                 .build();
-    }
-
-    public static String getSolutionFilePath(String projectPath, Language language){
-        return projectPath + File.separator + SOLUTION_FILE_NAME + language.getExtension();
-    }
-
-    public static String getTestSolutionFilePath(String projectPath, Language language){
-        return projectPath + File.separator + TEST_SOLUTION_FILE_NAME + language.getExtension();
-    }
-
-    public static String getSolutionFilePath(){
-        return ConfigManager.getProjectPath() + File.separator + SOLUTION_FILE_NAME +
-                ConfigManager.getProjectLanguage().getExtension();
-    }
-
-    public static String getTestSolutionFilePath(){
-        return ConfigManager.getProjectPath() + File.separator + TEST_SOLUTION_FILE_NAME
-                + ConfigManager.getProjectLanguage().getExtension();
     }
 
 }

@@ -10,10 +10,10 @@ import ru.itis.graduationwork.application.settings.Mode;
 import ru.itis.graduationwork.application.ui.core.ide.IdePageFrame;
 import ru.itis.graduationwork.application.ui.core.ide.workspace.ContentEditorPane;
 import ru.itis.graduationwork.application.ui.core.ide.workspace.ContentTab;
-import ru.itis.graduationwork.application.ui.pages.develop.panels.workspace.editor.FileEditorScrollPane;
+import ru.itis.graduationwork.application.ui.core.ide.workspace.editor.FileEditorScrollPane;
 import ru.itis.graduationwork.application.ui.pages.develop.panels.workspace.notselected.ContentFileChooserPanel;
 import ru.itis.graduationwork.application.ui.pages.study.panels.workspace.notselected.NotSelectedFilePanel;
-import ru.itis.graduationwork.exceptions.UnexpectedContentTabException;
+import ru.itis.graduationwork.exceptions.unexpected.UnexpectedContentTabException;
 import ru.itis.graduationwork.exceptions.files.FileNotFoundException;
 import ru.itis.graduationwork.exceptions.files.FileReadingException;
 
@@ -115,6 +115,41 @@ public class WorkspaceContentManager {
         contentTab = ContentTab.GENERAL_DESCRIPTION;
         editorFilePath = null;
         contentComponent = null;
+    }
+
+    public static void notifyAboutFileDeletion(String deletedFilePath){
+        checkIfGeneralDescriptionFileWasDeleted(deletedFilePath);
+        checkIfStudyingContentFileWasDeleted(deletedFilePath);
+        checkIfTaskTermsFileWasDeleted(deletedFilePath);
+        checkIfEditorContentWasDeleted(deletedFilePath);
+    }
+
+    private static void checkIfGeneralDescriptionFileWasDeleted(String deletedFilePath){
+        if (deletedFilePath.equals(ConfigManager.getGeneralDescriptionFilePath())){
+            ConfigManager.setGeneralDescriptionFilePath(null);
+            updateWorkspaceContent();
+        }
+    }
+
+    private static void checkIfStudyingContentFileWasDeleted(String deletedFilePath){
+        if (deletedFilePath.equals(ConfigManager.getStudyingContentFilePath())){
+            ConfigManager.setStudyingContentFilePath(null);
+            updateWorkspaceContent();
+        }
+    }
+
+    private static void checkIfTaskTermsFileWasDeleted(String deletedFilePath){
+        if (deletedFilePath.equals(ConfigManager.getTaskTermsFilePath())){
+            ConfigManager.setTaskTermsFilePath(null);
+            updateWorkspaceContent();
+        }
+    }
+
+    private static void checkIfEditorContentWasDeleted(String deletedFilePath){
+        if (deletedFilePath.equals(editorFilePath)){
+            editorFilePath = null;
+            updateWorkspaceContent();
+        }
     }
 
 }

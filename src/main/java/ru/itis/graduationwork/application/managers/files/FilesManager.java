@@ -2,11 +2,9 @@ package ru.itis.graduationwork.application.managers.files;
 
 import ru.itis.graduationwork.exceptions.files.*;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -56,21 +54,79 @@ public class FilesManager {
         return new File(filePath).exists();
     }
 
-    public static void writeStringAsFile(String filePath, String content){
-        try (BufferedWriter bufferedWriter = new BufferedWriter(
-                new FileWriter(filePath, StandardCharsets.UTF_8))){
-            bufferedWriter.write(content);
-        } catch (IOException ex) {
-            throw new FileWritingException(ex);
-        }
-    }
-
     public static byte[] readFileBytes(File file){
         try{
             return Files.readAllBytes(file.toPath());
         } catch (IOException ex) {
             throw new FileReadingException(ex);
         }
+    }
+
+    public static void delete(String path){
+        if (!isDirectory(path)){
+            deleteFile(path);
+        } else {
+            deleteDirectory(path);
+        }
+
+    }
+
+    public static boolean isDirectory(String path){
+        return new File(path).isDirectory();
+    }
+
+    public static void deleteFile(String filePath){
+        boolean isDeleted;
+        try{
+            isDeleted = new File(filePath).delete();
+        } catch (Exception exception){
+            throw new FileDeletionException(exception);
+        }
+        if (!isDeleted){
+            throw new FileDeletionException();
+        }
+    }
+
+    public static void deleteDirectory(String directoryPath){
+        File directoryToDelete = new File(directoryPath);
+        String[] innerFilePaths = directoryToDelete.list();
+        innerFilePaths = (innerFilePaths == null) ? new String[0] : innerFilePaths;
+        try{
+            for (String innerFilePath: innerFilePaths){
+                File currentFile = new File(directoryPath + File.separator + innerFilePath);
+                currentFile.delete();
+            }
+        } catch (Exception exception){
+            throw new FileDeletionException(exception);
+        }
+        if (!directoryToDelete.delete()){
+            throw new FileDeletionException();
+        }
+    }
+
+    public static void createDirectory(String directoryPath){
+        if (checkIsFileExist(directoryPath)) {
+            throw new FolderAlreadyExistsException();
+        }
+        File folder = new File(directoryPath);
+        boolean successCreation;
+        try{
+            successCreation = folder.mkdir();
+        } catch (Exception exception){
+            throw new FolderCreationException(exception);
+        }
+        if (!successCreation) {
+            throw new FolderCreationException();
+        }
+    }
+
+    public static String readFileAsString(String path){
+        try{
+            return Files.readString(Path.of(path));
+        } catch (IOException e) {
+            throw new FileReadingException(e);
+        }
+
     }
 
 }

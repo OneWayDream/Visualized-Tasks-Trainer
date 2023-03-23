@@ -1,7 +1,6 @@
 package ru.itis.graduationwork.application.ui.pages.menu.settings.background;
 
 import ru.itis.graduationwork.application.managers.settings.BackgroundImageManager;
-import ru.itis.graduationwork.application.managers.utils.ExceptionsManager;
 import ru.itis.graduationwork.application.managers.settings.LocalizationManager;
 import ru.itis.graduationwork.application.ui.core.templates.Chooser;
 import ru.itis.graduationwork.exceptions.usersettings.BackgroundImageSavingException;
@@ -29,7 +28,7 @@ public class BackgroundImageChooser extends Chooser {
             try{
                 BackgroundImageManager.saveNewBackgroundImage(selectedImage);
             } catch (BackgroundImageSavingException exception){
-                ExceptionsManager.handleBackgroundImageSavingException();
+                exception.handle();
             }
         }
     }
