@@ -1,0 +1,66 @@
+package ru.itis.visualtasks.desktopapp.application.ui.core.ide.tabs;
+
+import ru.itis.visualtasks.desktopapp.application.Application;
+import ru.itis.visualtasks.desktopapp.application.managers.content.IconsManager;
+import ru.itis.visualtasks.desktopapp.application.managers.project.ProjectFilesManager;
+import ru.itis.visualtasks.desktopapp.application.managers.project.WorkspaceContentManager;
+import ru.itis.visualtasks.desktopapp.application.managers.settings.ColorsManager;
+import ru.itis.visualtasks.desktopapp.application.managers.settings.LocalizationManager;
+import ru.itis.visualtasks.desktopapp.application.settings.Image;
+import ru.itis.visualtasks.desktopapp.application.settings.Mode;
+import ru.itis.visualtasks.desktopapp.application.ui.core.ide.IdeFramesIconsConstants;
+import ru.itis.visualtasks.desktopapp.application.ui.core.ide.workspace.ContentTab;
+import ru.itis.visualtasks.desktopapp.application.ui.core.templates.Button;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+
+public class OpenFileRedactorButton extends Button {
+
+    public OpenFileRedactorButton(){
+        super();
+        createButton();
+    }
+
+    @Override
+    protected void setButtonStyle() {
+        button.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2,
+                ColorsManager.getButtonBordersColor()));
+        setIcon();
+        setTextStyle();
+    }
+
+    private void setIcon(){
+        button.setIcon(IconsManager.getImageIcon(Image.IDE,
+                IdeFramesIconsConstants.TAB_BUTTON_ICON_WIDTH,
+                IdeFramesIconsConstants.TAB_BUTTON_ICON_HEIGHT));
+    }
+
+    private void setTextStyle(){
+        button.setText(LocalizationManager.getLocaleTextByKey("ide.content.main-buttons.open-code-ide-button.text"));
+        button.setToolTipText(LocalizationManager.getLocaleTextByKey("ide.content.main-buttons.open-code-ide-button.tooltip-text"));
+        button.setFont(new Font("Comic Sans", Font.PLAIN, 20));
+        button.setIconTextGap(10);
+        button.setVerticalTextPosition(SwingConstants.BOTTOM);
+        button.setHorizontalTextPosition(SwingConstants.CENTER);
+        button.setForeground(ColorsManager.getTextColor());
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (isStudyMode() && isEditorFilePathIsNull()){
+            WorkspaceContentManager.setEditorContent(ProjectFilesManager.getSolutionFilePath());
+        } else {
+            WorkspaceContentManager.changeWorkspaceContent(ContentTab.FILE_EDITOR);
+        }
+    }
+
+    private boolean isStudyMode(){
+        return Application.getMode() == Mode.STUDY;
+    }
+
+    private boolean isEditorFilePathIsNull(){
+        return WorkspaceContentManager.getEditorFilePath() == null;
+    }
+}

@@ -1,18 +1,14 @@
-### Java template
-# Compiled class file
-*.class
+### Custom filters
 
-# Log file
+# Log files
 *.log
-
-# Legacy Files
-*legacy/
-
-# Test tasks
-TestTasks/
 
 # Logs
 *.logs/
+
+### Java template
+# Compiled class file
+*.class
 
 # BlueJ files
 *.ctxt
@@ -126,3 +122,12 @@ fabric.properties
 *.iml
 out
 gen
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
