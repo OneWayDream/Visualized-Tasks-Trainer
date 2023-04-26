@@ -1,7 +1,6 @@
 package ru.itis.visualtasks.desktopapp.application.managers.files;
 
 import ru.itis.visualtasks.desktopapp.exceptions.files.*;
-import ru.itis.visualtasks.exceptions.files.*;
 
 import java.io.File;
 import java.io.FileWriter;

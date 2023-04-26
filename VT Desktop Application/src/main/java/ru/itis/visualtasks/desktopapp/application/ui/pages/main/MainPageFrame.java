@@ -5,6 +5,7 @@ import ru.itis.visualtasks.desktopapp.application.ui.core.PageType;
 import ru.itis.visualtasks.desktopapp.application.ui.core.templates.PageFrame;
 import ru.itis.visualtasks.desktopapp.application.ui.pages.main.panels.LeftMainPanel;
 import ru.itis.visualtasks.desktopapp.application.ui.pages.main.panels.RightMainPanel;
+import ru.itis.visualtasks.desktopapp.application.ui.pages.menu.account.AccountMenu;
 import ru.itis.visualtasks.desktopapp.application.ui.pages.menu.settings.SettingsMenu;
 
 import javax.swing.*;
@@ -46,6 +47,8 @@ public class MainPageFrame extends PageFrame {
     private void initJMenuBar(){
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(new SettingsMenu().getComponent());
+        accountMenu = new AccountMenu();
+        menuBar.add(accountMenu.getComponent());
         frame.setJMenuBar(menuBar);
     }
 

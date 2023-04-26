@@ -3,7 +3,6 @@ package ru.itis.visualtasks.desktopapp.application.ui.pages.study.panels.explore
 import ru.itis.visualtasks.desktopapp.application.managers.project.ProjectFilesManager;
 import ru.itis.visualtasks.desktopapp.application.managers.settings.ColorsManager;
 import ru.itis.visualtasks.desktopapp.application.settings.Image;
-import ru.itis.visualtasks.application.ui.core.ide.explorer.*;
 import ru.itis.visualtasks.desktopapp.application.ui.core.templates.FileTree;
 import ru.itis.visualtasks.desktopapp.application.ui.pages.study.panels.explorer.listeners.StudentFileExplorerMouseListener;
 import ru.itis.visualtasks.desktopapp.application.ui.core.ide.explorer.*;

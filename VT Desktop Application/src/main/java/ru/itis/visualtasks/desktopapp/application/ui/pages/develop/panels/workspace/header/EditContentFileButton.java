@@ -1,12 +1,11 @@
 package ru.itis.visualtasks.desktopapp.application.ui.pages.develop.panels.workspace.header;
 
-import ru.itis.visualtasks.desktopapp.application.managers.files.ConfigManager;
 import ru.itis.visualtasks.desktopapp.application.managers.content.IconsManager;
-import ru.itis.visualtasks.desktopapp.application.managers.settings.LocalizationManager;
+import ru.itis.visualtasks.desktopapp.application.managers.files.ConfigManager;
 import ru.itis.visualtasks.desktopapp.application.managers.project.WorkspaceContentManager;
+import ru.itis.visualtasks.desktopapp.application.managers.settings.LocalizationManager;
 import ru.itis.visualtasks.desktopapp.application.settings.Image;
 import ru.itis.visualtasks.desktopapp.application.ui.core.ide.IdeFramesIconsConstants;
-import ru.itis.visualtasks.desktopapp.application.ui.core.ide.workspace.ContentTab;
 import ru.itis.visualtasks.desktopapp.exceptions.unexpected.UnexpectedContentTabException;
 
 import javax.swing.*;
@@ -43,9 +42,9 @@ public class EditContentFileButton extends ru.itis.visualtasks.desktopapp.applic
     private String getFilePath(){
         String filePath;
         switch (WorkspaceContentManager.getContentTab()){
-            case ContentTab.GENERAL_DESCRIPTION ->  filePath = ConfigManager.getGeneralDescriptionFilePath();
-            case ContentTab.STUDYING_CONTENT -> filePath = ConfigManager.getStudyingContentFilePath();
-            case ContentTab.TASK_TERMS -> filePath = ConfigManager.getTaskTermsFilePath();
+            case GENERAL_DESCRIPTION ->  filePath = ConfigManager.getGeneralDescriptionFilePath();
+            case STUDYING_CONTENT -> filePath = ConfigManager.getStudyingContentFilePath();
+            case TASK_TERMS -> filePath = ConfigManager.getTaskTermsFilePath();
             default -> throw new UnexpectedContentTabException();
         }
         return filePath;

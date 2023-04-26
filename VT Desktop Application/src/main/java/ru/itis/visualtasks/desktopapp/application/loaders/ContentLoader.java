@@ -8,6 +8,7 @@ import ru.itis.visualtasks.desktopapp.exceptions.files.FileNotFoundException;
 import ru.itis.visualtasks.desktopapp.exceptions.files.FileReadingException;
 import ru.itis.visualtasks.desktopapp.exceptions.files.UnsupportedContentFileExtensionException;
 import ru.itis.visualtasks.desktopapp.exceptions.unexpected.UnexpectedContentTabException;
+import com.github.rjeschke.txtmark.Processor;
 
 public class ContentLoader {
 
@@ -62,7 +63,7 @@ public class ContentLoader {
     }
 
     private static String markDownToHtml(String markDownContent){
-        return com.github.rjeschke.txtmark.Processor.process(markDownContent);
+        return Processor.process(markDownContent);
     }
 
     private static void resetContentFilePathForTab(ContentTab contentTab){

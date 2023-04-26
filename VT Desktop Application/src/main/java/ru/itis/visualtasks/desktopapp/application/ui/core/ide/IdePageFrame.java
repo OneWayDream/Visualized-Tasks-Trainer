@@ -5,6 +5,7 @@ import ru.itis.visualtasks.desktopapp.application.entities.project.ProjectConfig
 import ru.itis.visualtasks.desktopapp.application.managers.project.WorkspaceContentManager;
 import ru.itis.visualtasks.desktopapp.application.managers.settings.BackgroundImageManager;
 import ru.itis.visualtasks.desktopapp.application.ui.core.templates.PageFrame;
+import ru.itis.visualtasks.desktopapp.application.ui.pages.menu.account.AccountMenu;
 import ru.itis.visualtasks.desktopapp.application.ui.pages.menu.file.FileMenu;
 import ru.itis.visualtasks.desktopapp.application.ui.pages.menu.settings.SettingsMenu;
 
@@ -45,6 +46,8 @@ public abstract class IdePageFrame extends PageFrame {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(new FileMenu().getComponent());
         menuBar.add(new SettingsMenu().getComponent());
+        accountMenu = new AccountMenu();
+        menuBar.add(accountMenu.getComponent());
         frame.setJMenuBar(menuBar);
     }
 

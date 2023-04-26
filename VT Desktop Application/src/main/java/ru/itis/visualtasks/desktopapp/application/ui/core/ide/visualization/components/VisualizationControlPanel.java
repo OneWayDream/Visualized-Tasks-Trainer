@@ -2,7 +2,6 @@ package ru.itis.visualtasks.desktopapp.application.ui.core.ide.visualization.com
 
 import ru.itis.visualtasks.desktopapp.application.Application;
 import ru.itis.visualtasks.desktopapp.application.settings.Mode;
-import ru.itis.visualtasks.application.ui.core.ide.visualization.buttons.*;
 import ru.itis.visualtasks.desktopapp.application.ui.core.templates.Panel;
 import ru.itis.visualtasks.desktopapp.application.ui.core.ide.visualization.buttons.*;
 

@@ -3,7 +3,6 @@ package ru.itis.visualtasks.desktopapp.application.managers.project.visualizatio
 import lombok.Setter;
 import ru.itis.visualtasks.desktopapp.application.managers.project.visualization.VisualizationActionsManager;
 import ru.itis.visualtasks.desktopapp.application.managers.project.visualization.buttons.chain.VisualizationControlButtonsDisableReasonManager;
-import ru.itis.visualtasks.application.ui.core.ide.visualization.buttons.*;
 import ru.itis.visualtasks.desktopapp.application.ui.core.ide.visualization.buttons.*;
 import ru.itis.visualtasks.desktopapp.exceptions.project.NoDisableReasonException;
 

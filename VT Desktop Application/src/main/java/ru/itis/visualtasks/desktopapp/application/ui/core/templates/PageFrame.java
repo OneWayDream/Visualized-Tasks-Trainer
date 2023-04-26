@@ -6,6 +6,7 @@ import ru.itis.visualtasks.desktopapp.application.managers.settings.ColorsManage
 import ru.itis.visualtasks.desktopapp.application.managers.content.ImagesManager;
 import ru.itis.visualtasks.desktopapp.application.settings.Mode;
 import ru.itis.visualtasks.desktopapp.application.ui.core.PageType;
+import ru.itis.visualtasks.desktopapp.application.ui.pages.menu.account.AccountMenu;
 
 import javax.swing.*;
 import java.awt.Component;
@@ -24,6 +25,8 @@ public abstract class PageFrame {
     @Getter
     protected PageType pageType;
     protected String title;
+
+    protected AccountMenu accountMenu;
 
     protected PageFrame(){
         this.frame = new JFrame();
@@ -102,6 +105,10 @@ public abstract class PageFrame {
         public void windowClosing(WindowEvent event) {
             Application.exit();
         }
+    }
+
+    public void updateMenu(){
+        accountMenu.update();
     }
 
 }

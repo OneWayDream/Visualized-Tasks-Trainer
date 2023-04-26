@@ -9,6 +9,7 @@ import ru.itis.visualtasks.desktopapp.application.managers.project.ProjectFilesM
 import ru.itis.visualtasks.desktopapp.exceptions.project.ProjectConfigNotInitialisedException;
 import ru.itis.visualtasks.desktopapp.exceptions.project.ProjectConfigWritingException;
 
+import java.io.File;
 import java.util.Map;
 
 public class ConfigManager {
@@ -21,9 +22,18 @@ public class ConfigManager {
         return config != null;
     }
 
+    public static String getProjectName(){
+        if (isConfigInitialised()){
+            return config.getProjectName();
+        } else {
+            throw new ProjectConfigNotInitialisedException();
+        }
+    }
+
     public static String getGeneralDescriptionFilePath(){
         if (isConfigInitialised()){
-            return config.getGeneralDescriptionFilePath();
+            return (config.getGeneralDescriptionFilePath() == null) ? null :
+                    config.getProjectPath() + File.separator + config.getGeneralDescriptionFilePath();
         } else {
             throw new ProjectConfigNotInitialisedException();
         }
@@ -31,6 +41,10 @@ public class ConfigManager {
 
     public static void setGeneralDescriptionFilePath(String generalDescriptionFilePath){
         if (isConfigInitialised()){
+            if (generalDescriptionFilePath != null){
+                generalDescriptionFilePath = generalDescriptionFilePath.substring(
+                        config.getProjectPath().length() + 1);
+            }
             config.setGeneralDescriptionFilePath(generalDescriptionFilePath);
             try{
                 ProjectFilesManager.writeConfigFile(config);
@@ -44,7 +58,8 @@ public class ConfigManager {
 
     public static String getStudyingContentFilePath(){
         if (isConfigInitialised()){
-            return config.getStudyingContentFilePath();
+            return (config.getStudyingContentFilePath() == null) ? null :
+                    config.getProjectPath() + File.separator + config.getStudyingContentFilePath();
         } else {
             throw new ProjectConfigNotInitialisedException();
         }
@@ -52,6 +67,10 @@ public class ConfigManager {
 
     public static void setStudyingContentFilePath(String studyingContentFilePath){
         if (isConfigInitialised()){
+            if (studyingContentFilePath != null){
+                studyingContentFilePath = studyingContentFilePath.substring(
+                        config.getProjectPath().length() + 1);
+            }
             config.setStudyingContentFilePath(studyingContentFilePath);
             try{
                 ProjectFilesManager.writeConfigFile(config);
@@ -65,7 +84,8 @@ public class ConfigManager {
 
     public static String getTaskTermsFilePath(){
         if (isConfigInitialised()){
-            return config.getTaskTermsFilePath();}
+            return (config.getTaskTermsFilePath() == null) ? null :
+                    config.getProjectPath() + File.separator + config.getTaskTermsFilePath();}
         else {
             throw new ProjectConfigNotInitialisedException();
         }
@@ -73,6 +93,10 @@ public class ConfigManager {
 
     public static void setTaskTermsFilePath(String taskTermsFilePath){
         if (isConfigInitialised()){
+            if (taskTermsFilePath != null){
+                taskTermsFilePath = taskTermsFilePath.substring(
+                        config.getProjectPath().length() + 1);
+            }
             config.setTaskTermsFilePath(taskTermsFilePath);
             try{
                 ProjectFilesManager.writeConfigFile(config);
@@ -127,6 +151,10 @@ public class ConfigManager {
         } else {
             throw new ProjectConfigNotInitialisedException();
         }
+    }
+
+    public static void saveConfigFile(){
+        ProjectFilesManager.writeConfigFile(config);
     }
 
 }

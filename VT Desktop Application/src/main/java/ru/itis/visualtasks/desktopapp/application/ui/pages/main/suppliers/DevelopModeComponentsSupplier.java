@@ -7,7 +7,6 @@ import ru.itis.visualtasks.desktopapp.application.managers.content.RecentManager
 import ru.itis.visualtasks.desktopapp.application.settings.Image;
 import ru.itis.visualtasks.desktopapp.application.ui.core.templates.Button;
 import ru.itis.visualtasks.desktopapp.application.ui.pages.main.MainFrameIconsConstants;
-import ru.itis.visualtasks.application.ui.pages.main.buttons.*;
 import ru.itis.visualtasks.desktopapp.application.ui.pages.main.buttons.*;
 import ru.itis.visualtasks.desktopapp.application.ui.pages.main.dialogs.recent.OpenRecentListButton;
 import ru.itis.visualtasks.desktopapp.application.ui.pages.main.dialogs.recent.RecentListDialog;

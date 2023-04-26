@@ -327,17 +327,102 @@ public class ExceptionsManager {
                 "", JOptionPane.ERROR_MESSAGE);
     }
 
-    public static void handlePythonSolutionScryptExecutionException(String consoleOutput) {
-        JOptionPane.showMessageDialog(
-                Application.getCurrentPageFrame().getComponent(),
-                consoleOutput,
-                "", JOptionPane.ERROR_MESSAGE);
-    }
-
     public static void handlePythonFilePreparationException() {
         JOptionPane.showMessageDialog(
                 Application.getCurrentPageFrame().getComponent(),
                 LocalizationManager.getLocaleTextByKey("exceptions.python-file-preparation-exception.message"),
                 "", JOptionPane.ERROR_MESSAGE);
     }
+
+    public static void handleUserNotAuthorizedException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.user-not-authorized-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleBannedAccountException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.banned-account-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleIncorrectUserDataException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.incorrect-user-data-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleAuthenticationRequestExecutionException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.authentication-request-execution-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleEmptySignInFieldsException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.empty-sign-in-fields-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleSessionExpiredException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.session-expired-exception.message"),
+                "", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void handleConfigIsIncompleteException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.config-is-incomplete-exception.message"),
+                "", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void handleArchiveCreationException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.archive-creation-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleTaskUploadException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.task-upload-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleConfigInteractionException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.config-interaction-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleTaskArchiveReadingException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.task-archive-reading-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleApiDifferenceException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.api-difference-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void handleTaskUploadRequestExecutionException(){
+        JOptionPane.showMessageDialog(
+                Application.getCurrentPageFrame().getComponent(),
+                LocalizationManager.getLocaleTextByKey("exceptions.task-upload-request-execution-exception.message"),
+                "", JOptionPane.ERROR_MESSAGE);
+    }
+
 }

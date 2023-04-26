@@ -21,7 +21,7 @@ public class WorkspacePanel extends ru.itis.visualtasks.desktopapp.application.u
     @Override
     protected void setPanelStyle() {
         panel.setLayout(new BorderLayout());
-        panel.setOpaque(false);
+        panel.setBackground(ColorsManager.getWorkspaceBackgroundColor());
         panel.setFont(new Font("Comic Sans", Font.PLAIN, 16));
         panel.setBorder(BorderFactory.createLineBorder(ColorsManager.getBordersColor(), 3));
     }

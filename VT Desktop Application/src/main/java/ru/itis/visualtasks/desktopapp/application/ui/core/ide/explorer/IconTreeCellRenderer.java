@@ -4,9 +4,10 @@ import ru.itis.visualtasks.desktopapp.application.managers.settings.ColorsManage
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeCellRenderer;
 import java.awt.*;
 
-public class IconTreeCellRenderer extends JLabel implements javax.swing.tree.TreeCellRenderer {
+public class IconTreeCellRenderer extends JLabel implements TreeCellRenderer {
     protected Color textSelectionColor;
     protected Color textNonSelectionColor;
     protected Color backgroundSelectionColor;

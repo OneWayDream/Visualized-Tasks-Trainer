@@ -42,7 +42,11 @@ public enum Image {
     AT_START("at-start"),
     AT_END("at-end"),
     EDIT("edit"),
-    RUN("run");
+    RUN("run"),
+    ACCOUNT("account"),
+    SIGN_IN("sign-in"),
+    UPLOAD("upload"),
+    LOGOUT("logout");
 
     private final String key;
 

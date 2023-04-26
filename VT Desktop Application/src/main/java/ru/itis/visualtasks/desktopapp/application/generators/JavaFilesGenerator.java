@@ -3,10 +3,9 @@ package ru.itis.visualtasks.desktopapp.application.generators;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import ru.itis.visualtasks.desktopapp.application.entities.project.VisualizationType;
-import ru.itis.visualtasks.application.entities.templates.java.*;
+import ru.itis.visualtasks.desktopapp.application.entities.templates.java.*;
 import ru.itis.visualtasks.desktopapp.application.managers.files.ConfigManager;
 import ru.itis.visualtasks.desktopapp.application.managers.settings.LocalizationManager;
-import ru.itis.visualtasks.desktopapp.application.entities.templates.java.*;
 import ru.itis.visualtasks.desktopapp.exceptions.generation.TemplateCreationException;
 import ru.itis.visualtasks.desktopapp.exceptions.generation.TemplateLoadingException;
 import ru.itis.visualtasks.desktopapp.exceptions.unexpected.UnsupportedVisualizationTypeException;
@@ -46,7 +45,7 @@ public class JavaFilesGenerator extends FreeMarkerFilesGenerator {
     private List<String> getSolutionFileImports(){
         return List.of(
                 "wrappers.*",
-                "ru.itis.graduationwork.application.entities.project.SolutionScheme"
+                "ru.itis.graduationwork.desktopapp.application.entities.project.SolutionScheme"
         );
     }
 
@@ -78,7 +77,7 @@ public class JavaFilesGenerator extends FreeMarkerFilesGenerator {
     private List<String> getTestSolutionFileImports(){
         return List.of(
                 "wrappers.*",
-                "ru.itis.graduationwork.application.entities.project.SolutionScheme"
+                "ru.itis.graduationwork.desktopapp.application.entities.project.SolutionScheme"
         );
     }
 
@@ -127,10 +126,10 @@ public class JavaFilesGenerator extends FreeMarkerFilesGenerator {
         List<String> imports = null;
         if (isWrapperClass){
             imports = List.of(
-                    "ru.itis.graduationwork.application.managers.project.visualization.registration.java.JavaVisualizationActionRegistrationManager",
-                    "import ru.itis.graduationwork.application.entities.project.VisualizationAction",
+                    "ru.itis.graduationwork.desktopapp.application.managers.project.visualization.registration.java.JavaVisualizationActionRegistrationManager",
+                    "import ru.itis.graduationwork.desktopapp.application.entities.project.VisualizationAction",
                     "wrappers.*",
-                    "ru.itis.graduationwork.application.ui.core.ide.visualization.core.WrappedClass"
+                    "ru.itis.graduationwork.desktopapp.application.ui.core.ide.visualization.core.WrappedClass"
             );
         }
         return imports;
@@ -272,7 +271,7 @@ public class JavaFilesGenerator extends FreeMarkerFilesGenerator {
     private List<String> getVisualizationSceneSwingPanelFileImports() {
         return List.of(
                 "java.awt.*",
-                "ru.itis.graduationwork.application.ui.core.ide.visualization.core.VisualizationSceneSwingPanelScheme",
+                "ru.itis.graduationwork.desktopapp.application.ui.core.ide.visualization.core.VisualizationSceneSwingPanelScheme",
                 "javax.swing.*"
         );
     }
@@ -317,7 +316,7 @@ public class JavaFilesGenerator extends FreeMarkerFilesGenerator {
     private List<String> getVisualizationSceneJavaFxPanelFileImports() {
         return List.of(
 //                "java.awt.*",
-                "ru.itis.graduationwork.application.ui.core.ide.visualization.core.VisualizationSceneJavaFxPanelScheme",
+                "ru.itis.graduationwork.desktopapp.application.ui.core.ide.visualization.core.VisualizationSceneJavaFxPanelScheme",
                 "javafx.embed.swing.JFXPanel",
                 "javafx.scene.*"
         );

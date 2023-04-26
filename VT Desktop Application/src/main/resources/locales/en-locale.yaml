@@ -30,6 +30,28 @@ menu:
       text: Open a project
     to-main-menu:
       text: To main menu
+  account:
+    text: Account
+    sign-in:
+      text: Sign in
+      dialog:
+        title: Account log in
+        success-text: Logging in has been successfully completed
+        login-field:
+          title: Login
+        password-field:
+          title: Password
+        button:
+          text: Sign in
+    log-out:
+      text: Log out
+      success-text: Logging out has been successfully completed
+    account-info-label:
+      text: |
+        Account: %s
+    upload:
+      text: Upload the task.
+      success-text: The task was published on the platform.
 main-frame:
   left-panel:
     label:
@@ -248,6 +270,32 @@ exceptions:
     message: Fault to read solution file. Try to execute it again.
   python-file-preparation-exception:
     message: Something went wrong...
+  user-not-authorized-exception:
+    message: First log in to your account.
+  banned-account-exception:
+    message: This account has been blocked.
+  incorrect-user-data-exception:
+    message: Incorrect login or password.
+  authentication-request-execution-exception:
+    message: Failed to contact the server.
+  empty-sign-in-fields-exception:
+    message: All fields must be completed.
+  session-expired-exception:
+    message: Session is expired. Please, sign in again.
+  config-is-incomplete-exception:
+    message: First complete your task information and define all description files.
+  archive-creation-exception:
+    message: Fault to pack the task.
+  task-upload-exception:
+    message: Fault to upload the task to the server.
+  config-interaction-exception:
+    message: The server was unable to process configuration file. It was recreated, so you can try to upload your task again.
+  task-archive-reading-exception:
+    message: The server is unable to process the task archive.
+  api-difference-exception:
+    message: Something went wrong...
+  task-upload-request-execution-exception:
+    message: Failed to contact the server.
 templates:
   solution-file-template:
     comment: |

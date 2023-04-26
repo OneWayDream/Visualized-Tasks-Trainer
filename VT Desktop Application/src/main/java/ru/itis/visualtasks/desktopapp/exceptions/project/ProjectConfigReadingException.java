@@ -8,6 +8,10 @@ import ru.itis.visualtasks.desktopapp.utils.LoggingUtils;
 @Slf4j
 public class ProjectConfigReadingException extends SelfHandlingException {
 
+    public ProjectConfigReadingException() {
+        super();
+    }
+
     public ProjectConfigReadingException(Throwable cause) {
         super(cause);
     }

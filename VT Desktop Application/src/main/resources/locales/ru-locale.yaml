@@ -30,6 +30,28 @@ menu:
       text: Открыть проект
     to-main-menu:
       text: В главное меню
+  account:
+    text: Аккаунт
+    sign-in:
+      text: Войти
+      dialog:
+        title: Вход пользователя
+        success-text: Вход был успешно выполнен
+        login-field:
+          title: Логин
+        password-field:
+          title: Пароль
+        button:
+          text: Войти
+    log-out:
+      text: Выйти
+      success-text: Выход был успешно выполнен
+    account-info-label:
+      text: |
+        Аккаунт: %s
+    upload:
+      text: Загрузить задачу
+      success-text: Задача была успешно опубликована на платформе.
 main-frame:
   left-panel:
     label:
@@ -246,6 +268,32 @@ exceptions:
     message: Не удалось прочитать файл с решением. Повторите попытку выполнения.
   python-file-preparation-exception:
     message: Что-то пошло не так...
+  user-not-authorized-exception:
+    message: Сначала войдите в свой аккаунт.
+  banned-account-exception:
+    message: Этот аккаунт заблокирован.
+  incorrect-user-data-exception:
+    message: Неверные логин или пароль.
+  authentication-request-execution-exception:
+    message: Не удалось связаться с сервером.
+  empty-sign-in-fields-exception:
+    message: Все поля обязательны для заполнения
+  session-expired-exception:
+    message: Сессия истекла. Пожалуйста, войдите в систему снова.
+  config-is-incomplete-exception:
+    message: Сначала полностью заполните информацию о задаче и определите все информационные файлы.
+  archive-creation-exception:
+    message: Не удалось заархивировать задачу.
+  task-upload-exception:
+    message: Не удалось загрузить задачу на сервер.
+  config-interaction-exception:
+    message: Сервер не смог обработать конфигурационный файл. Он был перезаписан, поэтому повторите попытку снова.
+  task-archive-reading-exception:
+    message: Сервер не смог обработать архив с задачей.
+  api-difference-exception:
+    message: Что-то пошло не так...
+  task-upload-request-execution-exception:
+    message: Не удалось связаться с сервером.
 templates:
   solution-file-template:
     comment: |

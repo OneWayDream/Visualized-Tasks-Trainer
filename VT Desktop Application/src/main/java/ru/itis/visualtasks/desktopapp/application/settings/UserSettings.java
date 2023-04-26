@@ -11,8 +11,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserSettings {
 
+    @Builder.Default
     private Theme theme = Theme.DARK;
+    @Builder.Default
     private Locale locale = Locale.EN;
+    @Builder.Default
     private Mode mode = Mode.DEVELOP;
     private String backgroundImageName;
 

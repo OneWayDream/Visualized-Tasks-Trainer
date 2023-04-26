@@ -3,7 +3,6 @@ package ru.itis.visualtasks.desktopapp.application.ui.pages.develop.panels.explo
 import ru.itis.visualtasks.desktopapp.application.managers.files.ConfigManager;
 import ru.itis.visualtasks.desktopapp.application.managers.settings.ColorsManager;
 import ru.itis.visualtasks.desktopapp.application.settings.Image;
-import ru.itis.visualtasks.application.ui.core.ide.explorer.*;
 import ru.itis.visualtasks.desktopapp.application.ui.core.templates.FileTree;
 import ru.itis.visualtasks.desktopapp.application.ui.pages.develop.panels.explorer.listeners.DeveloperFileExplorerMouseListener;
 import ru.itis.visualtasks.desktopapp.application.ui.pages.develop.panels.explorer.popup.PopupTrigger;
