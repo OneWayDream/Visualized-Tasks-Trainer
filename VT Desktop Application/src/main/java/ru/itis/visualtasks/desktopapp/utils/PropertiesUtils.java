@@ -2,6 +2,7 @@ package ru.itis.visualtasks.desktopapp.utils;
 
 import ru.itis.visualtasks.desktopapp.exceptions.properties.PropertiesReadException;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -31,9 +32,11 @@ public class PropertiesUtils {
         return properties != null;
     }
 
-    public void storeProperties(){
+    public void storeProperties(Properties properties){
         try{
-            properties.store(new FileOutputStream(PROPERTIES_FILE_PATH), "");
+            this.properties = properties;
+            properties.store(new FileOutputStream(System.getProperty("user.dir") + File.separator
+                    + properties.getProperty("resources-folder")  + File.separator +  PROPERTIES_FILE_PATH), "");
         } catch (IOException ex) {
             throw new PropertiesReadException(ex);
         }

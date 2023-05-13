@@ -1,8 +1,8 @@
 package ru.itis.visualtasks.desktopapp.application.ui.pages.menu.file.mainmenu;
 
+import ru.itis.visualtasks.desktopapp.application.managers.content.PagesManager;
 import ru.itis.visualtasks.desktopapp.application.managers.settings.ColorsManager;
 import ru.itis.visualtasks.desktopapp.application.managers.settings.LocalizationManager;
-import ru.itis.visualtasks.desktopapp.application.managers.content.PagesManager;
 import ru.itis.visualtasks.desktopapp.application.settings.Image;
 import ru.itis.visualtasks.desktopapp.application.ui.core.templates.MenuItem;
 
@@ -19,7 +19,7 @@ public class ToMainMenuItem extends MenuItem {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        PagesManager.openStartPage();
+        PagesManager.openPage(PagesManager.getPage(PagesManager.getStartPageType()));
     }
 
 }

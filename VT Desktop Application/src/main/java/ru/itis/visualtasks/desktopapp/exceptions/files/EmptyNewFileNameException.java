@@ -11,7 +11,8 @@ public class EmptyNewFileNameException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleEmptyNewFileNameException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.empty-new-file-name-exception.message"));
     }
 
 }

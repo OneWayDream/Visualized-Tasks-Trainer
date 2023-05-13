@@ -10,7 +10,8 @@ public class IncorrectUserDataException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleIncorrectUserDataException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.incorrect-user-data-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

@@ -18,7 +18,8 @@ public class AuthenticationRequestExecutionException extends SelfHandlingExcepti
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleAuthenticationRequestExecutionException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.authentication-request-execution-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

@@ -14,7 +14,8 @@ public class UnsupportedVisualizationTypeException extends SelfHandlingException
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleUnsupportedVisualizationTypeException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.unsupported-visualization-type-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

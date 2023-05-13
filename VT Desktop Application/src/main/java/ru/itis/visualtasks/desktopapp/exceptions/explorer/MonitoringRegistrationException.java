@@ -14,7 +14,8 @@ public class MonitoringRegistrationException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleMonitoringRegistrationException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.monitoring-registration-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

@@ -11,6 +11,10 @@ public class ProjectClassLoader extends ClassLoader {
     private static final String CLASS_EXTENSION = ".class";
     public static final String TARGET_FOLDER = "target";
 
+    public ProjectClassLoader(ClassLoader classLoader) {
+        super(classLoader);
+    }
+
     @Override
     public Class<?> findClass(String className) throws ClassNotFoundException {
         File classFile = findFile(className);

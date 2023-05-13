@@ -17,8 +17,10 @@ public class SolutionJavaSourceFromString extends SimpleJavaFileObject {
 
     private String prepareCode(String code){
         Map<String, String> wrappersNames = ConfigManager.getWrappersNames();
-        for (String wrapperName: wrappersNames.keySet()){
-            code = code.replace(wrapperName, wrappersNames.get(wrapperName));
+        if (wrappersNames != null){
+            for (String wrapperName: wrappersNames.keySet()){
+                code = code.replace(wrapperName, wrappersNames.get(wrapperName));
+            }
         }
         return code;
     }

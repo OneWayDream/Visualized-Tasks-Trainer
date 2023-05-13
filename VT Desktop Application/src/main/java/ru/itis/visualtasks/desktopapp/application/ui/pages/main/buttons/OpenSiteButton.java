@@ -47,7 +47,6 @@ public class OpenSiteButton extends Button {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Open site");
         try{
             Desktop.getDesktop().browse(LinksManager.getLinkValue(Link.SITE));
         } catch (IOException ex) {

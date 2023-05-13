@@ -14,7 +14,8 @@ public class BackgroundImageSavingException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleBackgroundImageSavingException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.background-image-saving-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

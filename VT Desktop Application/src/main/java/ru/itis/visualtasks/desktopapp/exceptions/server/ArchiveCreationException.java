@@ -12,7 +12,8 @@ public class ArchiveCreationException extends SelfHandlingException {
     @Override
     public void handle() {
         printStackTrace();
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleArchiveCreationException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.archive-creation-exception.message"));
     }
 
 }

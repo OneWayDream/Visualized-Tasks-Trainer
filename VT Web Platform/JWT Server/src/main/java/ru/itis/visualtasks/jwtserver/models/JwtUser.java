@@ -10,6 +10,8 @@ import ru.itis.visualtasks.jwtserver.entities.JwtState;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
+@EqualsAndHashCode
 @Entity
 @Table(name = "jwt_user")
 public class JwtUser {

@@ -5,10 +5,10 @@ import ru.itis.visualtasks.desktopapp.application.Application;
 import ru.itis.visualtasks.desktopapp.application.loaders.ContentLoader;
 import ru.itis.visualtasks.desktopapp.application.managers.files.ConfigManager;
 import ru.itis.visualtasks.desktopapp.application.managers.files.FilesManager;
-import ru.itis.visualtasks.desktopapp.application.managers.utils.ExceptionsManager;
 import ru.itis.visualtasks.desktopapp.application.settings.Mode;
 import ru.itis.visualtasks.desktopapp.application.ui.core.ide.IdePageFrame;
 import ru.itis.visualtasks.desktopapp.application.ui.core.ide.workspace.ContentEditorPane;
+import ru.itis.visualtasks.desktopapp.application.ui.core.ide.workspace.ContentScrollPane;
 import ru.itis.visualtasks.desktopapp.application.ui.core.ide.workspace.ContentTab;
 import ru.itis.visualtasks.desktopapp.application.ui.core.ide.workspace.editor.FileEditorScrollPane;
 import ru.itis.visualtasks.desktopapp.application.ui.pages.develop.panels.workspace.notselected.ContentFileChooserPanel;
@@ -37,7 +37,8 @@ public class WorkspaceContentManager {
 
     private static Component getContentEditorPane(){
         String paneContent = ContentLoader.loadContent(contentTab);
-        contentComponent = (paneContent == null) ? getNoContentPanel() : new ContentEditorPane(paneContent);
+        contentComponent = (paneContent == null) ? getNoContentPanel()
+                : new ContentScrollPane(new ContentEditorPane(paneContent));
         return contentComponent.getComponent();
     }
 
@@ -56,25 +57,23 @@ public class WorkspaceContentManager {
 
     public static String getFileEditorContent(){
         try{
-            return FilesManager.loadFileContent(editorFilePath);
-        } catch (FileNotFoundException exception){
-            ExceptionsManager.handleFileNotFoundException(editorFilePath);
-        } catch (FileReadingException exception){
-            ExceptionsManager.handleFileReadingException(editorFilePath);
+            return FilesManager.readFileAsString(editorFilePath);
+        } catch (FileNotFoundException | FileReadingException exception){
+            exception.handle();
         }
         setEditorContent(null);
         return "";
     }
 
     public static void setEditorContent(String filePath){
-        saveEditorChangedIfNeeded();
+        saveEditorChangesIfNeeded();
         contentTab = ContentTab.FILE_EDITOR;
         WorkspaceContentManager.editorFilePath = filePath;
         updateWorkspaceContent();
     }
 
     public static void changeWorkspaceContent(ContentTab contentTab){
-        saveEditorChangedIfNeeded();
+        saveEditorChangesIfNeeded();
         WorkspaceContentManager.contentTab = contentTab;
         updateWorkspaceContent();
     }
@@ -83,7 +82,7 @@ public class WorkspaceContentManager {
         ((IdePageFrame) Application.getCurrentPageFrame()).updateWorkspaceContent();
     }
 
-    public static void saveEditorChangedIfNeeded(){
+    public static void saveEditorChangesIfNeeded(){
         if (needToSaveChangedFile()){
             saveChangedFile();
         }

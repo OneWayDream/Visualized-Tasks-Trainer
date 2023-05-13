@@ -6,7 +6,6 @@ import ru.itis.visualtasks.desktopapp.application.managers.content.IconsManager;
 import ru.itis.visualtasks.desktopapp.application.managers.content.RecentManager;
 import ru.itis.visualtasks.desktopapp.application.managers.project.ProjectsManager;
 import ru.itis.visualtasks.desktopapp.application.managers.settings.ColorsManager;
-import ru.itis.visualtasks.desktopapp.application.managers.utils.ExceptionsManager;
 import ru.itis.visualtasks.desktopapp.application.settings.Image;
 import ru.itis.visualtasks.desktopapp.application.settings.Mode;
 import ru.itis.visualtasks.desktopapp.application.ui.core.templates.Button;
@@ -59,7 +58,7 @@ public class RecentProjectButton extends Button {
         try{
             ProjectsManager.openProject(path);
         } catch (ProjectDirectoryNotExistsException exception){
-            ExceptionsManager.handleProjectDirectoryNotExistsException(path);
+            exception.handle();
             if (Application.getMode() == Mode.DEVELOP){
                 RecentManager.deleteRecentProject(path);
             } else {

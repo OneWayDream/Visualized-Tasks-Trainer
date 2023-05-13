@@ -7,6 +7,6 @@ import ru.itis.visualtasks.jwtserver.dto.UserAuthorizationForm;
 public interface UserLoginService {
 
     RefreshTokenResponse login(UserAuthorizationForm emailPasswordDto);
-    AccessTokenResponse authenticate(RefreshTokenResponse refreshTokenDto);
+    AccessTokenResponse authenticate(String refreshToken);
 
 }

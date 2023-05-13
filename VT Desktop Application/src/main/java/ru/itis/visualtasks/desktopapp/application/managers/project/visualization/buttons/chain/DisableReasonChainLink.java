@@ -1,11 +1,9 @@
 package ru.itis.visualtasks.desktopapp.application.managers.project.visualization.buttons.chain;
 
 import lombok.Setter;
-import lombok.ToString;
 import ru.itis.visualtasks.desktopapp.application.ui.core.ide.visualization.buttons.VisualizationButtonType;
 import ru.itis.visualtasks.desktopapp.exceptions.project.NoDisableReasonException;
 
-@ToString
 public abstract class DisableReasonChainLink {
 
     @Setter

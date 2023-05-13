@@ -1,25 +1,30 @@
 package ru.itis.visualtasks.desktopapp.application.compilers.python;
 
-import ru.itis.visualtasks.desktopapp.application.compilers.SolutionsFilesCompiler;
+import ru.itis.visualtasks.desktopapp.application.compilers.SolutionFilesCompiler;
 import ru.itis.visualtasks.desktopapp.application.managers.files.ConfigManager;
 import ru.itis.visualtasks.desktopapp.application.managers.files.FilesManager;
 import ru.itis.visualtasks.desktopapp.application.managers.project.ProjectFilesManager;
+import ru.itis.visualtasks.desktopapp.application.managers.project.visualization.registration.python.PythonVisualizationActionRegistrationManager;
 import ru.itis.visualtasks.desktopapp.exceptions.execution.PythonFilePreparationException;
 import ru.itis.visualtasks.desktopapp.exceptions.files.FileAlreadyExistsException;
 import ru.itis.visualtasks.desktopapp.exceptions.files.FileCreationException;
+import ru.itis.visualtasks.desktopapp.exceptions.files.FolderAlreadyExistsException;
+import ru.itis.visualtasks.desktopapp.exceptions.files.FolderCreationException;
 
 import java.io.File;
 import java.util.Map;
 
-public class PythonSolutionFilesCompiler extends SolutionsFilesCompiler {
+public class PythonSolutionFilesCompiler extends SolutionFilesCompiler {
 
     private final String SOLUTION_MODULE = "target.solution";
     private final String TEST_SOLUTION_MODULE = "target.test_solution";
 
     @Override
     public void executeSolutionFile() {
-        ProcessBuilder processBuilder = new ProcessBuilder("py -m", SOLUTION_MODULE);
+        ProcessBuilder processBuilder = new ProcessBuilder("py", "-m", SOLUTION_MODULE)
+                .directory(new File(ConfigManager.getProjectPath()));
         PythonScryptExecutor.executeProcessBuilder(processBuilder);
+        PythonVisualizationActionRegistrationManager.notifyAboutSolutionExecution();
     }
 
     @Override
@@ -27,9 +32,8 @@ public class PythonSolutionFilesCompiler extends SolutionsFilesCompiler {
         ProcessBuilder processBuilder = new ProcessBuilder("py", "-m", TEST_SOLUTION_MODULE)
                 .directory(new File(ConfigManager.getProjectPath()));
         PythonScryptExecutor.executeProcessBuilder(processBuilder);
+        PythonVisualizationActionRegistrationManager.notifyAboutSolutionExecution();
     }
-
-
 
     @Override
     public void compileSolutionFile() {
@@ -53,16 +57,31 @@ public class PythonSolutionFilesCompiler extends SolutionsFilesCompiler {
     }
 
     private String getTargetSolutionFilePath() {
-        return ConfigManager.getProjectPath() + File.separator + "target"
-                + File.separator + ProjectFilesManager.getSolutionFileName();
+        return getTargetDirectoryPath() + File.separator + ProjectFilesManager.getSolutionFileName();
+    }
+
+    private String getTargetDirectoryPath(){
+        return ConfigManager.getProjectPath() + File.separator + "target";
     }
 
     private void createTargetSolutionFile() {
+        createTargetFolderIfNotExists();
         try{
-            FilesManager.createFile(getSolutionFilePath());
+            FilesManager.createFile(getTargetSolutionFilePath());
         } catch (FileAlreadyExistsException exception){
             //ignore - it's fine
         } catch (FileCreationException exception){
+            throw new PythonFilePreparationException(exception);
+        }
+    }
+
+    private void createTargetFolderIfNotExists() {
+        String targetDirectoryPath = getTargetDirectoryPath();
+        try{
+            FilesManager.createDirectory(targetDirectoryPath);
+        } catch (FolderAlreadyExistsException exception){
+            //ignore - it's fine
+        } catch (FolderCreationException exception){
             throw new PythonFilePreparationException(exception);
         }
     }
@@ -96,8 +115,10 @@ public class PythonSolutionFilesCompiler extends SolutionsFilesCompiler {
         String temp = solutionContent.substring(importIndex);
         String header = solutionContent.substring(0, importIndex + temp.indexOf('\n'));
         String code = solutionContent.substring(importIndex + temp.indexOf('\n'));
-        for (String wrapperName: wrappersNames.keySet()){
-            code = code.replace(wrapperName, wrappersNames.get(wrapperName));
+        if (wrappersNames != null){
+            for (String wrapperName: wrappersNames.keySet()){
+                code = code.replace(wrapperName, wrappersNames.get(wrapperName));
+            }
         }
         return header + code;
     }
@@ -109,17 +130,17 @@ public class PythonSolutionFilesCompiler extends SolutionsFilesCompiler {
 
     private void createTargetTestSolutionFile() {
         try{
+            FilesManager.createDirectory(getTargetDirectoryPath());
             FilesManager.createFile(getTargetTestSolutionFilePath());
-        } catch (FileAlreadyExistsException exception){
+        } catch (FileAlreadyExistsException | FolderAlreadyExistsException exception){
             //ignore - it's fine
-        } catch (FileCreationException exception){
+        } catch (FileCreationException | FolderCreationException exception){
             throw new PythonFilePreparationException(exception);
         }
     }
 
     private String getTargetTestSolutionFilePath(){
-        return ConfigManager.getProjectPath() + File.separator + "target"
-                + File.separator + ProjectFilesManager.getTestSolutionFileName();
+        return getTargetDirectoryPath() + File.separator + ProjectFilesManager.getTestSolutionFileName();
     }
 
 

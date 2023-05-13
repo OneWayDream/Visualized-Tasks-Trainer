@@ -14,6 +14,8 @@ import ru.itis.visualtasks.desktopapp.application.ui.core.ide.explorer.FileWatch
 import ru.itis.visualtasks.desktopapp.exceptions.generation.TemplateCreationException;
 import ru.itis.visualtasks.desktopapp.exceptions.generation.TemplateLoadingException;
 
+import java.util.HashMap;
+
 public class ProjectsManager {
 
     public static void createProject(NewProjectInfo newProjectInfo) {
@@ -28,6 +30,7 @@ public class ProjectsManager {
                 .language(projectInfo.getLanguage())
                 .visualizationType(projectInfo.getVisualizationType())
                 .projectPath(projectInfo.getProjectPath())
+                .wrappersNames(new HashMap<>())
                 .build();
     }
 
@@ -43,7 +46,7 @@ public class ProjectsManager {
             changeApplicationPageFrame(projectConfig);
         } catch (TemplateLoadingException | TemplateCreationException exception){
             exception.handle();
-            PagesManager.openStartPage();
+            PagesManager.openPage(PagesManager.getPage(PagesManager.getStartPageType()));
         }
     }
 

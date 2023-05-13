@@ -1,6 +1,5 @@
 package ru.itis.visualtasks.backendserver.exceptions.handlers;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ru.itis.visualtasks.backendserver.exceptions.jwtserver.JwtServerException;
 import ru.itis.visualtasks.backendserver.exceptions.persistence.EntityNotExistsException;
+import ru.itis.visualtasks.backendserver.exceptions.persistence.EntityNotFoundException;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

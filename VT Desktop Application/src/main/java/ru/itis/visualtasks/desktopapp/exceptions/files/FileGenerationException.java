@@ -18,7 +18,7 @@ public class FileGenerationException extends SelfHandlingException {
     @Override
     public void handle() {
         ExceptionsManager.addDelayedException(
-                () -> ExceptionsManager.handleFileGenerationException(filePath)
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.file-generation-exception.message", filePath)
         );
         log.error(LoggingUtils.exceptionToString(this));
     }

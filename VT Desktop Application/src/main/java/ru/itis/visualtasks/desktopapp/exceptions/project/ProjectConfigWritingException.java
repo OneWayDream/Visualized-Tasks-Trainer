@@ -14,7 +14,8 @@ public class ProjectConfigWritingException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleProjectConfigWritingException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.project-config-writing-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

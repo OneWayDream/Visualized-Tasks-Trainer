@@ -14,7 +14,8 @@ public class UnsupportedLanguageException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleUnsupportedLanguageException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.unsupported-language-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 }

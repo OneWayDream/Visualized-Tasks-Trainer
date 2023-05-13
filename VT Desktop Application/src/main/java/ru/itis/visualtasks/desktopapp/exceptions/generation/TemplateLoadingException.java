@@ -14,7 +14,8 @@ public class TemplateLoadingException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleTemplateLoadingException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.template-loading-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

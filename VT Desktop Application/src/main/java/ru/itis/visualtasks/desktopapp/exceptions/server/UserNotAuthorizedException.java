@@ -10,7 +10,8 @@ public class UserNotAuthorizedException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleUserNotAuthorizedException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.user-not-authorized-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

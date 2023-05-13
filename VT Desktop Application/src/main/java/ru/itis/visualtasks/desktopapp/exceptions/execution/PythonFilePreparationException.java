@@ -14,7 +14,8 @@ public class PythonFilePreparationException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handlePythonFilePreparationException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.python-file-preparation-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

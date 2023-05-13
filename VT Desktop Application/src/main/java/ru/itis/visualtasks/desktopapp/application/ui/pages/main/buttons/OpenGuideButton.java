@@ -47,7 +47,6 @@ public class OpenGuideButton extends Button {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Open guide");
         try{
             Desktop.getDesktop().browse(LinksManager.getLinkValue(Link.GUIDE));
         } catch (IOException ex) {

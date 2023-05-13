@@ -25,8 +25,8 @@ public class PagesManager {
         return pageFrame;
     }
 
-    public static void openStartPage(){
-        Application.changePage(getPage(getStartPageType()));
+    public static void openPage(PageFrame pageFrame){
+        Application.changePage(pageFrame);
     }
 
 }

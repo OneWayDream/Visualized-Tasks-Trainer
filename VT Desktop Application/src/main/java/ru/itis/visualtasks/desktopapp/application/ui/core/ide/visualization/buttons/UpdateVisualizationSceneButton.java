@@ -36,7 +36,7 @@ public class UpdateVisualizationSceneButton extends Button {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        WorkspaceContentManager.saveEditorChangedIfNeeded();
+        WorkspaceContentManager.saveEditorChangesIfNeeded();
         VisualizationSceneController.updateVisualizationScene();
     }
 

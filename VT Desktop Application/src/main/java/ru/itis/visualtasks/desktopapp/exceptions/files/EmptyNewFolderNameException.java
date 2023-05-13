@@ -11,7 +11,8 @@ public class EmptyNewFolderNameException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleEmptyNewFolderNameException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.empty-new-folder-name-exception.message"));
     }
 
 }

@@ -11,9 +11,7 @@ import ru.itis.visualtasks.desktopapp.application.entities.templates.readme.Wrap
 import ru.itis.visualtasks.desktopapp.application.managers.files.ConfigManager;
 import ru.itis.visualtasks.desktopapp.application.managers.files.FilesManager;
 import ru.itis.visualtasks.desktopapp.application.managers.settings.LocalizationManager;
-import ru.itis.visualtasks.desktopapp.exceptions.files.FileAlreadyExistsException;
-import ru.itis.visualtasks.desktopapp.exceptions.files.FileCreationException;
-import ru.itis.visualtasks.desktopapp.exceptions.files.FileGenerationException;
+import ru.itis.visualtasks.desktopapp.exceptions.files.*;
 import ru.itis.visualtasks.desktopapp.exceptions.generation.TemplateCreationException;
 import ru.itis.visualtasks.desktopapp.exceptions.generation.TemplateLoadingException;
 import ru.itis.visualtasks.desktopapp.utils.PropertiesUtils;
@@ -30,11 +28,12 @@ public abstract class FreeMarkerFilesGenerator implements FilesGenerator {
 
     protected static final String TEMPLATES_FOLDER;
     private static final String VISUALIZATION_READ_ME_TEMPLATE_PATH = "readme/visualization-readme.ftl";
-    private static final String VISUALIZATION_READ_ME_DESTINATION_PATH = "visualization/readme.md";
     private static final String WRAPPERS_READ_ME_TEMPLATE_PATH = "readme/wrappers-readme.ftl";
-    private static final String WRAPPERS_READ_ME_DESTINATION_PATH = "wrappers/readme.md";
     private static final String INFORMATIONAL_READ_ME_TEMPLATE_PATH = "readme/informational-readme.ftl";
-    private static final String INFORMATIONAL_READ_ME_DESTINATION_PATH = "info/readme.md";
+    private static final String VISUALIZATION_FOLDER = "visualization";
+    private static final String WRAPPERS_FOLDER = "wrappers";
+    private static final String INFORMATIONAL_FOLDER = "info";
+    private static final String READ_ME_FILE_NAME  = "readme.md";
 
     static {
         Properties properties = PropertiesUtils.getInstance().getProperties();
@@ -139,6 +138,7 @@ public abstract class FreeMarkerFilesGenerator implements FilesGenerator {
 
     private File getVisualizationReadMeDestinationFile(){
         String destinationFilePath = getVisualizationReadMeDestinationPath();
+        createVisualizationDirectoryIfNotExists();
         try{
             FilesManager.createFile(destinationFilePath);
         } catch (FileAlreadyExistsException exception){
@@ -149,8 +149,23 @@ public abstract class FreeMarkerFilesGenerator implements FilesGenerator {
         return new File(destinationFilePath);
     }
 
+    private void createVisualizationDirectoryIfNotExists() {
+        String folderPath = getVisualizationDirectoryPath();
+        try{
+            FilesManager.createDirectory(folderPath);
+        } catch (FolderAlreadyExistsException exception){
+            //ignore
+        } catch (FolderCreationException exception){
+            throw new FileGenerationException(folderPath);
+        }
+    }
+
+    private String getVisualizationDirectoryPath() {
+        return ConfigManager.getProjectPath() + File.separator + VISUALIZATION_FOLDER;
+    }
+
     private String getVisualizationReadMeDestinationPath() {
-        return ConfigManager.getProjectPath() + File.separator + VISUALIZATION_READ_ME_DESTINATION_PATH;
+        return getVisualizationDirectoryPath() + File.separator + READ_ME_FILE_NAME;
     }
 
 
@@ -179,6 +194,7 @@ public abstract class FreeMarkerFilesGenerator implements FilesGenerator {
 
     private File getWrappersReadMeDestinationFile(){
         String destinationFilePath = getWrappersReadMeDestinationPath();
+        createWrappersDirectoryIfNotExists();
         try{
             FilesManager.createFile(destinationFilePath);
         } catch (FileAlreadyExistsException exception){
@@ -189,8 +205,23 @@ public abstract class FreeMarkerFilesGenerator implements FilesGenerator {
         return new File(destinationFilePath);
     }
 
+    private void createWrappersDirectoryIfNotExists() {
+        String folderPath = getWrappersDirectoryPath();
+        try{
+            FilesManager.createDirectory(folderPath);
+        } catch (FolderAlreadyExistsException exception){
+            //ignore
+        } catch (FolderCreationException exception){
+            throw new FileGenerationException(folderPath);
+        }
+    }
+
+    private String getWrappersDirectoryPath() {
+        return ConfigManager.getProjectPath() + File.separator + WRAPPERS_FOLDER;
+    }
+
     private String getWrappersReadMeDestinationPath() {
-        return ConfigManager.getProjectPath() + File.separator + WRAPPERS_READ_ME_DESTINATION_PATH;
+        return getWrappersDirectoryPath() + File.separator + READ_ME_FILE_NAME;
     }
 
 
@@ -219,6 +250,7 @@ public abstract class FreeMarkerFilesGenerator implements FilesGenerator {
 
     private File getInformationalReadMeDestinationFile(){
         String destinationFilePath = getInformationalReadMeDestinationPath();
+        createInformationalDirectoryIfNotExists();
         try{
             FilesManager.createFile(destinationFilePath);
         } catch (FileAlreadyExistsException exception){
@@ -229,8 +261,23 @@ public abstract class FreeMarkerFilesGenerator implements FilesGenerator {
         return new File(destinationFilePath);
     }
 
+    private void createInformationalDirectoryIfNotExists() {
+        String folderPath = getInformationalDirectoryPath();
+        try{
+            FilesManager.createDirectory(folderPath);
+        } catch (FolderAlreadyExistsException exception){
+            //ignore
+        } catch (FolderCreationException exception){
+            throw new FileGenerationException(folderPath);
+        }
+    }
+
+    private String getInformationalDirectoryPath() {
+        return ConfigManager.getProjectPath() + File.separator + INFORMATIONAL_FOLDER;
+    }
+
     private String getInformationalReadMeDestinationPath() {
-        return ConfigManager.getProjectPath() + File.separator + INFORMATIONAL_READ_ME_DESTINATION_PATH;
+        return getInformationalDirectoryPath() + File.separator + READ_ME_FILE_NAME;
     }
 
     protected File getDestinationFile(String destinationPath){

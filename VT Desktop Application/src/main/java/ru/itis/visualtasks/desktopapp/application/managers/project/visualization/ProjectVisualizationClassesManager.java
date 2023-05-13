@@ -7,6 +7,7 @@ import ru.itis.visualtasks.desktopapp.application.entities.project.Visualization
 import ru.itis.visualtasks.desktopapp.application.loaders.ProjectClassLoader;
 import ru.itis.visualtasks.desktopapp.application.managers.files.ConfigManager;
 import ru.itis.visualtasks.desktopapp.application.compilers.java.JavaClassesCompiler;
+import ru.itis.visualtasks.desktopapp.application.managers.project.ProjectTaskFilesManager;
 import ru.itis.visualtasks.desktopapp.application.managers.project.visualization.buttons.VisualizationControlButtonsStatesManager;
 import ru.itis.visualtasks.desktopapp.application.settings.Mode;
 import ru.itis.visualtasks.desktopapp.application.ui.core.ide.visualization.core.VisualizationSceneJavaFxPanelScheme;
@@ -34,6 +35,7 @@ public class ProjectVisualizationClassesManager {
     private static void compileFilesIfNeeded(){
         if (Application.getMode() == Mode.DEVELOP){
             compileVisualizationFiles();
+            ProjectTaskFilesManager.compileWrappersFiles();
         }
     }
 
@@ -59,7 +61,7 @@ public class ProjectVisualizationClassesManager {
     }
 
     private static VisualizationScenePanelScheme getSwingVisualizationScene(){
-        ProjectClassLoader classLoader = new ProjectClassLoader();
+        ProjectClassLoader classLoader = new ProjectClassLoader(ProjectVisualizationClassesManager.class.getClassLoader());
         try{
             Class<?> customPanelClass = Class.forName(CUSTOM_PANEL_CLASS_NAME, true,
                     classLoader);
@@ -74,7 +76,7 @@ public class ProjectVisualizationClassesManager {
     }
 
     private static VisualizationScenePanelScheme getJavaFxVisualizationScene(){
-        ProjectClassLoader classLoader = new ProjectClassLoader();
+        ProjectClassLoader classLoader = new ProjectClassLoader(ProjectVisualizationClassesManager.class.getClassLoader());
         try{
             Class<?> customPanelClass = Class.forName(CUSTOM_PANEL_CLASS_NAME, true,
                     classLoader);

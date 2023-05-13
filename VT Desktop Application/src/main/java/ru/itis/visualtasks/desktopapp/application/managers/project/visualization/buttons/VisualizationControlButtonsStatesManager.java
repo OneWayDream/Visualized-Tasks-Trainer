@@ -87,6 +87,7 @@ public class VisualizationControlButtonsStatesManager {
     public static void reset(){
         isSolutionFileExecutedFlag = false;
         isScenePlayingFlag = false;
+        isActionsEmptyFlag = false;
         isAnyPreviousActionsFlag = false;
         isAnyNextActionsFlag = false;
     }

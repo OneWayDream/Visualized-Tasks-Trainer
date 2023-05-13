@@ -14,7 +14,8 @@ public class VisualizationFilesRecoveryException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleVisualizationFilesRecoveryException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.visualization-file-recovery-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

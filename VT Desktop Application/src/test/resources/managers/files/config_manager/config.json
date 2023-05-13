@@ -1,0 +1,12 @@
+{
+  "projectName": "project-name",
+  "projectPath": "C:\\Users\\OneWayDream\\IdeaProjects\\Visualized Tasks\\VT Desktop Application\\src\\test\\resources\\managers\\files\\config_manager",
+  "language": "JAVA",
+  "visualizationType": "SWING",
+  "generalDescriptionFilePath": "new-general-description.html",
+  "studyingContentFilePath": "new-studying-content.html",
+  "taskTermsFilePath": "new-task-terms.html",
+  "wrappersNames": {
+    "WrappedClass": "NewWrapper"
+  }
+}

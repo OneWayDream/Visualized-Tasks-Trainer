@@ -18,7 +18,8 @@ public class UrlParsingException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleUrlParsingException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.url-parsing-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

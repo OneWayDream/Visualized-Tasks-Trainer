@@ -110,32 +110,32 @@ public class ConfigManager {
 
     public static String getProjectPath(){
         if (isConfigInitialised()){
-            return config.getProjectPath();}
-        else {
+            return config.getProjectPath();
+        } else {
             throw new ProjectConfigNotInitialisedException();
         }
     }
 
     public static Language getProjectLanguage(){
         if (isConfigInitialised()){
-            return config.getLanguage();}
-        else {
+            return config.getLanguage();
+        } else {
             throw new ProjectConfigNotInitialisedException();
         }
     }
 
     public static VisualizationType getProjectVisualizationType(){
         if (isConfigInitialised()){
-            return config.getVisualizationType();}
-        else {
+            return config.getVisualizationType();
+        } else {
             throw new ProjectConfigNotInitialisedException();
         }
     }
 
     public static Map<String, String> getWrappersNames(){
         if (isConfigInitialised()){
-            return config.getWrappersNames();}
-        else {
+            return config.getWrappersNames();
+        } else {
             throw new ProjectConfigNotInitialisedException();
         }
     }

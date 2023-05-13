@@ -114,12 +114,16 @@ public class JavaFilesGenerator extends FreeMarkerFilesGenerator {
 
     private String getPackageValue(String destinationPath){
         String destinationFolder = destinationPath.substring(0, destinationPath.lastIndexOf(File.separatorChar));
-        String packagePath = destinationFolder.substring(ConfigManager.getProjectPath().length() + 1);
-        return packagePath.replace(File.separatorChar, '.');
+        String packageValue = null;
+        if (!destinationFolder.equals(ConfigManager.getProjectPath())){
+            packageValue = destinationFolder.substring(ConfigManager.getProjectPath().length() + 1)
+                    .replace(File.separatorChar, '.');
+        }
+        return packageValue;
     }
 
     private boolean checkIfIsAWrapperClass(String packageValue){
-        return packageValue.contains("wrappers");
+        return packageValue != null && packageValue.contains("wrappers");
     }
 
     private List<String> getCodeFileImports(boolean isWrapperClass){
@@ -127,7 +131,6 @@ public class JavaFilesGenerator extends FreeMarkerFilesGenerator {
         if (isWrapperClass){
             imports = List.of(
                     "ru.itis.graduationwork.desktopapp.application.managers.project.visualization.registration.java.JavaVisualizationActionRegistrationManager",
-                    "import ru.itis.graduationwork.desktopapp.application.entities.project.VisualizationAction",
                     "wrappers.*",
                     "ru.itis.graduationwork.desktopapp.application.ui.core.ide.visualization.core.WrappedClass"
             );
@@ -271,7 +274,7 @@ public class JavaFilesGenerator extends FreeMarkerFilesGenerator {
     private List<String> getVisualizationSceneSwingPanelFileImports() {
         return List.of(
                 "java.awt.*",
-                "ru.itis.graduationwork.desktopapp.application.ui.core.ide.visualization.core.VisualizationSceneSwingPanelScheme",
+                "ru.itis.visualtasks.desktopapp.application.ui.core.ide.visualization.core.VisualizationSceneSwingPanelScheme",
                 "javax.swing.*"
         );
     }
@@ -316,7 +319,7 @@ public class JavaFilesGenerator extends FreeMarkerFilesGenerator {
     private List<String> getVisualizationSceneJavaFxPanelFileImports() {
         return List.of(
 //                "java.awt.*",
-                "ru.itis.graduationwork.desktopapp.application.ui.core.ide.visualization.core.VisualizationSceneJavaFxPanelScheme",
+                "ru.itis.visualtasks.desktopapp.application.ui.core.ide.visualization.core.VisualizationSceneJavaFxPanelScheme",
                 "javafx.embed.swing.JFXPanel",
                 "javafx.scene.*"
         );

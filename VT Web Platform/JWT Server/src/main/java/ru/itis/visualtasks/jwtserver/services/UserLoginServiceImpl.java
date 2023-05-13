@@ -4,7 +4,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,18 +25,17 @@ import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class UserLoginServiceImpl implements UserLoginService {
 
-    protected final JwtUserService service;
-    protected final PasswordEncoder passwordEncoder;
-    protected final RedisUsersService redisUsersService;
-    protected final JwtBlacklistService jwtBlacklistService;
+    private final JwtUserService service;
+    private final PasswordEncoder passwordEncoder;
+    private final RedisUsersService redisUsersService;
+    private final JwtBlacklistService jwtBlacklistService;
 
-    protected String refreshSecretKey;
-    protected String accessSecretKey;
-    protected Long refreshTokenLifetime;
-    protected Long accessTokenLifetime;
+    private final String refreshSecretKey;
+    private final String accessSecretKey;
+    private final Long refreshTokenLifetime;
+    private final Long accessTokenLifetime;
 
     @Autowired
     public UserLoginServiceImpl(
@@ -101,14 +99,14 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
 
     @Override
-    public AccessTokenResponse authenticate(RefreshTokenResponse refreshTokenDto) {
-        if (jwtBlacklistService.exists(refreshTokenDto.getToken())){
+    public AccessTokenResponse authenticate(String refreshToken) {
+        if (jwtBlacklistService.exists(refreshToken)){
             throw new BannedTokenException();
         }
         try{
             DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC256(refreshSecretKey))
                     .build()
-                    .verify(refreshTokenDto.getToken());
+                    .verify(refreshToken);
             LocalDateTime date = null;
             if (accessTokenLifetime > 0){
                 date = LocalDateTime.now().plus(accessTokenLifetime, ChronoUnit.MILLIS);

@@ -10,7 +10,8 @@ public class BannedAccountException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleBannedAccountException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.banned-account-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

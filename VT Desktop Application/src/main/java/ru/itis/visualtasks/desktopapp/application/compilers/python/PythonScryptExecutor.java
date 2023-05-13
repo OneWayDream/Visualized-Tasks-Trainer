@@ -1,6 +1,5 @@
 package ru.itis.visualtasks.desktopapp.application.compilers.python;
 
-import ru.itis.visualtasks.desktopapp.application.managers.project.visualization.registration.python.PythonVisualizationActionRegistrationManager;
 import ru.itis.visualtasks.desktopapp.exceptions.execution.SolutionFileExecutingException;
 
 import java.io.BufferedReader;
@@ -19,7 +18,6 @@ public class PythonScryptExecutor {
             if (!results.isEmpty()){
                 throw new SolutionFileExecutingException(prepareProcessOutput(results));
             }
-            PythonVisualizationActionRegistrationManager.notifyAboutSolutionExecution();
         } catch (IOException exception) {
             throw new SolutionFileExecutingException(exception);
         }

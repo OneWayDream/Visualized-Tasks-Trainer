@@ -57,7 +57,7 @@ public class JwtAccountController {
             headers = {"JWT"}
     )
     @PreAuthorize("hasAnyAuthority('MODER', 'ADMIN')")
-    public ResponseEntity<JwtUserDto> updateById(@RequestBody JwtUserDto jwtUserDto){
+    public ResponseEntity<JwtUserDto> updateByAccountId(@RequestBody JwtUserDto jwtUserDto){
         return ResponseEntity.ok(service.updateByAccountId(jwtUserDto));
     }
 

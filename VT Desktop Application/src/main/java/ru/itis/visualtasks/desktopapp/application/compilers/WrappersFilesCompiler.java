@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public abstract class WrappersFilesCompiler {
 
@@ -24,12 +23,14 @@ public abstract class WrappersFilesCompiler {
     private List<File> loadAllClassFilesFromFolder(String wrappersClassesFolderPath){
         File wrappersClassesFolder = new File(wrappersClassesFolderPath);
         List<File> resultFiles = new ArrayList<>();
-        List<File> internalFiles = List.of(Objects.requireNonNull(wrappersClassesFolder.listFiles()));
-        for (File internalFile : internalFiles){
-            if (internalFile.isDirectory()){
-                resultFiles.addAll(loadAllClassFilesFromFolder(internalFile.getPath()));
-            } else if (checkIsCompiledFile(internalFile)){
-                resultFiles.add(internalFile);
+        if (wrappersClassesFolder.listFiles() != null){
+            List<File> internalFiles = List.of(wrappersClassesFolder.listFiles());
+            for (File internalFile : internalFiles){
+                if (internalFile.isDirectory()){
+                    resultFiles.addAll(loadAllClassFilesFromFolder(internalFile.getPath()));
+                } else if (checkIsCompiledFile(internalFile)){
+                    resultFiles.add(internalFile);
+                }
             }
         }
         return resultFiles;

@@ -14,7 +14,8 @@ public class NoDisableReasonException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleNoDisableReasonException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.no-disable-reason-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

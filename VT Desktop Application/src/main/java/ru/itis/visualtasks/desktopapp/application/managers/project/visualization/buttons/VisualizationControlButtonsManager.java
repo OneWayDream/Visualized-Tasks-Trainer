@@ -55,6 +55,8 @@ public class VisualizationControlButtonsManager {
         if (checkIfActionsIsEmpty()){
             VisualizationControlButtonsStatesManager.notifyAboutEmptyActions();
             disableAllButtons();
+        } else if (isOnlyOneAction()){
+            disableAllButtons();
         } else {
             playVisualizationSceneButton.setEnabled(VisualizationControlButtonsStatesManager.isPlayPauseButtonsEnabled());
             pauseVisualizationSceneButton.setEnabled(false);
@@ -67,6 +69,10 @@ public class VisualizationControlButtonsManager {
 
     private static boolean checkIfActionsIsEmpty(){
         return !VisualizationActionsManager.hasAnyActions();
+    }
+
+    private static boolean isOnlyOneAction(){
+        return VisualizationActionsManager.getActionsAmount() == 1;
     }
 
     private static void disableAllButtons(){

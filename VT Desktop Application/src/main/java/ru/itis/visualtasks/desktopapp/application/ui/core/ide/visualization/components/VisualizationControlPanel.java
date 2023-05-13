@@ -1,10 +1,12 @@
 package ru.itis.visualtasks.desktopapp.application.ui.core.ide.visualization.components;
 
 import ru.itis.visualtasks.desktopapp.application.Application;
+import ru.itis.visualtasks.desktopapp.application.managers.settings.ColorsManager;
 import ru.itis.visualtasks.desktopapp.application.settings.Mode;
 import ru.itis.visualtasks.desktopapp.application.ui.core.templates.Panel;
 import ru.itis.visualtasks.desktopapp.application.ui.core.ide.visualization.buttons.*;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class VisualizationControlPanel extends Panel {
@@ -16,6 +18,7 @@ public class VisualizationControlPanel extends Panel {
 
     @Override
     protected void setPanelStyle() {
+        panel.setBorder(BorderFactory.createMatteBorder(5, 0, 0, 0, ColorsManager.getBordersColor()));
         panel.setLayout(new GridBagLayout());
     }
 

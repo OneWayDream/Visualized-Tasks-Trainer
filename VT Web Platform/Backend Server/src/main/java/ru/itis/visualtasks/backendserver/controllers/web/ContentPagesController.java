@@ -65,6 +65,7 @@ public class ContentPagesController extends WebController{
         addSearchResults(modelAndView, searchResult);
         addQueryStringAttribute(modelAndView, request);
         addAuthenticationAttributes(modelAndView);
+        System.out.println(modelAndView.getModel());
         return modelAndView;
     }
 
@@ -80,10 +81,12 @@ public class ContentPagesController extends WebController{
     }
 
     private void addQueryStringAttribute(ModelAndView modelAndView, HttpServletRequest request){
+        String queryString = "";
         if (request.getQueryString() != null){
-            String queryString = request.getQueryString().replaceAll("&page=\\d+", "") + "&page=";
-            modelAndView.addObject("queryString", queryString);
+            queryString = request.getQueryString().replaceAll("&page=\\d+", "") + "&page=";
+
         }
+        modelAndView.addObject("queryString", queryString);
     }
 
     @GetMapping("/plugins")

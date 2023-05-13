@@ -14,7 +14,8 @@ public class FileWritingException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleFileWritingException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.file-writing-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

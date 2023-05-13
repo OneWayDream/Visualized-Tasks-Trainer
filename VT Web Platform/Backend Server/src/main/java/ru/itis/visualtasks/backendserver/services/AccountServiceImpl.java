@@ -46,6 +46,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void delete(AccountDto accountDto) {
         repository.deleteById(accountDto.getId());
+        jwtModuleService.deleteUserOnAuthorizationServer(accountDto.getId());
     }
 
     @Override

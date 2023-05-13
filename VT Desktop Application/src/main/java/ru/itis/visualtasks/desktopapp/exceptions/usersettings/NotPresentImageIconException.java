@@ -8,13 +8,15 @@ import ru.itis.visualtasks.desktopapp.utils.LoggingUtils;
 @Slf4j
 public class NotPresentImageIconException extends SelfHandlingException {
 
-    public NotPresentImageIconException() {
-        super();
+    public NotPresentImageIconException(String message) {
+        super(message);
     }
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleNotPresentUserBackgroundImageException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleWarningExceptionWithLocalization("exceptions.not-present-image-icon-exception.message",
+                        getMessage()));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

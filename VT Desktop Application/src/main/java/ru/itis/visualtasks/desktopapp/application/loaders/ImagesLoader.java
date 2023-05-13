@@ -1,6 +1,5 @@
 package ru.itis.visualtasks.desktopapp.application.loaders;
 
-import lombok.Getter;
 import ru.itis.visualtasks.desktopapp.application.settings.Theme;
 import ru.itis.visualtasks.desktopapp.exceptions.usersettings.NotPresentImageIconException;
 import ru.itis.visualtasks.desktopapp.utils.PropertiesUtils;
@@ -9,9 +8,8 @@ import javax.swing.*;
 import java.util.Properties;
 
 public class ImagesLoader {
-    @Getter
+
     private static final String LIGHT_IMAGES_FOLDER;
-    @Getter
     private static final String DARK_IMAGES_FOLDER;
 
     static {
@@ -23,21 +21,21 @@ public class ImagesLoader {
     public static ImageIcon getImageIcon(String imageIconPath){
         ImageIcon imageIcon = new ImageIcon(imageIconPath);
         if (!isPresentImageIcon(imageIcon)){
-            throw new NotPresentImageIconException();
+            throw new NotPresentImageIconException(imageIconPath);
         }
-        return new ImageIcon(imageIconPath);
+        return imageIcon;
     }
 
     private static boolean isPresentImageIcon(ImageIcon imageIcon){
         return imageIcon.getIconHeight() != -1;
     }
 
-    public static String getFilePath(String fileName, Theme theme){
+    public static String getImagePath(String imageName, Theme theme){
         String filePath;
         if (theme == Theme.DARK){
-            filePath = LIGHT_IMAGES_FOLDER + fileName;
+            filePath = LIGHT_IMAGES_FOLDER + imageName;
         } else {
-            filePath = DARK_IMAGES_FOLDER + fileName;
+            filePath = DARK_IMAGES_FOLDER + imageName;
         }
         return filePath;
     }

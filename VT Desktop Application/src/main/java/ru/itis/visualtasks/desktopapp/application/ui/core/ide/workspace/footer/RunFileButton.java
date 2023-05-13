@@ -39,7 +39,7 @@ public class RunFileButton extends ru.itis.visualtasks.desktopapp.application.ui
     @Override
     public void actionPerformed(ActionEvent e) {
         try{
-            WorkspaceContentManager.saveEditorChangedIfNeeded();
+            WorkspaceContentManager.saveEditorChangesIfNeeded();
             if (isSolutionFile()){
                 ProjectTaskFilesManager.executeSolutionFile();
             } else if (isTestSolutionFile()){

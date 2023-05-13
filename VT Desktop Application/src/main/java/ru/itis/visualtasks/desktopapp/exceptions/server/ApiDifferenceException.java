@@ -11,7 +11,8 @@ public class ApiDifferenceException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleApiDifferenceException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.api-difference-exception.message"));
     }
 
 }

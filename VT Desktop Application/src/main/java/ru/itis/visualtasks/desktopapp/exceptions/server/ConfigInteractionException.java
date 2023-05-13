@@ -7,7 +7,8 @@ public class ConfigInteractionException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleConfigInteractionException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.config-interaction-exception.message"));
     }
 
 }

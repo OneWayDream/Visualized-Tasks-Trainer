@@ -7,13 +7,19 @@ import ru.itis.visualtasks.desktopapp.application.settings.Theme;
 import ru.itis.visualtasks.desktopapp.application.settings.UserSettings;
 import ru.itis.visualtasks.desktopapp.exceptions.usersettings.UserSettingsFileReadingException;
 import ru.itis.visualtasks.desktopapp.exceptions.usersettings.UserSettingsFileWritingException;
+import ru.itis.visualtasks.desktopapp.utils.PropertiesUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class SettingsLoader {
 
-    public static final String USER_SETTINGS_FILE_PATH = "settings/settings.json";
+    public static final String USER_SETTINGS_FILE_PATH;
+
+    static {
+        USER_SETTINGS_FILE_PATH = PropertiesUtils.getInstance().getProperties().getProperty("settings-path")
+                + File.separator + "settings.json";
+    }
 
     public static UserSettings getUserSettings(){
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(USER_SETTINGS_FILE_PATH,

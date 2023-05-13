@@ -6,14 +6,22 @@ import ru.itis.visualtasks.desktopapp.application.entities.project.RecentList;
 import ru.itis.visualtasks.desktopapp.application.entities.project.RecentListEntry;
 import ru.itis.visualtasks.desktopapp.exceptions.properties.RecentListReadingException;
 import ru.itis.visualtasks.desktopapp.exceptions.properties.RecentListWritingException;
+import ru.itis.visualtasks.desktopapp.utils.PropertiesUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class RecentManager {
 
-    public static final String RECENT_PROJECTS_FILE_PATH = "settings/recent-projects.json";
-    public static final String RECENT_TASKS_FILE_PATH = "settings/recent-tasks.json";
+    public static final String RECENT_PROJECTS_FILE_PATH;
+    public static final String RECENT_TASKS_FILE_PATH;
+
+    static {
+        RECENT_PROJECTS_FILE_PATH = PropertiesUtils.getInstance().getProperties().getProperty("settings-path")
+                + File.separator + "recent-projects.json";
+        RECENT_TASKS_FILE_PATH = PropertiesUtils.getInstance().getProperties().getProperty("settings-path")
+                + File.separator + "recent-tasks.json";
+    }
 
     public static RecentList getRecentProjects(){
         try {

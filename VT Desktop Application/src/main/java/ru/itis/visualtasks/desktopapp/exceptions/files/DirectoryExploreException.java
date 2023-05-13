@@ -14,7 +14,8 @@ public class DirectoryExploreException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleDirectoryExploreException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.directory-explore-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 }

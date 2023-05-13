@@ -9,7 +9,8 @@ public class SessionExpiredException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleSessionExpiredException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleInformationalExceptionWithLocalization("exceptions.session-expired-exception.message"));
         AccountInformationManager.resetAuthenticationInformation();
         Application.getCurrentPageFrame().updateMenu();
     }

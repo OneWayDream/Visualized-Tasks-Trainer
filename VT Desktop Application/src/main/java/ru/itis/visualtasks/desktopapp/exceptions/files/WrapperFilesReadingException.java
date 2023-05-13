@@ -14,7 +14,8 @@ public class WrapperFilesReadingException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleWrapperFilesReadingException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.wrapper-file-reading-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 }

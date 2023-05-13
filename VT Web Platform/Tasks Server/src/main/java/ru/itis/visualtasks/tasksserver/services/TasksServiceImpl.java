@@ -4,8 +4,8 @@ import com.github.rjeschke.txtmark.Processor;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import ru.itis.visualtasks.tasksserver.dto.NewTaskInfo;
+import ru.itis.visualtasks.tasksserver.entities.ArchiveInfo;
+import ru.itis.visualtasks.tasksserver.entities.NewTaskInfo;
 import ru.itis.visualtasks.tasksserver.entities.ProjectConfig;
 import ru.itis.visualtasks.tasksserver.exceptions.tasks.ConfigNotFoundException;
 import ru.itis.visualtasks.tasksserver.exceptions.tasks.IncompleteConfigException;
@@ -39,26 +39,26 @@ public class TasksServiceImpl implements TasksService {
 
     @Override
     @Transactional
-    public void saveTask(MultipartFile file, NewTaskInfo newTaskInfo) {
-        checkFileExtension(file);
-        Map<String, byte[]> taskFiles = getArchiveFiles(file);
+    public void saveTask(byte[] content, NewTaskInfo newTaskInfo, ArchiveInfo archiveInfo) {
+        checkFileExtension(archiveInfo);
+        Map<String, byte[]> taskFiles = getArchiveFiles(content);
         ProjectConfig projectConfig = checkArchiveFiles(taskFiles);
         newTaskInfo.setLanguage(projectConfig.getLanguage());
         newTaskInfo.setTaskName(projectConfig.getProjectName());
         TaskInfo taskInfo = saveNewTaskInfo(newTaskInfo);
         saveTaskDescriptionFile(taskFiles, projectConfig.getGeneralDescriptionFilePath(), taskInfo.getId());
-        saveTaskArchive(file, taskInfo.getId());
+        saveTaskArchive(content, taskInfo.getId(), archiveInfo);
     }
 
-    private void checkFileExtension(MultipartFile file){
-        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".zip")){
+    private void checkFileExtension(ArchiveInfo archiveInfo){
+        if (!Objects.requireNonNull(archiveInfo.getArchiveName()).endsWith(".zip")){
             throw new UnsupportedTaskExtensionException();
         }
     }
 
-    private Map<String, byte[]> getArchiveFiles(MultipartFile file){
+    private Map<String, byte[]> getArchiveFiles(byte[] content){
         try{
-            return ZipArchiveUtils.unzipArchiveContent(file.getBytes());
+            return ZipArchiveUtils.unzipArchiveContent(content);
         } catch (IOException e) {
             throw new TaskArchiveReadingException(e);
         }
@@ -141,16 +141,12 @@ public class TasksServiceImpl implements TasksService {
         return "";
     }
 
-    private void saveTaskArchive(MultipartFile file, Long taskId){
-        try{
-            taskArchiveService.add(TaskArchive.builder()
-                    .taskId(taskId)
-                    .archiveName(file.getOriginalFilename())
-                    .archive(file.getBytes())
-                    .build());
-        } catch (Exception e) {
-            throw new TaskArchiveReadingException(e);
-        }
+    private void saveTaskArchive(byte[] content, Long taskId, ArchiveInfo archiveInfo){
+        taskArchiveService.add(TaskArchive.builder()
+                .taskId(taskId)
+                .archiveName(archiveInfo.getArchiveName())
+                .archive(content)
+                .build());
     }
 
     @Override

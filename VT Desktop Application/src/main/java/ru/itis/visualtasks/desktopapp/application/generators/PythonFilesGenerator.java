@@ -239,7 +239,7 @@ public class PythonFilesGenerator extends FreeMarkerFilesGenerator {
             template.process(freemarkerDataModel, fileWriter);
         } catch (IOException ex) {
             throw new TemplateLoadingException(ex);
-        } catch (TemplateException ex) {
+        } catch (TemplateException | FolderCreationException ex) {
             throw new TemplateCreationException(ex, getSolutionDestinationPath());
         }
     }
@@ -251,8 +251,21 @@ public class PythonFilesGenerator extends FreeMarkerFilesGenerator {
     }
 
     private File getWrappersAnalysisDestinationFile() {
+        createTargetFolderIfNotExists();
         String destinationFilePath = getWrappersAnalysisDestinationPath();
         return getDestinationFile(destinationFilePath);
+    }
+
+    private void createTargetFolderIfNotExists() {
+        try{
+            FilesManager.createDirectory(getTargetFolderPath());
+        } catch (FolderAlreadyExistsException exception){
+            //ignore
+        }
+    }
+
+    private String getTargetFolderPath(){
+        return ConfigManager.getProjectPath() + File.separator + "target";
     }
 
     private String getWrappersAnalysisDestinationPath() {

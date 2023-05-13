@@ -11,7 +11,8 @@ public class FolderAlreadyExistsException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleFolderAlreadyExistsException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.folder-already-exists-exception.message"));
     }
 
 }

@@ -1,14 +1,13 @@
 package ru.itis.visualtasks.desktopapp.application.loaders;
 
+import com.github.rjeschke.txtmark.Processor;
 import ru.itis.visualtasks.desktopapp.application.managers.files.ConfigManager;
 import ru.itis.visualtasks.desktopapp.application.managers.files.FilesManager;
-import ru.itis.visualtasks.desktopapp.application.managers.utils.ExceptionsManager;
 import ru.itis.visualtasks.desktopapp.application.ui.core.ide.workspace.ContentTab;
 import ru.itis.visualtasks.desktopapp.exceptions.files.FileNotFoundException;
 import ru.itis.visualtasks.desktopapp.exceptions.files.FileReadingException;
 import ru.itis.visualtasks.desktopapp.exceptions.files.UnsupportedContentFileExtensionException;
 import ru.itis.visualtasks.desktopapp.exceptions.unexpected.UnexpectedContentTabException;
-import com.github.rjeschke.txtmark.Processor;
 
 public class ContentLoader {
 
@@ -17,21 +16,15 @@ public class ContentLoader {
         try {
             String fileContent = null;
             if (filePath != null){
-                fileContent = FilesManager.loadFileContent(filePath);
+                fileContent = FilesManager.readFileAsString(filePath);
                 fileContent = prepareFileContent(fileContent, getFileExtension(filePath));
             }
             return fileContent;
-        } catch (FileNotFoundException exception){
-            ExceptionsManager.addDelayedException(() -> ExceptionsManager.handleFileNotFoundException(filePath));
-            resetContentFilePathForTab(contentTab);
-        } catch (FileReadingException exception){
-            ExceptionsManager.addDelayedException(() -> ExceptionsManager.handleFileReadingException(filePath));
+        } catch (FileNotFoundException | FileReadingException | UnsupportedContentFileExtensionException exception){
+            exception.handle();
             resetContentFilePathForTab(contentTab);
         } catch (UnexpectedContentTabException exception){
             exception.handle();
-        } catch (UnsupportedContentFileExtensionException exception){
-            exception.handle();
-            resetContentFilePathForTab(contentTab);
         }
         return null;
     }

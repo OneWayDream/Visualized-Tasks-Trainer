@@ -6,9 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class FilesManager {
 
@@ -29,16 +27,6 @@ public class FilesManager {
             Files.copy(Path.of(source), Path.of(destinationPath));
         } catch (IOException ex) {
             throw new FileCopyingException(ex);
-        }
-    }
-
-    public static String loadFileContent(String filePath){
-        try{
-            return new String(Files.readAllBytes(Paths.get(filePath)));
-        } catch (NoSuchFileException ex){
-            throw new FileNotFoundException(ex);
-        } catch (IOException ex) {
-            throw new FileReadingException(ex);
         }
     }
 
@@ -94,7 +82,11 @@ public class FilesManager {
         try{
             for (String innerFilePath: innerFilePaths){
                 File currentFile = new File(directoryPath + File.separator + innerFilePath);
-                currentFile.delete();
+                if (currentFile.isDirectory()){
+                    deleteDirectory(currentFile.getPath());
+                } else {
+                    currentFile.delete();
+                }
             }
         } catch (Exception exception){
             throw new FileDeletionException(exception);

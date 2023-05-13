@@ -20,9 +20,10 @@ public class SolutionFileExecutingException extends SelfHandlingException {
     @Override
     public void handle() {
         if (consoleOutput == null){
-            ExceptionsManager.handleSolutionFileExecutionException(LoggingUtils.exceptionToString(this));
+            ExceptionsManager.handleErrorExceptionWithLocalization(LoggingUtils.exceptionToString(this));
         } else {
-            ExceptionsManager.addDelayedException(() -> ExceptionsManager.handleSolutionFileExecutionException(consoleOutput));
+            ExceptionsManager.addDelayedException(
+                    () -> ExceptionsManager.handleInformationalException(consoleOutput));
         }
     }
 

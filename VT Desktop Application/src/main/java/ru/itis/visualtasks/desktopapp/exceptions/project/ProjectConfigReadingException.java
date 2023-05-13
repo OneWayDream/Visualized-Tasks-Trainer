@@ -18,7 +18,8 @@ public class ProjectConfigReadingException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleProjectConfigReadingException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleWarningExceptionWithLocalization("exceptions.project-config-reading-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

@@ -14,7 +14,8 @@ public class VisualizationFileNotFoundException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleVisualizationFileNotFoundException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleWarningExceptionWithLocalization("exceptions.visualization-file-not-found-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

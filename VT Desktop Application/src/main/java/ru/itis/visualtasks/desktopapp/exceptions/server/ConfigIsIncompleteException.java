@@ -7,7 +7,8 @@ public class ConfigIsIncompleteException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleConfigIsIncompleteException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleInformationalExceptionWithLocalization("exceptions.config-is-incomplete-exception.message"));
     }
 
 }

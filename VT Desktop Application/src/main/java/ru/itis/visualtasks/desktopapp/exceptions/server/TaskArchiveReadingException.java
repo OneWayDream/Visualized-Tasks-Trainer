@@ -7,7 +7,8 @@ public class TaskArchiveReadingException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleTaskArchiveReadingException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.task-archive-reading-exception.message"));
     }
 
 }

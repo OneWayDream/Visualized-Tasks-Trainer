@@ -61,20 +61,29 @@ public class Application {
     }
 
     public static void reloadPage(){
-        currentPageFrame.dispose();
-        currentPageFrame = currentPageFrame.copy();
-        currentPageFrame.initPage();
+        if (currentPageFrame != null){
+            currentPageFrame.dispose();
+            currentPageFrame = currentPageFrame.copy();
+            currentPageFrame.initPage();
+        }
     }
 
     public static void changePage(PageFrame pageFrame){
-        currentPageFrame.dispose();
+        if (currentPageFrame != null){
+            currentPageFrame.dispose();
+        }
         currentPageFrame = pageFrame;
         currentPageFrame.initPage();
     }
 
+    public static void closePageFrame(){
+        currentPageFrame.dispose();
+        currentPageFrame = null;
+    }
+
     public static void exit(){
         SettingsManager.saveSettings();
-        WorkspaceContentManager.saveEditorChangedIfNeeded();
+        WorkspaceContentManager.saveEditorChangesIfNeeded();
         log.info(LocalizationManager.getLocaleTextByKey("logging.application-close"));
         System.exit(0);
     }

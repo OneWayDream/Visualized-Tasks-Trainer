@@ -18,6 +18,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 public class ProjectFilesManager {
 
@@ -259,7 +260,7 @@ public class ProjectFilesManager {
 
     public static ProjectConfig getConfigFile(String projectPath){
         if (!isProjectExists(projectPath)){
-            throw new ProjectDirectoryNotExistsException();
+            throw new ProjectDirectoryNotExistsException(projectPath);
         }
         ProjectConfig projectConfig;
         try {
@@ -302,6 +303,7 @@ public class ProjectFilesManager {
                 .language(Language.JAVA)
                 .projectName(projectPath)
                 .visualizationType(VisualizationType.SWING)
+                .wrappersNames(new HashMap<>())
                 .build();
     }
 

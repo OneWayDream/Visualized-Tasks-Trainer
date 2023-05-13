@@ -32,7 +32,7 @@ public class WorkspacePanel extends ru.itis.visualtasks.desktopapp.application.u
     }
 
     private void fillWorkspacePanel(Component workspaceContent){
-        if (isInformationalHeaderNeeded(workspaceContent)){
+        if (isInformationalHeaderNeeded()){
             addInformationalHeader();
         }
         panel.add(workspaceContent, BorderLayout.CENTER);
@@ -41,12 +41,12 @@ public class WorkspacePanel extends ru.itis.visualtasks.desktopapp.application.u
         }
     }
 
-    private boolean isInformationalHeaderNeeded(Component workspaceContent){
-        return isInformationalPanel(workspaceContent) && !isStudyMode();
+    private boolean isInformationalHeaderNeeded(){
+        return isInformationalPanel() && !isStudyMode();
     }
 
-    private boolean isInformationalPanel(Component workspaceContent) {
-        return workspaceContent instanceof JEditorPane;
+    private boolean isInformationalPanel() {
+        return WorkspaceContentManager.getContentTab() != ContentTab.FILE_EDITOR;
     }
 
     private boolean isStudyMode() {

@@ -14,7 +14,8 @@ public class RecentListWritingException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleRecentListWritingException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.recent-list-writing-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

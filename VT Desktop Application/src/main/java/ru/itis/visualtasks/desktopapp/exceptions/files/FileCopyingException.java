@@ -14,7 +14,8 @@ public class FileCopyingException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleFileCopyingException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.file-copying-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

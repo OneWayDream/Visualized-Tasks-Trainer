@@ -4,13 +4,19 @@ import com.google.gson.Gson;
 import ru.itis.visualtasks.desktopapp.application.entities.project.AuthorizationInfo;
 import ru.itis.visualtasks.desktopapp.exceptions.usersettings.UserSettingsFileReadingException;
 import ru.itis.visualtasks.desktopapp.exceptions.usersettings.UserSettingsFileWritingException;
+import ru.itis.visualtasks.desktopapp.utils.PropertiesUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class AuthorizationInfoLoader {
 
-    public static final String AUTHORIZATION_INFO_FILE_PATH = "settings/auth.json";
+    public static final String AUTHORIZATION_INFO_FILE_PATH;
+
+    static {
+        AUTHORIZATION_INFO_FILE_PATH = PropertiesUtils.getInstance().getProperties().getProperty("settings-path")
+                + File.separator + "auth.json";
+    }
 
     public static AuthorizationInfo getAuthorizationInfo(){
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(AUTHORIZATION_INFO_FILE_PATH,

@@ -14,7 +14,8 @@ public class UndefinedVisualizationMethodException extends SelfHandlingException
 
     @Override
     public void handle() {
-        ExceptionsManager.handleUndefinedVisualizationMethodException(LoggingUtils.exceptionToString(this));
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorException(LoggingUtils.exceptionToString(this)));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

@@ -60,9 +60,7 @@ public class LoginController {
             headers = {"refresh-token"}
     )
     public ResponseEntity<?> authenticateModule(HttpServletRequest request){
-        return ResponseEntity.ok(loginService.authenticate(RefreshTokenResponse.builder()
-                .token(request.getHeader("refresh-token"))
-                .build()));
+        return ResponseEntity.ok(loginService.authenticate(request.getHeader("refresh-token")));
     }
 
     @Operation(summary = "Login a user (get refresh token by login and password)")
@@ -102,9 +100,7 @@ public class LoginController {
             headers = {"refresh-token"}
     )
     public ResponseEntity<?> authenticateUser(HttpServletRequest request){
-        return ResponseEntity.ok(userLoginService.authenticate(RefreshTokenResponse.builder()
-                .token(request.getHeader("refresh-token"))
-                .build()));
+        return ResponseEntity.ok(userLoginService.authenticate(request.getHeader("refresh-token")));
     }
 
     @Operation(summary = "Log out a token")

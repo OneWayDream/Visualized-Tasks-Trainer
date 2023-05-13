@@ -18,7 +18,8 @@ public class FileDeletionException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleFileDeletionException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.file-deletion-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

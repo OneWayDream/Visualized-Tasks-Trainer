@@ -30,7 +30,7 @@ public class AdministrationController {
     })
     @PostMapping("/ban-token")
     @PreAuthorize("hasAnyAuthority('MODER', 'ADMIN')")
-    public ResponseEntity<?> login(@RequestBody String token){
+    public ResponseEntity<?> banToken(@RequestBody String token){
         if (token == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .build();

@@ -18,7 +18,8 @@ public class FolderCreationException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleFolderCreationException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.folder-creation-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

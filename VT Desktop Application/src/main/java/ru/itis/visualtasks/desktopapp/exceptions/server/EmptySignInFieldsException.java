@@ -7,7 +7,8 @@ public class EmptySignInFieldsException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleEmptySignInFieldsException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.empty-sign-in-fields-exception.message"));
     }
 
 }

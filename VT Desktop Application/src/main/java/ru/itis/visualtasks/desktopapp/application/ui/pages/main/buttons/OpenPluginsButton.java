@@ -47,7 +47,6 @@ public class OpenPluginsButton extends Button {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Open plugins");
         try{
             Desktop.getDesktop().browse(LinksManager.getLinkValue(Link.PLUGINS));
         } catch (IOException ex) {

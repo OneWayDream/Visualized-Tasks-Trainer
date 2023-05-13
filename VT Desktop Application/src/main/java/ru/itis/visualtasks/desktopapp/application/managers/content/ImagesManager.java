@@ -1,7 +1,6 @@
 package ru.itis.visualtasks.desktopapp.application.managers.content;
 
 import ru.itis.visualtasks.desktopapp.application.loaders.ImagesLoader;
-import ru.itis.visualtasks.desktopapp.application.managers.utils.ExceptionsManager;
 import ru.itis.visualtasks.desktopapp.application.settings.Image;
 import ru.itis.visualtasks.desktopapp.application.settings.Theme;
 import ru.itis.visualtasks.desktopapp.exceptions.usersettings.NotPresentImageIconException;
@@ -30,12 +29,11 @@ public class ImagesManager {
 
     public static ImageIcon getImageIcon(Image image){
         String imageName = getImageName(image);
-        String imagePath = ImagesLoader.getFilePath(imageName, currentTheme);
+        String imagePath = ImagesLoader.getImagePath(imageName, currentTheme);
         try {
             return ImagesLoader.getImageIcon(imagePath);
         } catch (NotPresentImageIconException exception){
-            ExceptionsManager.addDelayedException(
-                    () -> ExceptionsManager.handleNotPresentImageIconException(image.getKey()));
+            exception.handle();
         }
         return new ImageIcon("");
     }
@@ -60,8 +58,7 @@ public class ImagesManager {
         try{
             return ImagesLoader.getImageIcon(APPLICATION_ICON_PATH);
         } catch (NotPresentImageIconException exception){
-            ExceptionsManager.addDelayedException(
-                    () -> ExceptionsManager.handleNotPresentImageIconException(APPLICATION_ICON_PATH));
+            exception.handle();
         }
         return new ImageIcon("");
     }

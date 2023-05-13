@@ -14,7 +14,8 @@ public class MonitoringThreadException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleMonitoringThreadException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.monitoring-thread-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

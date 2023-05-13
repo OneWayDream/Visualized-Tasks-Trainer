@@ -14,7 +14,8 @@ public class UserSettingsFileWritingException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleUserSettingsFileWritingException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.user-settings-file-writing-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

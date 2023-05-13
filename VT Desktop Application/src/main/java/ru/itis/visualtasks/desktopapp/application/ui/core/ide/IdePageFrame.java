@@ -55,7 +55,7 @@ public abstract class IdePageFrame extends PageFrame {
 
     @Override
     public void dispose(){
-        WorkspaceContentManager.saveEditorChangedIfNeeded();
+        WorkspaceContentManager.saveEditorChangesIfNeeded();
         frame.dispose();
     }
 

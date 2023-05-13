@@ -47,7 +47,6 @@ public class OpenDocumentationButton extends Button {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Open documentation");
         try{
             Desktop.getDesktop().browse(LinksManager.getLinkValue(Link.DOCUMENTATION));
         } catch (IOException ex) {

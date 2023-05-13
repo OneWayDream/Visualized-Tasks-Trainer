@@ -2,8 +2,12 @@ package ru.itis.visualtasks.desktopapp.application.managers.settings;
 
 import ru.itis.visualtasks.desktopapp.application.Application;
 import ru.itis.visualtasks.desktopapp.application.loaders.ImagesLoader;
+import ru.itis.visualtasks.desktopapp.application.managers.files.FilesManager;
+import ru.itis.visualtasks.desktopapp.exceptions.files.FolderAlreadyExistsException;
 import ru.itis.visualtasks.desktopapp.exceptions.usersettings.BackgroundImageSavingException;
+import ru.itis.visualtasks.desktopapp.exceptions.usersettings.NotPresentBackgroundImageException;
 import ru.itis.visualtasks.desktopapp.exceptions.usersettings.NotPresentImageIconException;
+import ru.itis.visualtasks.desktopapp.utils.PropertiesUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,14 +18,28 @@ import java.nio.file.StandardCopyOption;
 
 public class BackgroundImageManager {
 
-    private static final String BACKGROUND_IMAGE_PATH = "settings/background";
+    private static final String BACKGROUND_IMAGE_PATH;
+
+    static {
+        BACKGROUND_IMAGE_PATH = PropertiesUtils.getInstance().getProperties().getProperty("settings-path")
+                + File.separator + "background";
+        createBackgroundFolderIfNotExists();
+    }
+
+    private static void createBackgroundFolderIfNotExists() {
+        try{
+            FilesManager.createDirectory(BACKGROUND_IMAGE_PATH);
+        } catch (FolderAlreadyExistsException exception){
+            //ignore
+        }
+    }
 
     public static void saveNewBackgroundImage(File sourceImage){
         try{
             File targetImage = new File(BACKGROUND_IMAGE_PATH + File.separator + sourceImage.getName());
             targetImage.createNewFile();
-            Files.copy(sourceImage.toPath(), targetImage.toPath(), StandardCopyOption.REPLACE_EXISTING);
             deleteOldImageIfExists();
+            Files.copy(sourceImage.toPath(), targetImage.toPath(), StandardCopyOption.REPLACE_EXISTING);
             SettingsManager.setBackgroundImageName(sourceImage.getName());
             Application.reloadPage();
         } catch (IOException ex) {
@@ -37,8 +55,8 @@ public class BackgroundImageManager {
     }
 
     private static void deleteOldImage(String oldImage){
-        File fileToDelete = new File(BACKGROUND_IMAGE_PATH + File.separator + oldImage);
-        fileToDelete.delete();
+        String oldImagePath = BACKGROUND_IMAGE_PATH + File.separator + oldImage;
+        FilesManager.delete(oldImagePath);
     }
 
     public static Image getBackgroundImage() {
@@ -48,7 +66,7 @@ public class BackgroundImageManager {
                 ImageIcon imageIcon = ImagesLoader.getImageIcon(BACKGROUND_IMAGE_PATH + File.separator + backgroundImageName);
                 return imageIcon.getImage();
             } catch (NotPresentImageIconException exception){
-                exception.handle();
+                new NotPresentBackgroundImageException().handle();
                 SettingsManager.setBackgroundImageName(null);
             }
         }

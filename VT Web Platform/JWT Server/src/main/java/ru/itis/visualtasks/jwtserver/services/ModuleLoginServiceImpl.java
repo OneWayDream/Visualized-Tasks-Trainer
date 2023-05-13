@@ -50,17 +50,17 @@ public class ModuleLoginServiceImpl implements ModuleLoginService {
     }
 
     @Override
-    public RefreshTokenResponse login(ModuleAuthorizationForm form) {
+    public RefreshTokenResponse login(ModuleAuthorizationForm moduleAuthorizationForm) {
         JwtModuleDto module;
         try{
-            module = service.findByLogin(form.getLogin());
+            module = service.findByLogin(moduleAuthorizationForm.getLogin());
         } catch (EntityNotFoundException ex){
             throw new IncorrectUserDataException(ex);
         }
         if (module.getState().equals(JwtState.BANNED)){
             throw new BannedUserException();
         }
-        if (passwordEncoder.matches(form.getPassword(), module.getHashPassword())){
+        if (passwordEncoder.matches(moduleAuthorizationForm.getPassword(), module.getHashPassword())){
             LocalDateTime date = null;
             if (refreshTokenLifetime > 0){
                 date = LocalDateTime.now().plus(refreshTokenLifetime, ChronoUnit.MILLIS);
@@ -83,11 +83,11 @@ public class ModuleLoginServiceImpl implements ModuleLoginService {
     }
 
     @Override
-    public AccessTokenResponse authenticate(RefreshTokenResponse refreshTokenDto) {
+    public AccessTokenResponse authenticate(String refreshToken) {
         try{
             DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC256(refreshSecretKey))
                     .build()
-                    .verify(refreshTokenDto.getToken());
+                    .verify(refreshToken);
 
             LocalDateTime date = null;
             if (accessTokenLifetime > 0){

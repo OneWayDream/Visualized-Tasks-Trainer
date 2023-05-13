@@ -14,7 +14,8 @@ public class WrappersMapCreationException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleWrappersMapCreationException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.wrappers-map-creation-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 }

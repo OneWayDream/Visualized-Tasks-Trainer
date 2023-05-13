@@ -6,7 +6,7 @@ import ru.itis.visualtasks.jwtserver.dto.RefreshTokenResponse;
 
 public interface ModuleLoginService {
 
-    RefreshTokenResponse login(ModuleAuthorizationForm emailPasswordDto);
-    AccessTokenResponse authenticate(RefreshTokenResponse refreshTokenDto);
+    RefreshTokenResponse login(ModuleAuthorizationForm moduleAuthorizationForm);
+    AccessTokenResponse authenticate(String refreshToken);
 
 }

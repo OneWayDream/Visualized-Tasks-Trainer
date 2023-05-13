@@ -14,7 +14,8 @@ public class VisualizationMethodInvocationException extends SelfHandlingExceptio
 
     @Override
     public void handle() {
-        ExceptionsManager.handleVisualizationMethodInvocationException(LoggingUtils.exceptionToString(this));
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorException(LoggingUtils.exceptionToString(this)));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

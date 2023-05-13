@@ -11,7 +11,8 @@ public class FileAlreadyExistsException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleFileAlreadyExistsException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleWarningExceptionWithLocalization("exceptions.file-already-exists-exception.message"));
     }
 
 }

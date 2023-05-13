@@ -14,7 +14,8 @@ public class SolutionFileReadingException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleSolutionFileReadingException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.solution-file-reading-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 }

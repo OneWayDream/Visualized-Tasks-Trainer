@@ -7,7 +7,8 @@ public class TaskUploadException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleTaskUploadException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.task-upload-exception.message"));
     }
 
 }

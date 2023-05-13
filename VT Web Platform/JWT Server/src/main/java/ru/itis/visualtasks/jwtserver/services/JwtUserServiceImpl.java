@@ -1,6 +1,7 @@
 package ru.itis.visualtasks.jwtserver.services;
 
 import jakarta.persistence.PersistenceException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.itis.visualtasks.jwtserver.dto.JwtUserDto;
@@ -94,13 +95,15 @@ public class JwtUserServiceImpl implements JwtUserService {
     }
 
     @Override
+    @Transactional
     public void deleteByAccountId(Long accountId) {
         try{
-            JwtUser entityToDelete = repository.findByAccountId(accountId)
-                    .filter(entry -> !entry.getIsDeleted())
-                    .orElseThrow(EntityNotExistsException::new);
-            entityToDelete.setIsDeleted(true);
-            repository.save(entityToDelete);
+            repository.deleteByAccountId(accountId);
+//            JwtUser entityToDelete = repository.findByAccountId(accountId)
+//                    .filter(entry -> !entry.getIsDeleted())
+//                    .orElseThrow(EntityNotExistsException::new);
+//            entityToDelete.setIsDeleted(true);
+//            repository.save(entityToDelete);
         } catch (Exception ex){
             if (ex instanceof EntityNotExistsException){
                 throw ex;

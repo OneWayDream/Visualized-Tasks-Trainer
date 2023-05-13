@@ -2,15 +2,16 @@ package ru.itis.visualtasks.desktopapp.application.managers.project;
 
 import lombok.Getter;
 import ru.itis.visualtasks.desktopapp.application.Application;
-import ru.itis.visualtasks.desktopapp.application.compilers.SolutionsFilesCompiler;
+import ru.itis.visualtasks.desktopapp.application.compilers.SolutionFilesCompiler;
 import ru.itis.visualtasks.desktopapp.application.compilers.WrappersFilesCompiler;
-import ru.itis.visualtasks.desktopapp.application.compilers.java.JavaSolutionsFilesCompiler;
-import ru.itis.visualtasks.desktopapp.application.compilers.java.JavaWrappersFilesCompiler;
+import ru.itis.visualtasks.desktopapp.application.compilers.java.JavaSolutionFilesCompiler;
+import ru.itis.visualtasks.desktopapp.application.compilers.java.JavaWrapperFilesCompiler;
 import ru.itis.visualtasks.desktopapp.application.compilers.python.PythonSolutionFilesCompiler;
-import ru.itis.visualtasks.desktopapp.application.compilers.python.PythonWrappersFilesCompiler;
+import ru.itis.visualtasks.desktopapp.application.compilers.python.PythonWrapperFilesCompiler;
 import ru.itis.visualtasks.desktopapp.application.entities.project.Language;
 import ru.itis.visualtasks.desktopapp.application.managers.files.ConfigManager;
 import ru.itis.visualtasks.desktopapp.application.managers.project.visualization.VisualizationActionsManager;
+import ru.itis.visualtasks.desktopapp.application.managers.project.visualization.VisualizationArgumentsStorage;
 import ru.itis.visualtasks.desktopapp.application.managers.project.visualization.VisualizationSceneController;
 import ru.itis.visualtasks.desktopapp.application.managers.project.visualization.buttons.VisualizationControlButtonsManager;
 import ru.itis.visualtasks.desktopapp.application.settings.Mode;
@@ -27,17 +28,17 @@ public class ProjectTaskFilesManager {
     @Getter
     private static WrappersFilesCompiler wrappersFilesCompiler;
     @Getter
-    private static SolutionsFilesCompiler solutionsFilesCompiler;
+    private static SolutionFilesCompiler solutionFilesCompiler;
 
     public static void setProjectLanguage(Language language){
         switch (language){
             case JAVA -> {
-                wrappersFilesCompiler = new JavaWrappersFilesCompiler();
-                solutionsFilesCompiler = new JavaSolutionsFilesCompiler();
+                wrappersFilesCompiler = new JavaWrapperFilesCompiler();
+                solutionFilesCompiler = new JavaSolutionFilesCompiler();
             }
             case PYTHON -> {
-                wrappersFilesCompiler = new PythonWrappersFilesCompiler();
-                solutionsFilesCompiler = new PythonSolutionFilesCompiler();
+                wrappersFilesCompiler = new PythonWrapperFilesCompiler();
+                solutionFilesCompiler = new PythonSolutionFilesCompiler();
             }
             default -> throw new UnsupportedLanguageException();
         }
@@ -55,7 +56,8 @@ public class ProjectTaskFilesManager {
             compileWrappersFilesIfNeeded();
             compileSolutionFile();
             VisualizationActionsManager.clear();
-            solutionsFilesCompiler.executeSolutionFile();
+            VisualizationArgumentsStorage.reset();
+            solutionFilesCompiler.executeSolutionFile();
             VisualizationSceneController.onStart();
             VisualizationControlButtonsManager.notifyAboutFileExecution();
         } catch (WrappersFilesCompilationException | SolutionFileCompilationException |
@@ -69,7 +71,8 @@ public class ProjectTaskFilesManager {
             compileWrappersFilesIfNeeded();
             compileTestSolutionFile();
             VisualizationActionsManager.clear();
-            solutionsFilesCompiler.executeTestSolutionFile();
+            VisualizationArgumentsStorage.reset();
+            solutionFilesCompiler.executeTestSolutionFile();
             VisualizationSceneController.onStart();
             VisualizationControlButtonsManager.notifyAboutFileExecution();
         } catch (WrappersFilesCompilationException | SolutionFileCompilationException |
@@ -79,11 +82,11 @@ public class ProjectTaskFilesManager {
     }
 
     public static void compileSolutionFile(){
-        solutionsFilesCompiler.compileSolutionFile();
+        solutionFilesCompiler.compileSolutionFile();
     }
 
     public static void compileTestSolutionFile(){
-        solutionsFilesCompiler.compileTestSolutionFile();
+        solutionFilesCompiler.compileTestSolutionFile();
     }
 
     private static void compileWrappersFilesIfNeeded(){

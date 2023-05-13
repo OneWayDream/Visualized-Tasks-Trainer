@@ -14,7 +14,8 @@ public class UnsupportedContentFileExtensionException extends SelfHandlingExcept
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleUnsupportedContentFileExtensionException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.unsupported-content-file-extension-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

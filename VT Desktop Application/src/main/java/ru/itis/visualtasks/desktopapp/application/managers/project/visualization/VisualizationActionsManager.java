@@ -92,6 +92,16 @@ public class VisualizationActionsManager {
         currentActionNumber = 0;
     }
 
+    public static void reset(){
+        inInitialStateCommand = null;
+        initialStepDelay = 0;
+        atSceneStartCommand = null;
+        atStartStepDelay = 0;
+        atSceneEndCommand = null;
+        atEndStepDelay = 0;
+        clear();
+    }
+
     public static boolean hasAnyActions() {
         return !actions.isEmpty();
     }

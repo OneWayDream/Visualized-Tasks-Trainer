@@ -13,7 +13,19 @@ public class NoPreviousStepsChainLink extends DisableReasonChainLink {
 
     @Override
     protected boolean checkCondition(VisualizationButtonType buttonType) {
-        return checkIsAnyStepsBefore();
+        return isTurnBackButton(buttonType) && checkIsAnyStepsBefore();
+    }
+
+    private boolean isTurnBackButton(VisualizationButtonType buttonType) {
+        return isStepBackButton(buttonType) || isAtStartButton(buttonType);
+    }
+
+    private boolean isStepBackButton(VisualizationButtonType buttonType) {
+        return buttonType == VisualizationButtonType.PREVIOUS_STEP;
+    }
+
+    private boolean isAtStartButton(VisualizationButtonType buttonType) {
+        return buttonType == VisualizationButtonType.AT_START;
     }
 
     private boolean checkIsAnyStepsBefore(){

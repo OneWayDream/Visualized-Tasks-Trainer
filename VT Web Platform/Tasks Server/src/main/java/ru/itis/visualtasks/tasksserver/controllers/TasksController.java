@@ -14,10 +14,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.itis.visualtasks.tasksserver.dto.NewTaskInfo;
+import ru.itis.visualtasks.tasksserver.entities.ArchiveInfo;
+import ru.itis.visualtasks.tasksserver.entities.NewTaskInfo;
+import ru.itis.visualtasks.tasksserver.exceptions.tasks.TaskArchiveReadingException;
 import ru.itis.visualtasks.tasksserver.models.TaskArchive;
 import ru.itis.visualtasks.tasksserver.services.TasksService;
 import ru.itis.visualtasks.tasksserver.utils.JwtUtils;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController("/tasks")
@@ -63,9 +67,11 @@ public class TasksController {
     )
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> uploadNewTask(@RequestPart(name = "task") MultipartFile task,
-                                           @RequestHeader("JWT") String token) {
+                                           @RequestHeader("JWT") String token){
         NewTaskInfo newTaskInfo = getNewTaskInfo(token);
-        tasksService.saveTask(task, newTaskInfo);
+        ArchiveInfo archiveInfo = getArchiveInfo(task);
+        byte[] archiveContent = parseArchive(task);
+        tasksService.saveTask(archiveContent, newTaskInfo, archiveInfo);
         return ResponseEntity.ok().build();
     }
 
@@ -75,6 +81,20 @@ public class TasksController {
                 .authorId(decodedJWT.getClaim("account_id").asLong())
                 .authorName(decodedJWT.getClaim("login").asString())
                 .build();
+    }
+
+    private ArchiveInfo getArchiveInfo(MultipartFile task) {
+        return ArchiveInfo.builder()
+                .archiveName(task.getOriginalFilename())
+                .build();
+    }
+
+    private byte[] parseArchive(MultipartFile file) {
+        try{
+            return file.getBytes();
+        } catch (IOException e) {
+            throw new TaskArchiveReadingException(e);
+        }
     }
 
     @Operation(summary = "Get task archive by id")

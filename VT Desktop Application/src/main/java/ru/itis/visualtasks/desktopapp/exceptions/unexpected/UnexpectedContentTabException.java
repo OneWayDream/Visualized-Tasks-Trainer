@@ -14,7 +14,8 @@ public class UnexpectedContentTabException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleUnexpectedContentTabException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.unexpected-content-tab-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 

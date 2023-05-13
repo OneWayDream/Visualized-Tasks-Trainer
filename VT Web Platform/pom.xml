@@ -34,6 +34,10 @@
         <gson.version>2.10</gson.version>
         <txtmark.version>0.16.0</txtmark.version>
         <okhttp.version>4.10.0</okhttp.version>
+        <embedded-database-spring-test.version>2.2.0</embedded-database-spring-test.version>
+        <embedded-postgres.version>2.0.3</embedded-postgres.version>
+        <embedded-redis.version>0.7.3</embedded-redis.version>
+        <de.flapdoodle.embed.mongo.spring30x.version>4.6.2</de.flapdoodle.embed.mongo.spring30x.version>
     </properties>
 
     <dependencies>
@@ -102,6 +106,23 @@
             <artifactId>java-jwt</artifactId>
             <version>${java.jwt.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.zonky.test</groupId>
+            <artifactId>embedded-database-spring-test</artifactId>
+            <version>${embedded-database-spring-test.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.zonky.test</groupId>
+            <artifactId>embedded-postgres</artifactId>
+            <version>${embedded-postgres.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.ozimov</groupId>
+            <artifactId>embedded-redis</artifactId>
+            <version>${embedded-redis.version}</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -136,6 +157,12 @@
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>okhttp</artifactId>
                 <version>${okhttp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.flapdoodle.embed</groupId>
+                <artifactId>de.flapdoodle.embed.mongo.spring30x</artifactId>
+                <version>${de.flapdoodle.embed.mongo.spring30x.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

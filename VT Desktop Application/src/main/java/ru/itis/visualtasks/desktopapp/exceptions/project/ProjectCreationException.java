@@ -18,7 +18,8 @@ public class ProjectCreationException extends SelfHandlingException {
 
     @Override
     public void handle() {
-        ExceptionsManager.addDelayedException(ExceptionsManager::handleProjectCreationException);
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.project-creation-exception.message"));
         log.error(LoggingUtils.exceptionToString(this));
     }
 }
