@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1" author="OneWayDream">
+        <comment>Creating a user's table</comment>
+        <createTable tableName="account">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="mail" type="varchar">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="login" type="varchar">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="hash_password" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="registration_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="OneWayDream">
+        <comment>Creating Persistent Login Spring table</comment>
+        <createTable tableName="persistent_logins">
+            <column name="username" type="varchar">
+                <constraints  nullable="false"/>
+            </column>
+            <column name="series" type="varchar">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="token" type="varchar">
+                <constraints  nullable="false"/>
+            </column>
+            <column name="last_used" type="timestamp">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

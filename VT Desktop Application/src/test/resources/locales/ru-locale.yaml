@@ -1,0 +1,361 @@
+menu:
+  settings:
+    text: Настройки
+    change-theme:
+      text: Тема
+      light-theme:
+        text: Светлая
+      dark-theme:
+        text: Тёмная
+    change-language:
+      text: Язык
+      russian:
+        text: Русский
+      english:
+        text: Английский
+    change-background:
+      text: Изменить фон
+      set-image:
+        text: Установить изображение
+        dialog-title: Выберите изображение
+      reset-image:
+        text: Сбросить изображение
+  file:
+    text: Файл
+    create-new-project:
+      text: Создать новый проект
+    open-recent-project:
+      text: Открыть недавний проект
+    open-project:
+      text: Открыть проект
+    to-main-menu:
+      text: В главное меню
+  account:
+    text: Аккаунт
+    sign-in:
+      text: Войти
+      dialog:
+        title: Вход пользователя
+        success-text: Вход был успешно выполнен
+        login-field:
+          title: Логин
+        password-field:
+          title: Пароль
+        button:
+          text: Войти
+    log-out:
+      text: Выйти
+      success-text: Выход был успешно выполнен
+    account-info-label:
+      text: |
+        Аккаунт: %s
+    upload:
+      text: Загрузить задачу
+      success-text: Задача была успешно опубликована на платформе.
+main-frame:
+  left-panel:
+    label:
+      develop:
+        title: Режим разработчика
+        description: Создавай свои задачи и делись ими!
+      study:
+        title: Учебный режим
+        description: Решай существующие задачи и прокачивайся!
+    buttons:
+      create-new-project:
+        text: Создать новый проект...
+      open-recent-project:
+        text: Открыть недавний проект...
+      open-folder-as-project:
+        text: Открыть папку как проект...
+  right-panel:
+    buttons:
+      open-website:
+        text: Сайт
+      open-documentation:
+        text: Документация
+      open-guide:
+        text: Гайд
+      open-tasks:
+        text: Задания
+      open-plugins:
+        text: Плагины
+  recent-list:
+    develop:
+      title: Недавние проекты
+      empty-list: Недавних проектов нет
+    study:
+      title: Недавние задачи
+      empty-list: Недавних задач нет
+  project-creation:
+    title: Создание проекта
+    name-field:
+      title: Имя проекта
+    path-field:
+      title: Путь проекта
+    language-field:
+      title: Язык
+    create-button:
+      text: Создать
+  open-as-project:
+    title: Выберите папку проекта
+ide:
+  content:
+    main-buttons:
+      open-general-description-button:
+        text: О задаче
+        tooltip-text: Общая информация о задаче
+      open-code-ide-button:
+        text: Редактор
+        tooltip-text: Файловый редактор для решения задачи или работы с файлами
+      open-studying-content:
+        text: Материалы
+        tooltip-text: Информация об изучаемой теории
+      open-task-terms:
+        text: Условия
+        tooltip-text: Постановка задачи (условия и требования)
+    visualization-scene:
+      control-buttons:
+        scene-at-start:
+          tooltip-text: На начало визуализации
+        scene-at-end:
+          tooltip-text: В конец визуализации
+        pause:
+          tooltip-text: Остановить сцену визуализации
+        play:
+          tooltip-text: Воспроизвести сцену визуализации
+        step-back:
+          tooltip-text: Сделать шаг назад в визуализации
+        step-forward:
+          tooltip-text: Сделать шаг вперёд в визуализации
+        update-scene:
+          tooltip-text: Обновить сцену
+        not-executed-solution-file:
+          tooltip-text: Сначала выполните своё решение.
+        not-playing-for-pause:
+          tooltip-text: Вы не можете приостановить статичную сцену.
+        playing-scene:
+          tooltip-text: Вы не можете использовать эту кнопку во время воспроизведения сцены.
+        no-previous-action:
+          tooltip-text: Сцена уже находится на первом шаге.
+        no-next-action:
+          tooltip-text: Сцена уже находится на последнем шаге.
+        non-animation:
+          tooltip-text: Автор не предусмотрел визуализацию, так что эти кнопки бесполезны.
+        disabled-button:
+          tooltip-text: Автор заблокировал возможность использования данной кнопки.
+    workspace:
+      choose-content-file-panel:
+        file-not-selected-label:
+          develop:
+            text: Файл не выбран. Создайте или выберите файл.
+          student:
+            text: Разработчик не добавил информацию.
+        create-file-button:
+          text: Создать новый файл
+        choose-file-button:
+          text: Выбрать файл...
+        content-file-chooser:
+          title: Выберите файл
+      informational-panel-header:
+        change-content-file-button:
+          tooltip-text: Выбрать файл
+        update-content-file-button:
+          tooltip-text: Обновить файл
+        edit-content-file-button:
+          tooltip-text: Изменить файл
+        editor-footer:
+          run-file-button:
+            tooltip-text: Выполнить решение.
+      explorer:
+        popup-menu:
+          create-file:
+            text: Создать файл
+          create-folder:
+            text: Создать папку
+          delete:
+            text: Удалить
+        file-creation-dialog:
+          title: Новый файл
+          button:
+            text: Создать
+        folder-creation-dialog:
+          title: Новая папка
+          button:
+            text: Создать
+        deletion-dialog:
+          title: Удалить
+          label:
+            text: Вы уверены, что хотите удалить?
+          button:
+            text: Да, удалить.
+exceptions:
+  file-creation-exception:
+    message: Не удалось создать новый файл.
+  file-copying-exception:
+    message: Выбранный файл находился вне проекта. При попытке его скопировать произошла ошибка.
+  file-not-found-exception:
+    message: Файл (%s) не был найден. Попробуйте создать или выбрать другой.
+  file-reading-exception:
+    message: Unable to read the file (%s). Try creating or selecting another one.
+  unexpected-content-tab-exception:
+    message: Что-то пошло не так...
+  not-present-image-icon-exception:
+    message: Не удалось получить инонку (%s). Попробуйте переустановить приложение..
+  background-image-saving-exception:
+    message: Не удалось сохранить новую фоновую картинку.
+  url-parsing-exception:
+    message: Something went wrong...
+  project-creation-exception:
+    message: Не удалось создать новый проект.
+  project-directory-not-exists-exception:
+    message: Не удалось найти проект по данному пути (%s).
+  project-config-reading-exception:
+    message: Не удалось прочитать конфигурационный файл проекта. Был создан новый.
+  project-config-writing-exception:
+    message: Не удалось записать конфигурационный файл проекта.
+  recent-list-reading-exception:
+    message: Не удалось загрузить недавние проекты.
+  recent-list-writing-exception:
+    message: Не удалось сохранить изменения недавних проектов.
+  user-settings-file-writing-exception:
+    message: Не удалось сохранить новые настройки пользователя.
+  directory-explore-exception:
+    message: Не удалось загрузить содержимое директории.
+  not-present-user-background-image-exception:
+    message: Не удалось загрузить пользовательский фон. Попробуйте настроить его снова.
+  unsupported-content-file-extension-exception:
+    message: Файл с таким расширением не поддерживается. Используется файлы с расширениями .html или .md.
+  file-already-exists-exception:
+    message: Файл с таким именем уже существует.
+  monitoring-thread-exception:
+    message: Что-то пошло не так...
+  monitoring-registration-exception:
+    message: Что-то пошло не так...
+  file-writing-exception:
+    message: Не удалось сохранить изменения файла
+  unsupported-language-exception:
+    message: Что-то пошло не так...
+  unsupported-visualization-type-exception:
+    message: Что-то пошло не так...
+  visualization-file-not-found-exception:
+    message: Не удалось получить ключевые файлы визуализации. Были созданы новые.
+  visualization-file-recovery-exception:
+    message: Что-то пошло не так...
+  wrapper-file-reading-exception:
+    message: Не удалось прочитать обёрточные файлы.
+  empty-new-file-name-exception:
+    message: Имя файла должно существовать!
+  file-deletion-exception:
+    message: Не удалось удалить файл.
+  empty-new-folder-name-exception:
+    message: Имя папки должно существовать!
+  folder-creation-exception:
+    message: Не удалось создать новую папку.
+  folder-already-exists-exception:
+    message: Папка с таким именем уже существует.
+  file-generation-exception:
+    message: Не удалось создать файл по пути %s.
+  template-loading-exception:
+    message: Что-то пошло не так...
+  template-creation-exception:
+    message: Не удалось создать файл (%s).
+  no-disable-reason-exception:
+    message: Что-то пошло не так...
+  wrappers-map-creation-exception:
+    message: Что-то пошло не так...
+  solution-file-reading-exception:
+    message: Не удалось прочитать файл с решением. Повторите попытку выполнения.
+  python-file-preparation-exception:
+    message: Что-то пошло не так...
+  user-not-authorized-exception:
+    message: Сначала войдите в свой аккаунт.
+  banned-account-exception:
+    message: Этот аккаунт заблокирован.
+  incorrect-user-data-exception:
+    message: Неверные логин или пароль.
+  authentication-request-execution-exception:
+    message: Не удалось связаться с сервером.
+  empty-sign-in-fields-exception:
+    message: Все поля обязательны для заполнения
+  session-expired-exception:
+    message: Сессия истекла. Пожалуйста, войдите в систему снова.
+  config-is-incomplete-exception:
+    message: Сначала полностью заполните информацию о задаче и определите все информационные файлы.
+  archive-creation-exception:
+    message: Не удалось заархивировать задачу.
+  task-upload-exception:
+    message: Не удалось загрузить задачу на сервер.
+  config-interaction-exception:
+    message: Сервер не смог обработать конфигурационный файл. Он был перезаписан, поэтому повторите попытку снова.
+  task-archive-reading-exception:
+    message: Сервер не смог обработать архив с задачей.
+  api-difference-exception:
+    message: Что-то пошло не так...
+  task-upload-request-execution-exception:
+    message: Не удалось связаться с сервером.
+templates:
+  solution-file-template:
+    comment: |
+      Обучающиеся будут использовать этот файл для решения вашей задачи. Напишите необходимые импорты,
+      добавьте комментарии и вызовите несколько функций в методе 'run'
+      (мы скроем его от учеников во время решения).
+  test-solution-file-template:
+    comment: |
+      Вы можете использовать этот файл для тестирования вашей задачи. Напишите необходимые импорты,
+      добавьте комментарии и вызовите несколько функций в методе 'run'
+  visualization-read-me-file:
+    title: |
+      Визуализационная папка
+    description: |
+      Используйте эту папку для хранения файлов визуализации (дополнительных компонентов, настроек и так далее).
+      Все эти файлы автоматически импортируются в файлы решений. Поэтому если вы планируете использовать другую
+      папку, вам придётся прописывать все импорты самостоятельно.
+  wrappers-read-me-file:
+    title: |
+      Папка для обёрток
+    description: |
+      Используйте эту папку для хранения обёрточных файлов (классов и функций, которые оборачивают изучаемые классы
+      и функции, а также дополнительно вызывают визуализационные методы). Все эти файлы автоматически импортируются
+      в файлы решений. Поэтомуесли вы планируте использовать другую папку, вам придётся прописывать все импорты
+      самостоятельно.
+  informational-read-me-file:
+    title: |
+      Информационная папка
+    description: |
+      Используйте эту папку для хранения информационных файлов (общее описание задачи, объяснение изучаемого материала
+      или условия задачи). Приложение поддерживает файлы форматов .html и .md, помните это!
+  custom-panel-file-template:
+    comment: |
+      Переопределите эту панель нужным вам образом. Она будет использоваться для визуализации.
+  visualization-scene-panel-template:
+    general-comment: |
+      Используйте этот класс для настройки панели как элемента интерфейса (настройка стилей и добавление 
+      внутренних компонентов). Чтобы получить доступ к переменной JPanel (в констуктор мы передадим 
+      экземпляр вашей CustomPanel), используйте переменную 'panel'.
+    button-flags-comment: |
+      Используйте этот метод для настройки кнопок управления визуализацией (вы можете отключить
+      некоторые из них, если у вас нет реализации на эти действия).
+  code-file-template:
+    java:
+      annotation-comment: |
+        Определите в этой аннотации имя класса, который вы оборачиваете. Так студенты смогут
+        использовать обычный синтаксис языка, но будут вызываться ваши классы-обёртки.
+        Если данные класс не является обёрткой, просто удалите аннотацию.
+      visualization-action-registration-comment: |
+        Чтобы связать ваш код с визуализационной сценой, зарегистрируйте визуализационное
+        действие в коде в тот момент, когда оно должно быть выполнено. Для это используйте
+        следующий код:
+    python:
+      class-annotation-comment: |
+        Если у вас есть оборачивающий класс, определите оборачиваемый класс в аннотации следующим образом:
+      function-annotation-comment: |
+        Если у вас есть оборачивающая функция, определите оборачиваемую функцию в аннотации следующим образом:
+      visualization-action-registration-comment: |
+        Чтобы связать ваш код с визуализационной сценой, зарегистрируйте визуализационное
+        действие в коде в тот момент, когда оно должно быть выполнено. Для это используйте
+        следующий код:
+
+logging:
+  application-start: Запуск приложения.
+  application-close: Завершение работы приложения.

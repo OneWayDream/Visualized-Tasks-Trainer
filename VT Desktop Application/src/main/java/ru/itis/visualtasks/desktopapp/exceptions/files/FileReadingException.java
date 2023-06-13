@@ -1,0 +1,26 @@
+package ru.itis.visualtasks.desktopapp.exceptions.files;
+
+import lombok.extern.slf4j.Slf4j;
+import ru.itis.visualtasks.desktopapp.application.managers.utils.ExceptionsManager;
+import ru.itis.visualtasks.desktopapp.exceptions.core.SelfHandlingException;
+import ru.itis.visualtasks.desktopapp.utils.LoggingUtils;
+
+@Slf4j
+public class FileReadingException extends SelfHandlingException {
+
+    public FileReadingException(Throwable cause) {
+        super(cause);
+    }
+
+    public FileReadingException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    @Override
+    public void handle() {
+        ExceptionsManager.addDelayedException(
+                () -> ExceptionsManager.handleErrorExceptionWithLocalization("exceptions.file-reading-exception.message",
+                        getMessage()));
+        log.error(LoggingUtils.exceptionToString(this));
+    }
+}

@@ -1,0 +1,19 @@
+package ru.itis.visualtasks.jwtserver.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class RefreshTokenResponse {
+
+    private String token;
+    private LocalDateTime expiredTime;
+
+}

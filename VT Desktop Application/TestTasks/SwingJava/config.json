@@ -1,0 +1,13 @@
+{
+  "projectName": "SwingJava",
+  "projectPath": "C:\\Users\\OneWayDream\\IdeaProjects\\Visualized Tasks\\VT Desktop Application\\TestTasks\\SwingJava",
+  "language": "JAVA",
+  "visualizationType": "SWING",
+  "generalDescriptionFilePath": "info\\General.html",
+  "studyingContentFilePath": "info\\Content.html",
+  "taskTermsFilePath": "info\\Task.html",
+  "wrappersNames": {
+    "CountDownLatch": "CountDownLatchWrapper",
+    "Thread": "ThreadWrapper"
+  }
+}

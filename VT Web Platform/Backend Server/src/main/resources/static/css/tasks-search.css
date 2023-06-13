@@ -1,0 +1,108 @@
+.search-panel {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.search-window {
+    background: white;
+    min-width: 50%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.options-row {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.search-text-input {
+    min-width: 40%;
+}
+
+.search-button {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+.search-button:hover {
+    background-color: RoyalBlue;
+}
+
+.search-option{
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.selectpicker {
+    align-self: center;
+}
+
+.search-option-label{
+    align-self: center;
+}
+
+.search-results-panel {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.search-results-window {
+    padding: 1.5rem 1rem 1.5rem 1rem;
+    background: white;
+    min-width: 60%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    border: 1px solid black;
+    justify-content: center;
+}
+
+.no-tasks-text {
+    text-align: center;
+}
+
+.task-info-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.task-name {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.download-button {
+    border-radius: 50%;
+    padding: 3px;
+    margin: .2rem;
+    cursor: pointer;
+}
+
+.language-button:hover {
+    border: 3px solid blue;
+}
+
+.pagination {
+    margin-top: 2rem;
+}

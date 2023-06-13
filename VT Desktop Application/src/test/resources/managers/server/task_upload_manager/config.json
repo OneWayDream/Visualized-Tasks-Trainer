@@ -1,0 +1,12 @@
+{
+  "projectName": "TestTask",
+  "projectPath": "C:\\Users\\OneWayDream\\IdeaProjects\\Visualized Tasks\\VT Desktop Application\\src\\test\\resources\\managers\\server\\task_upload_manager",
+  "language": "JAVA",
+  "visualizationType": "SWING",
+  "generalDescriptionFilePath": "info\\General.html",
+  "studyingContentFilePath": "info\\Content.md",
+  "taskTermsFilePath": "info\\Task.md",
+  "wrappersNames": {
+    "WrappedClass": "Wrapper"
+  }
+}
