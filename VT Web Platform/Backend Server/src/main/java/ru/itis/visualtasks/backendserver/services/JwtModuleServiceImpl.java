@@ -1,6 +1,7 @@
 package ru.itis.visualtasks.backendserver.services;
 
 import com.google.gson.Gson;
+import jakarta.servlet.http.HttpServlet;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +13,7 @@ import ru.itis.visualtasks.backendserver.exceptions.jwtserver.JwtUpdateException
 import ru.itis.visualtasks.backendserver.security.managers.TokenManager;
 
 @Service
-public class JwtModuleServiceImpl implements JwtModuleService {
+public class JwtModuleServiceImpl implements JwtModuleService{
 
     protected final OkHttpClient client;
     protected final Gson gson;

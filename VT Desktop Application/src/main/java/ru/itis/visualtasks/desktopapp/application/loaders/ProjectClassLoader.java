@@ -5,6 +5,9 @@ import ru.itis.visualtasks.desktopapp.application.managers.files.FilesManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 public class ProjectClassLoader extends ClassLoader {
 
@@ -12,7 +15,27 @@ public class ProjectClassLoader extends ClassLoader {
     public static final String TARGET_FOLDER = "target";
 
     public ProjectClassLoader(ClassLoader classLoader) {
-        super(classLoader);
+        super(new URLClassLoader(
+                getUrls(),
+                classLoader
+        ));
+    }
+
+    private static URL[] getUrls(){
+        File file = new File(ConfigManager.getProjectPath() + File.separator + "libs");
+        if (file.exists()){
+            URL[] result = new URL[file.listFiles().length];
+            int counter = 0;
+            for (File f: file.listFiles()){
+                try{
+                    result[counter++] = f.toURI().toURL();
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return result;
+        }
+        return new URL[0];
     }
 
     @Override
