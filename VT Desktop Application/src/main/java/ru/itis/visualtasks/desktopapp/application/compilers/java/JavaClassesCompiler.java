@@ -4,8 +4,8 @@ import ru.itis.visualtasks.desktopapp.application.loaders.ProjectClassLoader;
 import ru.itis.visualtasks.desktopapp.application.managers.files.ConfigManager;
 import ru.itis.visualtasks.desktopapp.application.managers.files.FilesManager;
 import ru.itis.visualtasks.desktopapp.application.managers.utils.CompilationErrorsManager;
-import ru.itis.visualtasks.desktopapp.exceptions.execution.SolutionFileReadingException;
 import ru.itis.visualtasks.desktopapp.exceptions.execution.JavaFileCompilationException;
+import ru.itis.visualtasks.desktopapp.exceptions.execution.SolutionFileReadingException;
 import ru.itis.visualtasks.desktopapp.exceptions.files.FileNotFoundException;
 import ru.itis.visualtasks.desktopapp.exceptions.files.FileReadingException;
 
@@ -96,9 +96,25 @@ public class JavaClassesCompiler {
 
     private static List<String> getOptionsList(){
         List<String> optionList = new ArrayList<>();
-        optionList.addAll(Arrays.asList("-classpath", ConfigManager.getProjectPath() + ";" + System.getProperty("java.class.path")));
+        StringBuilder classPathVar = new StringBuilder();
+        classPathVar.append(ConfigManager.getProjectPath()).append(";")
+                        .append(System.getProperty("java.class.path")).append(";");
+        String jarPaths = getJarPaths();
+        if (jarPaths.length() != 0) classPathVar.append(jarPaths);
+        optionList.addAll(Arrays.asList("-classpath", classPathVar.toString()));
         optionList.addAll(Arrays.asList("-d", getTargetFolderPath()));
         return optionList;
+    }
+
+    private static String getJarPaths(){
+        File file = new File(ConfigManager.getProjectPath() + File.separator + "libs");
+        StringBuilder imports = new StringBuilder();
+        if (file.exists()){
+            for (File f: file.listFiles()){
+                imports.append(f.getPath()).append(";");
+            }
+        }
+        return imports.toString();
     }
 
 }
