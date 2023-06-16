@@ -2,11 +2,11 @@
 <configuration>
     <appender name="FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${user.dir}/logs/data-logs.log</file>
+        <file>${user.dir}/logs/logs.log</file>
         <rollingPolicy
                 class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 
-            <fileNamePattern>slf4jlogbackexample.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${user.dir}/logs/logs-%d{yyyy-MM-dd}.log</fileNamePattern>
 
             <maxHistory>10</maxHistory>
 

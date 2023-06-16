@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import ru.itis.visualtasks.desktopapp.application.entities.project.ProjectConfig;
 import ru.itis.visualtasks.desktopapp.application.entities.project.RecentList;
 import ru.itis.visualtasks.desktopapp.application.entities.project.RecentListEntry;
+import ru.itis.visualtasks.desktopapp.application.managers.files.FilesManager;
 import ru.itis.visualtasks.desktopapp.exceptions.properties.RecentListReadingException;
 import ru.itis.visualtasks.desktopapp.exceptions.properties.RecentListWritingException;
 import ru.itis.visualtasks.desktopapp.utils.PropertiesUtils;
@@ -19,8 +20,14 @@ public class RecentManager {
     static {
         RECENT_PROJECTS_FILE_PATH = PropertiesUtils.getInstance().getProperties().getProperty("settings-path")
                 + File.separator + "recent-projects.json";
+        if (!FilesManager.checkIsFileExist(RECENT_PROJECTS_FILE_PATH)){
+           saveRecentProjects(new RecentList());
+        }
         RECENT_TASKS_FILE_PATH = PropertiesUtils.getInstance().getProperties().getProperty("settings-path")
                 + File.separator + "recent-tasks.json";
+        if (!FilesManager.checkIsFileExist(RECENT_TASKS_FILE_PATH)){
+            saveRecentTasks(new RecentList());
+        }
     }
 
     public static RecentList getRecentProjects(){

@@ -1,10 +1,12 @@
 package ru.itis.visualtasks.desktopapp.application.loaders;
 
 import com.google.gson.Gson;
+import ru.itis.visualtasks.desktopapp.application.managers.files.FilesManager;
 import ru.itis.visualtasks.desktopapp.application.settings.Locale;
 import ru.itis.visualtasks.desktopapp.application.settings.Mode;
 import ru.itis.visualtasks.desktopapp.application.settings.Theme;
 import ru.itis.visualtasks.desktopapp.application.settings.UserSettings;
+import ru.itis.visualtasks.desktopapp.exceptions.files.FolderAlreadyExistsException;
 import ru.itis.visualtasks.desktopapp.exceptions.usersettings.UserSettingsFileReadingException;
 import ru.itis.visualtasks.desktopapp.exceptions.usersettings.UserSettingsFileWritingException;
 import ru.itis.visualtasks.desktopapp.utils.PropertiesUtils;
@@ -17,8 +19,15 @@ public class SettingsLoader {
     public static final String USER_SETTINGS_FILE_PATH;
 
     static {
-        USER_SETTINGS_FILE_PATH = PropertiesUtils.getInstance().getProperties().getProperty("settings-path")
-                + File.separator + "settings.json";
+        String settingsPath = PropertiesUtils.getInstance().getProperties().getProperty("settings-path");
+        USER_SETTINGS_FILE_PATH = settingsPath + File.separator + "settings.json";
+        if (!FilesManager.checkIsFileExist(settingsPath)){
+            try{
+                FilesManager.createDirectory(settingsPath);
+            } catch (FolderAlreadyExistsException exception){
+                //ignore
+            }
+        }
     }
 
     public static UserSettings getUserSettings(){
