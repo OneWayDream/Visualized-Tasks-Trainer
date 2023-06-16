@@ -63,7 +63,7 @@ public class BackgroundImageManager {
         String backgroundImageName = SettingsManager.getBackgroundImageName();
         if (backgroundImageName != null) {
             try {
-                ImageIcon imageIcon = ImagesLoader.getImageIcon(BACKGROUND_IMAGE_PATH + File.separator + backgroundImageName);
+                ImageIcon imageIcon = loadBackgroundImage(BACKGROUND_IMAGE_PATH + File.separator + backgroundImageName);
                 return imageIcon.getImage();
             } catch (NotPresentImageIconException exception){
                 new NotPresentBackgroundImageException().handle();
@@ -71,6 +71,14 @@ public class BackgroundImageManager {
             }
         }
         return null;
+    }
+
+    private static ImageIcon loadBackgroundImage(String path){
+        ImageIcon imageIcon = new ImageIcon(path);
+        if (!ImagesLoader.isPresentImageIcon(imageIcon)){
+            throw new NotPresentImageIconException(path);
+        }
+        return imageIcon;
     }
 
     public static void deleteBackgroundImage(){

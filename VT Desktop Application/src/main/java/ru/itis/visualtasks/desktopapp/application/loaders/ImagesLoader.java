@@ -5,6 +5,8 @@ import ru.itis.visualtasks.desktopapp.exceptions.usersettings.NotPresentImageIco
 import ru.itis.visualtasks.desktopapp.utils.PropertiesUtils;
 
 import javax.swing.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class ImagesLoader {
@@ -19,14 +21,19 @@ public class ImagesLoader {
     }
 
     public static ImageIcon getImageIcon(String imageIconPath){
-        ImageIcon imageIcon = new ImageIcon(imageIconPath);
+        ImageIcon imageIcon;
+        try (InputStream in = ImagesLoader.class.getClassLoader().getResourceAsStream(imageIconPath)) {
+            imageIcon = new ImageIcon(in.readAllBytes());
+        } catch (IOException e) {
+            throw new NotPresentImageIconException(e.getMessage());
+        }
         if (!isPresentImageIcon(imageIcon)){
             throw new NotPresentImageIconException(imageIconPath);
         }
         return imageIcon;
     }
 
-    private static boolean isPresentImageIcon(ImageIcon imageIcon){
+    public static boolean isPresentImageIcon(ImageIcon imageIcon){
         return imageIcon.getIconHeight() != -1;
     }
 
